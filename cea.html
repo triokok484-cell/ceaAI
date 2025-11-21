@@ -346,8 +346,8 @@
                     <span id="fc-counter" style="font-weight:700; color:#868e96; font-size: 16px; min-width: 80px; text-align: center;">0 / 0</span>
                     <button class="nav-btn secondary" onclick="navFlashcard(1)">Sau →</button>
                 </div>
-                <div style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;">
-                    Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ)
+                <div id="shortcut-help" style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;">
+                    <!-- Nội dung sẽ được cập nhật bằng JS -->
                 </div>
             </div>
 
@@ -6530,14 +6530,16 @@
             mapTitle: "Bản đồ câu hỏi", submit: "Nộp bài", resultTitle: "Kết quả bài làm",
             prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
             legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", 
-            unanswered: "⚪ Chưa làm", correct: "✔ Đúng", wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?"
+            unanswered: "⚪ Chưa làm", correct: "✔ Đúng", wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?",
+            shortcutHelp: "Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ) | Ctrl (Đổi ngôn ngữ)"
         },
         en: {
             setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀",
             mapTitle: "Question Map", submit: "Submit", resultTitle: "Quiz Results",
             prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
             legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:",
-            unanswered: "⚪ Unanswered", correct: "✔ Correct", wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?"
+            unanswered: "⚪ Unanswered", correct: "✔ Correct", wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?",
+            shortcutHelp: "Shortcuts: Left/Right (Navigate) | Up/Down/Space (Flip) | Ctrl (Language)"
         }
     };
 
@@ -6713,11 +6715,10 @@
             expBox.style.display = 'none';
         }
         
-        // Update button states
         document.getElementById('btn-prev').disabled = idx === 0;
         document.getElementById('btn-next').disabled = idx === state.activeQuestions.length - 1;
         
-        renderMap(); // Re-render map to update active state
+        renderMap();
     }
 
     function charToIndex(char) {
@@ -6860,16 +6861,25 @@
         document.getElementById('leg-correct').innerText = t.legCor;
         document.getElementById('leg-wrong').innerText = t.legWro;
         document.getElementById('txt-map-title').innerText = t.mapTitle;
+
+        // Cập nhật text hướng dẫn phím tắt
+        const shortcutHelpEl = document.getElementById('shortcut-help');
+        if (shortcutHelpEl) shortcutHelpEl.innerText = t.shortcutHelp;
     }
 
     document.addEventListener('keydown', e => {
         if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
 
+        // === THÊM: PHÍM TẮT CTRL ĐỂ ĐỔI NGÔN NGỮ ===
+        if (e.key === 'Control') {
+            e.preventDefault();
+            toggleLanguage();
+        }
+
         if(state.activeTab === 'flashcard') {
             if(e.key === 'ArrowLeft') navFlashcard(-1);
             if(e.key === 'ArrowRight') navFlashcard(1);
             
-            // THÊM: Lật thẻ bằng mũi tên Lên/Xuống
             if(e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowUp' || e.key === 'ArrowDown') { 
                 e.preventDefault(); 
                 document.querySelector('.flashcard').classList.toggle('flipped');
@@ -6905,4 +6915,4 @@
     document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
-</html>```
+</html>
