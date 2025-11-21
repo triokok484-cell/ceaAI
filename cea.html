@@ -310,10 +310,10 @@
                             <div style="font-size: 14px; color: #adb5bd; margin-top: 20px;">(Click để lật)</div>
                         </div>
                         <div class="card-face card-back">
-                            <div class="category-badge" style="background:var(--secondary-color); color:white;">Đáp Án</div>
+                            <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;">Đáp Án</div>
                             <div id="fc-answer" style="font-size: 18px; font-weight: bold; margin-bottom: 20px; color:var(--dark-text); width: 100%;"></div>
                             <div style="width: 100%; font-size: 15px; color: #555; background: #f1f3f5; padding: 15px; border-radius: 10px;">
-                                <strong style="color:var(--primary-color);">Giải thích:</strong><br>
+                                <strong id="fc-explanation-label" style="color:var(--primary-color);">Giải thích:</strong><br>
                                 <span id="fc-explanation"></span>
                             </div>
                         </div>
@@ -341,7 +341,7 @@
                 </div>
 
                 <div style="text-align: left; margin-bottom: 35px;">
-                    <label style="font-weight:600; margin-bottom: 5px; display:block;">2. Số lượng câu hỏi:</label>
+                    <label id="txt-q-count" style="font-weight:600; margin-bottom: 5px; display:block;">2. Số lượng câu hỏi:</label>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <input type="number" id="quiz-count-input" min="1" value="10" style="padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 18px; font-weight:bold; width: 100px; text-align: center; color: var(--primary-color);">
                         <div style="font-size: 14px; color: #868e96;">
@@ -374,7 +374,7 @@
             <div id="quiz-result" class="view-section">
                 <div class="result-header">
                     <h2 id="txt-result-title" style="margin-bottom: 10px;">Kết quả bài làm</h2>
-                    <div class="score-number" id="score-val">0/0</div>
+                    <div class="score-number" id="score-val" style="font-size:48px; font-weight:700; color:var(--primary-color);">0/0</div>
                     <p id="score-percent" style="color: #868e96; font-weight: 600; font-size: 20px; margin-top: 0;">(0%)</p>
                     <button class="start-btn" onclick="resetQuiz()" style="margin-top: 20px;">Làm đề mới 🔄</button>
                 </div>
@@ -384,7 +384,7 @@
         </div>
 
         <div class="quiz-sidebar hidden" id="quiz-sidebar">
-            <div style="font-weight:700; margin-bottom:20px; font-size: 16px;">Bản đồ câu hỏi</div>
+            <div id="txt-map-title" style="font-weight:700; margin-bottom:20px; font-size: 16px;">Bản đồ câu hỏi</div>
             <div class="question-grid" id="map-grid"></div>
             <div style="margin-top:auto; padding-top: 20px; font-size:13px; color:#868e96; border-top: 1px solid #f0f0f0;">
                 <div class="flex-between" style="justify-content: flex-start; margin-bottom:8px;">
@@ -408,6 +408,8 @@
     // 1. DỮ LIỆU
     // ======================================================
     const quizData = [
+        // ⚠️ DÁN DỮ LIỆU JSON CỦA BẠN VÀO ĐÂY ⚠️
+        // Ví dụ:
         {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
@@ -6473,7 +6475,6 @@
         }
     }
 
-        // ⚠️ DÁN DỮ LIỆU JSON CỦA BẠN VÀO ĐÂY ⚠️
     ];
 
     // ======================================================
@@ -6504,16 +6505,18 @@
 
     const texts = {
         vi: {
-            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu ngay 🚀",
-            map: "Bản đồ câu hỏi", doing: "Đang làm bài", submit: "Nộp bài", resultTitle: "Kết quả bài làm",
-            prev: "Quay lại", next: "Tiếp theo", fcAns: "Đáp án", fcExp: "Giải thích",
-            legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu"
+            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀",
+            mapTitle: "Bản đồ câu hỏi", submit: "Nộp bài", resultTitle: "Kết quả bài làm",
+            prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
+            legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", 
+            unanswered: "⚪ Chưa làm", correct: "✔ Đúng", wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?"
         },
         en: {
-            setupTitle: "Practice Config", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀",
-            map: "Question Map", doing: "Quiz in Progress", submit: "Submit", resultTitle: "Quiz Results",
-            prev: "Back", next: "Next", fcAns: "Answer", fcExp: "Explanation",
-            legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question"
+            setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀",
+            mapTitle: "Question Map", submit: "Submit", resultTitle: "Quiz Results",
+            prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
+            legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:",
+            unanswered: "⚪ Unanswered", correct: "✔ Correct", wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?"
         }
     };
 
@@ -6540,27 +6543,23 @@
     }
 
     function updateView() {
-        // Logic hiển thị: Chỉ hiện sidebar khi đang ở màn hình Quiz (Active/Result)
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
-        
-        // Ẩn sidebar mặc định
         document.getElementById('quiz-sidebar').classList.add('hidden');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
         if (state.activeTab === 'flashcard') {
-            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.querySelector('.tab-btn[onclick*="flashcard"]').classList.add('active');
             document.getElementById('flashcard-view').classList.add('active-view');
-            // Sidebar luôn ẩn ở Flashcard
         } else {
-            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.querySelector('.tab-btn[onclick*="quiz"]').classList.add('active');
             if (state.quizPhase === 'setup') {
                 document.getElementById('quiz-setup').classList.add('active-view');
             } else if (state.quizPhase === 'active') {
                 document.getElementById('quiz-active').classList.add('active-view');
-                document.getElementById('quiz-sidebar').classList.remove('hidden'); // Hiện sidebar
+                document.getElementById('quiz-sidebar').classList.remove('hidden');
             } else if (state.quizPhase === 'result') {
                 document.getElementById('quiz-result').classList.add('active-view');
-                document.getElementById('quiz-sidebar').classList.remove('hidden'); // Hiện sidebar
+                document.getElementById('quiz-sidebar').classList.remove('hidden');
             }
         }
     }
@@ -6581,20 +6580,23 @@
     function renderFlashcard() {
         const countSpan = document.getElementById('fc-counter');
         const wrapper = document.querySelector('.flashcard-wrapper');
+        
         if (state.filteredFlashcards.length === 0) {
-            wrapper.style.display = 'none'; countSpan.innerText = "0 / 0"; return;
+            wrapper.style.display = 'none'; 
+            countSpan.innerText = "0 / 0"; 
+            return;
         }
         wrapper.style.display = 'flex';
+        
         const q = state.filteredFlashcards[state.fcIndex];
         const data = state.isVietnamese ? q.vi : q.en;
-        const code = q.en.code ? `<pre style="background:#eee; padding:10px; border-radius:5px; overflow-x:auto;">${q.en.code}</pre>` : '';
 
         document.querySelector('.flashcard').classList.remove('flipped');
         document.getElementById('fc-tag').innerText = q.category || "General";
         
-        let contentHtml = `<div>${data.question}</div>` + code;
+        let contentHtml = `<div>${data.question}</div>`;
         if(data.options) {
-             contentHtml += '<ul style="text-align:left; margin-top:20px; padding-left:20px; list-style:none; font-size:16px;">';
+             contentHtml += '<ul style="text-align:left; margin-top:20px; padding-left:0; list-style:none; font-size:16px; width:100%;">';
              data.options.forEach(o => contentHtml += `<li style="margin-bottom:8px; padding:8px; background:#f8f9fa; border-radius:8px; border:1px solid #eee;">${o}</li>`);
              contentHtml += '</ul>';
         }
@@ -6607,7 +6609,8 @@
     function navFlashcard(dir) {
         let next = state.fcIndex + dir;
         if (next >= 0 && next < state.filteredFlashcards.length) {
-            state.fcIndex = next; renderFlashcard();
+            state.fcIndex = next; 
+            renderFlashcard();
         }
     }
 
@@ -6616,22 +6619,26 @@
         let count = (cat === 'all') ? quizData.length : quizData.filter(q => (q.category || "Khác") === cat).length;
         document.getElementById('total-qs').innerText = count;
         const input = document.getElementById('quiz-count-input');
-        input.max = count; input.value = Math.min(20, count);
+        input.max = count; 
+        input.value = Math.min(parseInt(input.value) || 20, count);
     }
 
     function startQuiz() {
         const cat = document.getElementById('quiz-category-select').value;
         let pool = (cat === 'all') ? [...quizData] : quizData.filter(q => (q.category || "Khác") === cat);
-        if (pool.length === 0) { alert("Không có câu hỏi!"); return; }
+        if (pool.length === 0) { 
+            alert(state.isVietnamese ? "Không có câu hỏi trong chủ đề này!" : "No questions in this category!"); 
+            return; 
+        }
 
         let count = parseInt(document.getElementById('quiz-count-input').value);
+        if (isNaN(count) || count <= 0) count = 1;
         if (count > pool.length) count = pool.length;
 
         const selectedQuestions = shuffleArray(pool).slice(0, count);
         state.activeQuestions = selectedQuestions.map(q => {
-            let indices = [0, 1, 2, 3];
-            const optLength = q.en.options ? q.en.options.length : 4;
-            indices = Array.from({length: optLength}, (_, i) => i);
+            const optLength = q.en.options ? q.en.options.length : 0;
+            const indices = Array.from({length: optLength}, (_, i) => i);
             return { ...q, shuffledIndices: shuffleArray(indices) };
         });
 
@@ -6644,15 +6651,14 @@
     }
 
     function renderQuestionCard() {
+        const t = state.isVietnamese ? texts.vi : texts.en;
         const idx = state.currentQuizIndex;
         const qObj = state.activeQuestions[idx];
         const data = state.isVietnamese ? qObj.vi : qObj.en;
-        const code = qObj.en.code ? `<pre style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #eee; overflow-x:auto;">${qObj.en.code}</pre>` : '';
         
-        // FIX: Hiển thị category trong quiz
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
-        document.getElementById('quiz-progress').innerText = `Câu ${idx + 1}/${state.activeQuestions.length}`;
-        document.getElementById('q-content').innerHTML = `<div>${data.question}</div>` + code;
+        document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
+        document.getElementById('q-content').innerHTML = `<div>${data.question}</div>`;
 
         const ul = document.getElementById('q-options');
         ul.innerHTML = '';
@@ -6664,7 +6670,7 @@
 
         qObj.shuffledIndices.forEach((originalIndex, displayPos) => {
             const li = document.createElement('li');
-            let optText = data.options[originalIndex];
+            let optText = data.options[originalIndex] || '';
             optText = optText.replace(/^[A-F]\.\s*/, ''); 
             li.innerHTML = optText;
             li.setAttribute('data-label', labels[displayPos]); 
@@ -6681,28 +6687,30 @@
 
         if (ansState) {
             expBox.style.display = 'block';
-            expBox.innerHTML = `<strong>Đáp án đúng:</strong> ${data.options[originalCorrectIndex]}<br><br><strong>Giải thích:</strong> ${data.explanation}`;
+            expBox.innerHTML = `<strong>${t.correctAns}</strong> ${data.options[originalCorrectIndex]}<br><br><strong>${t.fcExpLabel}</strong> ${data.explanation}`;
         } else {
             expBox.style.display = 'none';
         }
-        renderMapActiveState();
+        
+        // Update button states
+        document.getElementById('btn-prev').disabled = idx === 0;
+        document.getElementById('btn-next').disabled = idx === state.activeQuestions.length - 1;
+        
+        renderMap(); // Re-render map to update active state
     }
 
     function charToIndex(char) {
-        const map = { 'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5 };
-        return map[char] !== undefined ? map[char] : 0;
+        return char.charCodeAt(0) - 'A'.charCodeAt(0);
     }
 
     function handleAnswer(qIdx, displayIndex, originalIndex, correctIndex) {
         if (state.userAnswers[qIdx]) return;
-        const isCorrect = (originalIndex === correctIndex);
         state.userAnswers[qIdx] = { 
             selectedDisplayIndex: displayIndex,
             selectedOriginalIndex: originalIndex,
-            isCorrect: isCorrect 
+            isCorrect: (originalIndex === correctIndex)
         };
         renderQuestionCard();
-        renderMap();
     }
 
     function navQuiz(dir) {
@@ -6714,34 +6722,44 @@
     }
 
     function finishQuiz() {
-        if(!confirm("Bạn có chắc muốn nộp bài?")) return;
+        const t = state.isVietnamese ? texts.vi : texts.en;
+        if(!confirm(t.confirmSubmit)) return;
         state.quizPhase = 'result';
         updateView();
         let correct = 0;
-        state.activeQuestions.forEach((q, i) => { if (state.userAnswers[i]?.isCorrect) correct++; });
-        document.getElementById('score-val').innerText = `${correct}/${state.activeQuestions.length}`;
-        document.getElementById('score-percent').innerText = `(${state.activeQuestions.length > 0 ? Math.round(correct/state.activeQuestions.length*100) : 0}%)`;
+        Object.values(state.userAnswers).forEach(ans => { if(ans.isCorrect) correct++; });
+        
+        const total = state.activeQuestions.length;
+        document.getElementById('score-val').innerText = `${correct}/${total}`;
+        document.getElementById('score-percent').innerText = `(${(total > 0 ? Math.round(correct / total * 100) : 0)}%)`;
         renderResultView();
         renderMap();
     }
 
     function renderResultView() {
+        const t = state.isVietnamese ? texts.vi : texts.en;
         const list = document.getElementById('review-list');
         list.innerHTML = '';
         state.activeQuestions.forEach((qObj, idx) => {
             const data = state.isVietnamese ? qObj.vi : qObj.en;
             const ans = state.userAnswers[idx];
-            const status = ans ? (ans.isCorrect ? '<span style="color:var(--secondary-color)">✔ Đúng</span>' : '<span style="color:var(--danger-color)">✘ Sai</span>') : '<span style="color:gray">⚪ Chưa làm</span>';
-            const code = qObj.en.code ? `<pre style="background:#eee; padding:10px; border-radius:5px;">${qObj.en.code}</pre>` : '';
+            
+            let status;
+            if (ans) {
+                status = ans.isCorrect 
+                    ? `<span style="color:var(--secondary-color)">${t.correct}</span>` 
+                    : `<span style="color:var(--danger-color)">${t.wrong}</span>`;
+            } else {
+                status = `<span style="color:gray">${t.unanswered}</span>`;
+            }
 
-            let html = `<div class="question-card" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
+            let html = `<div class="question-card" id="review-q-${idx}" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
                 <div style="margin-bottom:10px; display:flex; justify-content:space-between;">
-                    <strong>Câu ${idx+1}</strong> ${status}
+                    <strong>${t.qOf} ${idx + 1}</strong> ${status}
                 </div>
-                <div style="color:#666; font-size:12px; margin-bottom:10px;">Chủ đề: ${qObj.category || 'General'}</div>
+                <div style="color:#666; font-size:12px; margin-bottom:10px;">${t.chapter} ${qObj.category || 'General'}</div>
                 <div style="margin-bottom:10px;">${data.question}</div>
-                ${code}
-                <div style="margin-top:10px; font-weight:bold; color:var(--secondary-color)">Đáp án đúng: ${data.answer}</div>
+                <div style="margin-top:10px; font-weight:bold; color:var(--secondary-color)">${t.correctAns} ${data.answer}</div>
                 <div style="margin-top:5px; font-style:italic; color:#555;">${data.explanation}</div>
             </div>`;
             list.innerHTML += html;
@@ -6749,8 +6767,11 @@
     }
 
     function resetQuiz() {
-        state.quizPhase = 'setup'; state.userAnswers = {};
-        updateView(); updateQuizCountMax();
+        state.quizPhase = 'setup'; 
+        state.userAnswers = {};
+        state.activeQuestions = [];
+        updateView(); 
+        updateQuizCountMax();
     }
 
     function renderMap() {
@@ -6760,39 +6781,43 @@
             const btn = document.createElement('button');
             btn.className = 'map-btn';
             btn.innerText = i + 1;
-            if (state.currentQuizIndex === i) btn.classList.add('active');
+            
+            if (state.currentQuizIndex === i && state.quizPhase !== 'result') {
+                btn.classList.add('active');
+            }
+            
             const ans = state.userAnswers[i];
-            if (ans) btn.classList.add(ans.isCorrect ? 'correct' : 'wrong');
+            if (ans) {
+                btn.classList.add(ans.isCorrect ? 'correct' : 'wrong');
+            }
+            
             btn.onclick = () => {
-                if(state.quizPhase === 'result') {
+                if (state.quizPhase === 'result') {
                     const el = document.getElementById(`review-q-${i}`);
-                    if(el) el.scrollIntoView({behavior: 'smooth'});
+                    if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
-                    state.currentQuizIndex = i; renderQuestionCard();
+                    state.currentQuizIndex = i; 
+                    renderQuestionCard();
                 }
             };
             grid.appendChild(btn);
         });
     }
-    
-    function renderMapActiveState() {
-        if (state.quizPhase !== 'active') return;
-        document.querySelectorAll('.map-btn').forEach(b => b.classList.remove('active'));
-        const b = document.getElementById(`map-btn-${state.currentQuizIndex}`);
-        if (b) b.classList.add('active');
-    }
 
-    // --- TRANSLATE FIX: IMMEDIATE RE-RENDER ---
+    // === NÂNG CẤP CHỨC NĂNG DỊCH ===
     function toggleLanguage() {
         state.isVietnamese = !state.isVietnamese;
         updateLanguageTexts();
         
-        // Re-render immediate view without losing state
+        // Vẽ lại giao diện hiện tại với ngôn ngữ mới
         if (state.activeTab === 'flashcard') {
             renderFlashcard();
         } else if (state.activeTab === 'quiz') {
-            if (state.quizPhase === 'active') renderQuestionCard();
-            else if (state.quizPhase === 'result') renderResultView();
+            if (state.quizPhase === 'active') {
+                renderQuestionCard();
+            } else if (state.quizPhase === 'result') {
+                renderResultView();
+            }
         }
     }
 
@@ -6802,24 +6827,31 @@
         document.getElementById('txt-setup-title').innerText = t.setupTitle;
         document.getElementById('txt-total').innerText = t.total;
         document.getElementById('txt-q-count').innerText = t.qCount;
-        document.getElementById('txt-start').innerText = t.start;
+        
+        const startBtn = document.getElementById('txt-start');
+        if(startBtn) startBtn.innerHTML = state.isVietnamese ? "Bắt đầu làm bài 🚀" : "Start Now 🚀";
+
         document.getElementById('btn-prev').innerText = t.prev;
         document.getElementById('btn-next').innerText = t.next;
         document.getElementById('btn-submit').innerText = t.submit;
         document.getElementById('txt-result-title').innerText = t.resultTitle;
-        document.getElementById('txt-fc-ans').innerText = t.fcAns;
+        document.getElementById('fc-answer-label').innerText = t.fcAnsLabel;
+        document.getElementById('fc-explanation-label').innerText = t.fcExpLabel;
         document.getElementById('leg-current').innerText = t.legCur;
         document.getElementById('leg-correct').innerText = t.legCor;
         document.getElementById('leg-wrong').innerText = t.legWro;
+        document.getElementById('txt-map-title').innerText = t.mapTitle;
     }
 
     document.addEventListener('keydown', e => {
-        if(document.activeElement.tagName === 'INPUT') return;
+        if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
+
         if(state.activeTab === 'flashcard') {
             if(e.key === 'ArrowLeft') navFlashcard(-1);
             if(e.key === 'ArrowRight') navFlashcard(1);
             if(e.key === ' ' || e.key === 'Enter') { 
-                e.preventDefault(); document.querySelector('.flashcard').click(); 
+                e.preventDefault(); 
+                document.querySelector('.flashcard').classList.toggle('flipped');
             }
         } else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
             if(e.key === 'ArrowLeft') navQuiz(-1);
@@ -6832,6 +6864,8 @@
                 if(['2','b','B'].includes(e.key)) displaySel = 1;
                 if(['3','c','C'].includes(e.key)) displaySel = 2;
                 if(['4','d','D'].includes(e.key)) displaySel = 3;
+                if(['5','e','E'].includes(e.key)) displaySel = 4;
+                if(['6','f','F'].includes(e.key)) displaySel = 5;
 
                 if(displaySel !== -1) {
                     const qObj = state.activeQuestions[idx];
@@ -6847,11 +6881,7 @@
         }
     });
 
-    setTimeout(() => {
-        if(typeof quizData !== 'undefined' && quizData.length > 0) {
-            init();
-        }
-    }, 500);
+    document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
