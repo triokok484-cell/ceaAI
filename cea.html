@@ -9037,6 +9037,783 @@
             "answer": "D. 32-bit",
             "explanation": "Đây là câu hỏi lặp lại. Kiến trúc MIPS nổi tiếng với các lệnh có độ dài cố định 32-bit."
         }
+    },
+{
+        "id": 350,
+        "en": {
+            "question": "Which characteristic best describes the relationship between an assembly instruction and a machine instruction?",
+            "options": [
+                "A. One assembly instruction translates to many machine instructions.",
+                "B. Many assembly instructions translate to one machine instruction.",
+                "C. There is a one-to-one mapping.",
+                "D. There is no direct relationship."
+            ],
+            "answer": "C. There is a one-to-one mapping.",
+            "explanation": "Assembly language is a low-level symbolic language that has a strong one-to-one correspondence with the machine code instructions of a specific processor architecture. Each mnemonic directly represents a single machine opcode."
+        },
+        "vi": {
+            "question": "Đặc điểm nào mô tả đúng nhất mối quan hệ giữa một lệnh hợp ngữ và một lệnh máy?",
+            "options": [
+                "A. Một lệnh hợp ngữ dịch thành nhiều lệnh máy.",
+                "B. Nhiều lệnh hợp ngữ dịch thành một lệnh máy.",
+                "C. Có một ánh xạ một-một (one-to-one mapping).",
+                "D. Không có mối quan hệ trực tiếp."
+            ],
+            "answer": "C. Có một ánh xạ một-một (one-to-one mapping).",
+            "explanation": "Hợp ngữ là một ngôn ngữ ký hiệu cấp thấp có sự tương ứng một-một chặt chẽ với các lệnh mã máy của một kiến trúc bộ xử lý cụ thể. Mỗi từ gợi nhớ (mnemonic) đại diện trực tiếp cho một mã lệnh máy (opcode) duy nhất."
+        }
+    },
+    {
+        "id": 351,
+        "en": {
+            "question": "Is assembly language portable?",
+            "options": [
+                "A. Yes, it can run on any architecture.",
+                "B. No, it is architecture-specific.",
+                "C. Only portable between different operating systems.",
+                "D. Only portable between CPUs from the same manufacturer."
+            ],
+            "answer": "B. No, it is architecture-specific.",
+            "explanation": "Assembly language is tied directly to the Instruction Set Architecture (ISA) of a specific processor family (e.g., x86, ARM, MIPS). Code written for one architecture will not run on another."
+        },
+        "vi": {
+            "question": "Ngôn ngữ hợp ngữ có tính di động (portable) không?",
+            "options": [
+                "A. Có, nó có thể chạy trên mọi kiến trúc.",
+                "B. Không, nó đặc thù cho từng kiến trúc (architecture-specific).",
+                "C. Chỉ di động giữa các hệ điều hành khác nhau.",
+                "D. Chỉ di động giữa các CPU cùng một nhà sản xuất."
+            ],
+            "answer": "B. Không, nó đặc thù cho từng kiến trúc (architecture-specific).",
+            "explanation": "Ngôn ngữ hợp ngữ gắn liền trực tiếp với Kiến trúc tập lệnh (ISA) của một họ bộ xử lý cụ thể (ví dụ: x86, ARM, MIPS). Mã được viết cho một kiến trúc sẽ không chạy trên một kiến trúc khác."
+        }
+    },
+    {
+        "id": 352,
+        "en": {
+            "question": "The use of labels and symbols in assembly language eliminates what need for the programmer?",
+            "options": [
+                "A. Manually calculating memory addresses.",
+                "B. Optimizing register usage.",
+                "C. Writing binary code.",
+                "D. Managing hardware interrupts."
+            ],
+            "answer": "A. Manually calculating memory addresses.",
+            "explanation": "Labels are placeholders for memory addresses. The assembler is responsible for calculating the actual addresses of these labels during the assembly process, freeing the programmer from this tedious and error-prone task."
+        },
+        "vi": {
+            "question": "Việc sử dụng các nhãn (labels) và ký hiệu (symbols) trong hợp ngữ giúp loại bỏ nhu cầu nào của lập trình viên?",
+            "options": [
+                "A. Tính toán địa chỉ bộ nhớ thủ công.",
+                "B. Tối ưu hóa việc sử dụng thanh ghi.",
+                "C. Viết mã nhị phân.",
+                "D. Quản lý các ngắt phần cứng."
+            ],
+            "answer": "A. Tính toán địa chỉ bộ nhớ thủ công.",
+            "explanation": "Nhãn là các tên giữ chỗ cho các địa chỉ bộ nhớ. Trình hợp dịch (assembler) chịu trách nhiệm tính toán các địa chỉ thực tế của các nhãn này trong quá trình hợp dịch, giải phóng lập trình viên khỏi công việc tẻ nhạt và dễ gây lỗi này."
+        }
+    },
+    {
+        "id": 353,
+        "en": {
+            "question": "What is a 'macro' in assembly language?",
+            "options": [
+                "A. A basic machine instruction.",
+                "B. A parameterized template that allows reusing blocks of code.",
+                "C. A debugging procedure.",
+                "D. A label pointing to a memory address."
+            ],
+            "answer": "B. A parameterized template that allows reusing blocks of code.",
+            "explanation": "A macro is a facility for text replacement. It allows the programmer to define a named block of code that can be inserted into the program, often with parameters, wherever the name is used. This helps in reducing repetitive code."
+        },
+        "vi": {
+            "question": "Một \"macro\" trong hợp ngữ là gì?",
+            "options": [
+                "A. Một lệnh máy cơ bản.",
+                "B. Một khuôn mẫu có tham số (parameterized template) cho phép tái sử dụng các khối mã.",
+                "C. Một quy trình gỡ lỗi.",
+                "D. Một nhãn chỉ đến một địa chỉ bộ nhớ."
+            ],
+            "answer": "B. Một khuôn mẫu có tham số (parameterized template) cho phép tái sử dụng các khối mã.",
+            "explanation": "Macro là một cơ chế để thay thế văn bản. Nó cho phép lập trình viên định nghĩa một khối mã có tên, có thể được chèn vào chương trình (thường có tham số) ở bất cứ đâu tên đó được sử dụng. Điều này giúp giảm thiểu mã lặp đi lặp lại."
+        }
+    },
+    {
+        "id": 354,
+        "en": {
+            "question": "What is the process of converting assembly code into executable machine code called?",
+            "options": [
+                "A. Assembly",
+                "B. Compilation",
+                "C. Interpretation",
+                "D. Linking"
+            ],
+            "answer": "A. Assembly",
+            "explanation": "The tool that performs this conversion is called an assembler. Compilation refers to converting high-level language to a lower-level one, and linking combines object files into a single executable."
+        },
+        "vi": {
+            "question": "Quá trình chuyển đổi mã hợp ngữ thành mã máy có thể thực thi được gọi là gì?",
+            "options": [
+                "A. Assembly (Hợp dịch)",
+                "B. Compilation (Biên dịch)",
+                "C. Interpretation (Thông dịch)",
+                "D. Linking (Liên kết)"
+            ],
+            "answer": "A. Assembly (Hợp dịch)",
+            "explanation": "Công cụ thực hiện việc chuyển đổi này được gọi là trình hợp dịch (assembler). Biên dịch (Compilation) đề cập đến việc chuyển đổi ngôn ngữ cấp cao sang ngôn ngữ cấp thấp hơn, và liên kết (linking) kết hợp các tệp đối tượng thành một tệp thực thi duy nhất."
+        }
+    },
+    {
+        "id": 355,
+        "en": {
+            "question": "Why is writing directly in machine code uncommon?",
+            "options": [
+                "A. It requires a special compiler.",
+                "B. It does not support arithmetic operations.",
+                "C. It is tedious, difficult to maintain, and error-prone.",
+                "D. It is slower than assembly language."
+            ],
+            "answer": "C. It is tedious, difficult to maintain, and error-prone.",
+            "explanation": "Writing in raw binary or hexadecimal numbers is extremely difficult for humans to read, write, and debug. Assembly language was created to provide a more human-readable layer on top of machine code."
+        },
+        "vi": {
+            "question": "Tại sao việc viết trực tiếp bằng mã máy lại không phổ biến?",
+            "options": [
+                "A. Nó yêu cầu một trình biên dịch đặc biệt.",
+                "B. Nó không hỗ trợ các phép toán số học.",
+                "C. Nó tẻ nhạt, khó bảo trì và dễ gây ra lỗi.",
+                "D. Nó chậm hơn so với hợp ngữ."
+            ],
+            "answer": "C. Nó tẻ nhạt, khó bảo trì và dễ gây ra lỗi.",
+            "explanation": "Việc viết bằng các số nhị phân hoặc thập lục phân thô là cực kỳ khó đối với con người để đọc, viết và gỡ lỗi. Hợp ngữ được tạo ra để cung cấp một lớp dễ đọc hơn cho con người bên trên mã máy."
+        }
+    },
+    {
+        "id": 356,
+        "en": {
+            "question": "In assembly language, what are the textual symbols used in place of binary opcodes called?",
+            "options": [
+                "A. Opcodes",
+                "B. Operands",
+                "C. Mnemonics",
+                "D. Labels"
+            ],
+            "answer": "C. Mnemonics",
+            "explanation": "Mnemonics (e.g., ADD, MOV, SUB, JMP) are short, easy-to-remember abbreviations for the machine language instructions they represent."
+        },
+        "vi": {
+            "question": "Trong hợp ngữ, các ký hiệu văn bản được sử dụng thay cho mã nhị phân được gọi là gì?",
+            "options": [
+                "A. Opcodes",
+                "B. Operands",
+                "C. Mnemonics (Từ gợi nhớ)",
+                "D. Labels"
+            ],
+            "answer": "C. Mnemonics (Từ gợi nhớ)",
+            "explanation": "Các từ gợi nhớ (ví dụ: ADD, MOV, SUB, JMP) là các từ viết tắt ngắn, dễ nhớ cho các lệnh ngôn ngữ máy mà chúng đại diện."
+        }
+    },
+    {
+        "id": 357,
+        "en": {
+            "question": "Which function is typically provided by an assembler to aid the programmer?",
+            "options": [
+                "A. Integrated web browser.",
+                "B. Simple text editor.",
+                "C. Program development support and debugging tools.",
+                "D. Operating system emulator."
+            ],
+            "answer": "C. Program development support and debugging tools.",
+            "explanation": "Modern assembler packages (like MASM, NASM) often come with a suite of tools including linkers, debuggers, and support for macros and procedures to facilitate the development process."
+        },
+        "vi": {
+            "question": "Chức năng nào sau đây thường được một trình hợp dịch (assembler) cung cấp để hỗ trợ lập trình viên?",
+            "options": [
+                "A. Trình duyệt web tích hợp.",
+                "B. Trình soạn thảo văn bản đơn giản.",
+                "C. Hỗ trợ phát triển chương trình và các công cụ gỡ lỗi.",
+                "D. Trình giả lập hệ điều hành."
+            ],
+            "answer": "C. Hỗ trợ phát triển chương trình và các công cụ gỡ lỗi.",
+            "explanation": "Các gói hợp dịch hiện đại (như MASM, NASM) thường đi kèm với một bộ công cụ bao gồm trình liên kết, trình gỡ lỗi, và hỗ trợ cho macro và thủ tục để tạo điều kiện thuận lợi cho quá trình phát triển."
+        }
+    },
+    {
+        "id": 358,
+        "en": {
+            "question": "Which of the following statements is true about assembly language?",
+            "options": [
+                "A. It is a high-level language.",
+                "B. It is a low-level language closely tied to machine code.",
+                "C. It is completely hardware-independent.",
+                "D. It is interpreted instead of being translated."
+            ],
+            "answer": "B. It is a low-level language closely tied to machine code.",
+            "explanation": "Assembly language is considered a low-level language because it provides a direct, one-to-one mapping to the machine's instruction set, making it highly dependent on the specific hardware architecture."
+        },
+        "vi": {
+            "question": "Phát biểu nào sau đây là đúng về hợp ngữ?",
+            "options": [
+                "A. Nó là một ngôn ngữ cấp cao.",
+                "B. Nó là một ngôn ngữ cấp thấp gắn chặt với mã máy.",
+                "C. Nó độc lập hoàn toàn với phần cứng.",
+                "D. Nó được diễn giải thay vì được dịch."
+            ],
+            "answer": "B. Nó là một ngôn ngữ cấp thấp gắn chặt với mã máy.",
+            "explanation": "Hợp ngữ được coi là một ngôn ngữ cấp thấp vì nó cung cấp một ánh xạ trực tiếp, một-một đến tập lệnh của máy, làm cho nó phụ thuộc rất nhiều vào kiến trúc phần cứng cụ thể."
+        }
+    },
+    {
+        "id": 359,
+        "en": {
+            "question": "What would the instruction N = I + J + K in a BASIC language require in machine code?",
+            "options": [
+                "A. Multiple load/add/store instructions and manual memory allocation.",
+                "B. A single machine instruction.",
+                "C. A special macro.",
+                "D. It cannot be represented in machine code."
+            ],
+            "answer": "A. Multiple load/add/store instructions and manual memory allocation.",
+            "explanation": "A high-level statement like this would be translated by a compiler into a sequence of machine instructions, such as: load I into a register, add J to the register, add K to the register, and finally store the result from the register into memory location N."
+        },
+        "vi": {
+            "question": "Hướng dẫn N = I + J + K trong ngôn ngữ BASIC sẽ yêu cầu gì trong mã máy?",
+            "options": [
+                "A. Nhiều lệnh load/add/store và cấp phát bộ nhớ thủ công.",
+                "B. Một lệnh máy duy nhất.",
+                "C. Một macro đặc biệt.",
+                "D. Không thể biểu diễn bằng mã máy."
+            ],
+            "answer": "A. Nhiều lệnh load/add/store và cấp phát bộ nhớ thủ công.",
+            "explanation": "Một câu lệnh cấp cao như thế này sẽ được trình biên dịch dịch thành một chuỗi các lệnh máy, chẳng hạn như: nạp I vào một thanh ghi, cộng J vào thanh ghi, cộng K vào thanh ghi, và cuối cùng lưu kết quả từ thanh ghi vào vị trí bộ nhớ N."
+        }
+    },
+    {
+        "id": 360,
+        "en": {
+            "question": "What is the primary purpose of 'assembler directives'?",
+            "options": [
+                "A. To perform arithmetic operations.",
+                "B. To control program flow like jumps.",
+                "C. To instruct the assembler on how to process the code (e.g., allocate data).",
+                "D. To define macros."
+            ],
+            "answer": "C. To instruct the assembler on how to process the code (e.g., allocate data).",
+            "explanation": "Assembler directives (or pseudo-ops) are not translated into machine instructions. Instead, they guide the assembler itself, telling it things like where to place code, how to reserve memory for variables (e.g., DB, DW), and how to define segments."
+        },
+        "vi": {
+            "question": "Mục đích chính của \"assembler directives\" (chỉ thị hợp dịch) là gì?",
+            "options": [
+                "A. Thực hiện các phép toán số học.",
+                "B. Điều khiển luồng chương trình như lệnh nhảy.",
+                "C. Hướng dẫn trình hợp dịch cách xử lý mã (ví dụ: cấp phát dữ liệu).",
+                "D. Định nghĩa các macro."
+            ],
+            "answer": "C. Hướng dẫn trình hợp dịch cách xử lý mã (ví dụ: cấp phát dữ liệu).",
+            "explanation": "Các chỉ thị hợp dịch (hoặc pseudo-ops) không được dịch thành các lệnh máy. Thay vào đó, chúng hướng dẫn chính trình hợp dịch, cho nó biết những việc như đặt mã ở đâu, cách dành bộ nhớ cho các biến (ví dụ: DB, DW), và cách định nghĩa các phân đoạn."
+        }
+    },
+    {
+        "id": 361,
+        "en": {
+            "question": "What is the main benefit of using assembly language over machine code?",
+            "options": [
+                "A. Making the program more understandable and readable.",
+                "B. Increasing the program's execution speed.",
+                "C. Reducing the program's memory footprint.",
+                "D. Increasing the program's portability."
+            ],
+            "answer": "A. Making the program more understandable and readable.",
+            "explanation": "Assembly language replaces raw binary opcodes and addresses with human-readable mnemonics and labels. This makes the code significantly easier for humans to write, read, and debug, although it offers no direct performance benefit over correctly written machine code."
+        },
+        "vi": {
+            "question": "Lợi ích chính của việc sử dụng hợp ngữ so với mã máy là gì?",
+            "options": [
+                "A. Làm cho chương trình dễ hiểu và dễ đọc hơn.",
+                "B. Tăng tốc độ thực thi của chương trình.",
+                "C. Giảm dung lượng bộ nhớ chương trình chiếm dụng.",
+                "D. Tăng tính di động của chương trình."
+            ],
+            "answer": "A. Làm cho chương trình dễ hiểu và dễ đọc hơn.",
+            "explanation": "Hợp ngữ thay thế các mã máy và địa chỉ nhị phân thô bằng các từ gợi nhớ và nhãn dễ đọc cho con người. Điều này làm cho mã dễ viết, đọc và gỡ lỗi hơn đáng kể, mặc dù nó không mang lại lợi ích hiệu suất trực tiếp so với mã máy được viết đúng."
+        }
+    },
+    // Chuyên mục 14 & 15: RISC & Instruction-Level Parallelism (BỔ SUNG)
+    {
+        "id": 362,
+        "en": {
+            "question": "Which characteristic is fundamental to RISC architecture?",
+            "options": [
+                "A. Large and complex instruction set.",
+                "B. Most instructions execute in a single clock cycle.",
+                "C. Many complex addressing modes.",
+                "D. Variable-length instructions."
+            ],
+            "answer": "B. Most instructions execute in a single clock cycle.",
+            "explanation": "The core philosophy of RISC (Reduced Instruction Set Computer) is to have a small set of simple, optimized instructions that can be executed very quickly, ideally one per clock cycle, which facilitates deep pipelining."
+        },
+        "vi": {
+            "question": "Đặc điểm nào là nền tảng của kiến trúc RISC?",
+            "options": [
+                "A. Tập lệnh lớn và phức tạp.",
+                "B. Hầu hết các lệnh thực thi trong một chu kỳ xung nhịp duy nhất.",
+                "C. Nhiều chế độ địa chỉ phức tạp.",
+                "D. Lệnh có độ dài thay đổi."
+            ],
+            "answer": "B. Hầu hết các lệnh thực thi trong một chu kỳ xung nhịp duy nhất.",
+            "explanation": "Triết lý cốt lõi của RISC (Máy tính tập lệnh rút gọn) là có một tập hợp nhỏ các lệnh đơn giản, được tối ưu hóa, có thể được thực thi rất nhanh, lý tưởng là một lệnh mỗi chu kỳ xung nhịp, điều này tạo điều kiện cho việc tạo đường ống sâu."
+        }
+    },
+    {
+        "id": 363,
+        "en": {
+            "question": "What does the 'Delayed Branch' technique in a RISC pipeline mean?",
+            "options": [
+                "A. The instruction immediately after the branch is always executed, regardless of the branch outcome.",
+                "B. The branch instruction is delayed until all other instructions complete.",
+                "C. The CPU waits a few cycles before taking the branch.",
+                "D. The compiler removes all branch instructions."
+            ],
+            "answer": "A. The instruction immediately after the branch is always executed, regardless of the branch outcome.",
+            "explanation": "A delayed branch is a technique to hide branch latency. The instruction in the 'delay slot' (immediately following the branch) is executed while the processor determines the outcome of the branch, preventing the pipeline from stalling."
+        },
+        "vi": {
+            "question": "Kỹ thuật \"Delayed Branch\" trong pipeline RISC có nghĩa là gì?",
+            "options": [
+                "A. Lệnh ngay sau lệnh rẽ nhánh luôn được thực thi, bất kể kết quả của nhánh.",
+                "B. Lệnh rẽ nhánh bị trì hoãn cho đến khi tất cả các lệnh khác hoàn thành.",
+                "C. CPU chờ một vài chu kỳ trước khi thực hiện rẽ nhánh.",
+                "D. Trình biên dịch loại bỏ tất cả các lệnh rẽ nhánh."
+            ],
+            "answer": "A. Lệnh ngay sau lệnh rẽ nhánh luôn được thực thi, bất kể kết quả của nhánh.",
+            "explanation": "Rẽ nhánh trễ là một kỹ thuật để che giấu độ trễ của nhánh. Lệnh trong 'khe trễ' (ngay sau nhánh) được thực thi trong khi bộ xử lý xác định kết quả của nhánh, ngăn chặn đường ống bị đình trệ."
+        }
+    },
+    {
+        "id": 364,
+        "en": {
+            "question": "What is the benefit of having a large register file in a RISC architecture?",
+            "options": [
+                "A. Minimizes memory accesses by keeping frequently used variables in registers.",
+                "B. Makes the CPU simpler.",
+                "C. Reduces power consumption.",
+                "D. Increases the processor's clock speed."
+            ],
+            "answer": "A. Minimizes memory accesses by keeping frequently used variables in registers.",
+            "explanation": "RISC architectures emphasize register-to-register operations. A large number of registers allows compilers to keep more variables and intermediate values in the fast registers, reducing the number of slow load/store operations to main memory."
+        },
+        "vi": {
+            "question": "Lợi ích của việc có một tập thanh ghi lớn (large register file) trong kiến trúc RISC là gì?",
+            "options": [
+                "A. Giảm thiểu số lần truy cập bộ nhớ bằng cách giữ các biến được sử dụng thường xuyên trong thanh ghi.",
+                "B. Làm cho CPU trở nên đơn giản hơn.",
+                "C. Giảm mức tiêu thụ điện năng.",
+                "D. Tăng tốc độ xung nhịp của bộ xử lý."
+            ],
+            "answer": "A. Giảm thiểu số lần truy cập bộ nhớ bằng cách giữ các biến được sử dụng thường xuyên trong thanh ghi.",
+            "explanation": "Các kiến trúc RISC nhấn mạnh các hoạt động từ thanh ghi đến thanh ghi. Một số lượng lớn thanh ghi cho phép các trình biên dịch giữ nhiều biến và giá trị trung gian hơn trong các thanh ghi nhanh, giảm số lượng các hoạt động nạp/lưu chậm vào bộ nhớ chính."
+        }
+    },
+    {
+        "id": 365,
+        "en": {
+            "question": "'Loop Unrolling' is an optimization technique that aims to do what?",
+            "options": [
+                "A. Make the loop run slower for easier debugging.",
+                "B. Reduce loop management overhead and increase parallelism.",
+                "C. Increase the number of branch instructions.",
+                "D. Reduce the number of required registers."
+            ],
+            "answer": "B. Reduce loop management overhead and increase parallelism.",
+            "explanation": "Loop unrolling replicates the loop body multiple times, reducing the number of loop counter updates and conditional branches. This larger block of straight-line code provides more opportunities for instruction-level parallelism."
+        },
+        "vi": {
+            "question": "\"Loop Unrolling\" là một kỹ thuật tối ưu hóa nhằm mục đích gì?",
+            "options": [
+                "A. Làm cho vòng lặp chạy chậm hơn để dễ gỡ lỗi.",
+                "B. Giảm chi phí quản lý vòng lặp và tăng tính song song.",
+                "C. Tăng số lượng lệnh rẽ nhánh.",
+                "D. Giảm số lượng thanh ghi cần thiết."
+            ],
+            "answer": "B. Giảm chi phí quản lý vòng lặp và tăng tính song song.",
+            "explanation": "Trải vòng lặp sao chép thân vòng lặp nhiều lần, giảm số lần cập nhật bộ đếm vòng lặp và các nhánh có điều kiện. Khối mã tuần tự lớn hơn này cung cấp nhiều cơ hội hơn cho tính song song ở mức lệnh."
+        }
+    },
+    {
+        "id": 366,
+        "en": {
+            "question": "When does a WAW (Write-After-Write) data dependency occur?",
+            "options": [
+                "A. An instruction tries to read a location before a previous instruction writes to it.",
+                "B. Two instructions try to write to the same destination in an order different from the program order.",
+                "C. An instruction writes to a location before a previous instruction reads from it.",
+                "D. Two instructions need the same hardware resource."
+            ],
+            "answer": "B. Two instructions try to write to the same destination in an order different from the program order.",
+            "explanation": "A WAW hazard (also called an output dependency) happens in out-of-order execution when a later instruction might complete and write its result before an earlier instruction writes to the same location, which would violate program logic."
+        },
+        "vi": {
+            "question": "Phụ thuộc dữ liệu WAW (Write-After-Write) xảy ra khi nào?",
+            "options": [
+                "A. Một lệnh cố đọc một vị trí trước khi lệnh trước đó ghi vào nó.",
+                "B. Hai lệnh cố gắng ghi vào cùng một đích theo thứ tự khác với thứ tự chương trình.",
+                "C. Một lệnh ghi vào một vị trí trước khi một lệnh trước đó đọc từ nó.",
+                "D. Hai lệnh cần cùng một tài nguyên phần cứng."
+            ],
+            "answer": "B. Hai lệnh cố gắng ghi vào cùng một đích theo thứ tự khác với thứ tự chương trình.",
+            "explanation": "Một mối nguy WAW (còn gọi là phụ thuộc đầu ra) xảy ra trong thực thi ngoài thứ tự khi một lệnh sau có thể hoàn thành và ghi kết quả của nó trước khi một lệnh trước đó ghi vào cùng một vị trí, điều này sẽ vi phạm logic chương trình."
+        }
+    },
+    {
+        "id": 367,
+        "en": {
+            "question": "Which technique in superscalar processors is specifically designed to resolve WAR and WAW hazards?",
+            "options": [
+                "A. Branch Prediction",
+                "B. Register Renaming",
+                "C. Out-of-Order Execution",
+                "D. Resource Duplication"
+            ],
+            "answer": "B. Register Renaming",
+            "explanation": "Register renaming resolves these 'false' dependencies by mapping architectural registers (seen by the programmer) to a larger set of physical registers. This allows two instructions that write to the same architectural register to use different physical registers, eliminating the WAW/WAR conflict and enabling more parallelism."
+        },
+        "vi": {
+            "question": "Kỹ thuật nào trong bộ xử lý siêu vô hướng (superscalar) được thiết kế đặc biệt để giải quyết các mối nguy WAR và WAW?",
+            "options": [
+                "A. Dự đoán rẽ nhánh (Branch Prediction).",
+                "B. Đổi tên thanh ghi (Register Renaming).",
+                "C. Thực thi ngoài thứ tự (Out-of-Order Execution).",
+                "D. Nhân bản tài nguyên (Resource Duplication)."
+            ],
+            "answer": "B. Đổi tên thanh ghi (Register Renaming).",
+            "explanation": "Đổi tên thanh ghi giải quyết các phụ thuộc 'giả' này bằng cách ánh xạ các thanh ghi kiến trúc (mà lập trình viên thấy) vào một tập hợp lớn hơn các thanh ghi vật lý. Điều này cho phép hai lệnh ghi vào cùng một thanh ghi kiến trúc sử dụng các thanh ghi vật lý khác nhau, loại bỏ xung đột WAW/WAR và cho phép nhiều tính song song hơn."
+        }
+    },
+    {
+        "id": 368,
+        "en": {
+            "question": "What is the fundamental difference between a superscalar and a superpipelined processor?",
+            "options": [
+                "A. Superscalar has multiple parallel pipelines, superpipelined has one deeper pipeline (more stages).",
+                "B. Superscalar is only for RISC, superpipelined is only for CISC.",
+                "C. Superscalar executes instructions in-order, superpipelined does not.",
+                "D. There is no difference, they are two names for the same concept."
+            ],
+            "answer": "A. Superscalar has multiple parallel pipelines, superpipelined has one deeper pipeline (more stages).",
+            "explanation": "Both aim to execute more than one instruction per cycle. Superscalar achieves this through spatial parallelism (multiple execution units). Superpipelining achieves this through temporal parallelism (dividing the clock cycle into smaller pieces, allowing a very deep pipeline to complete instructions at a faster rate)."
+        },
+        "vi": {
+            "question": "Sự khác biệt cơ bản giữa bộ xử lý superscalar và superpipelined là gì?",
+            "options": [
+                "A. Superscalar có nhiều đường ống song song, superpipelined có một đường ống sâu hơn (nhiều giai đoạn hơn).",
+                "B. Superscalar chỉ dùng cho RISC, superpipelined chỉ dùng cho CISC.",
+                "C. Superscalar thực thi lệnh theo thứ tự, superpipelined thì không.",
+                "D. Không có sự khác biệt, chúng là hai tên gọi cho cùng một khái niệm."
+            ],
+            "answer": "A. Superscalar có nhiều đường ống song song, superpipelined có một đường ống sâu hơn (nhiều giai đoạn hơn).",
+            "explanation": "Cả hai đều nhằm mục đích thực thi nhiều hơn một lệnh mỗi chu kỳ. Superscalar đạt được điều này thông qua tính song song không gian (nhiều đơn vị thực thi). Superpipelining đạt được điều này thông qua tính song song thời gian (chia chu kỳ xung nhịp thành các phần nhỏ hơn, cho phép một đường ống rất sâu hoàn thành các lệnh với tốc độ nhanh hơn)."
+        }
+    },
+    {
+        "id": 369,
+        "en": {
+            "question": "Why is branch handling critical for high-performance pipelines?",
+            "options": [
+                "A. Branch instructions consume the most power.",
+                "B. A mispredicted branch can cause the pipeline to be flushed of incorrectly fetched instructions, wasting cycles.",
+                "C. Branch instructions require external memory access.",
+                "D. Branch instructions cannot be executed in parallel."
+            ],
+            "answer": "B. A mispredicted branch can cause the pipeline to be flushed of incorrectly fetched instructions, wasting cycles.",
+            "explanation": "Modern pipelines are very long. When a conditional branch is encountered, the processor often has to guess which path to take. If it guesses wrong, all the instructions that were speculatively fetched and partially executed must be discarded, incurring a significant performance penalty."
+        },
+        "vi": {
+            "question": "Tại sao việc xử lý rẽ nhánh (branch handling) lại quan trọng đối với các pipeline hiệu năng cao?",
+            "options": [
+                "A. Lệnh rẽ nhánh tiêu thụ nhiều năng lượng nhất.",
+                "B. Một dự đoán rẽ nhánh sai có thể khiến pipeline phải xả bỏ các lệnh đã nạp sai, gây lãng phí chu kỳ.",
+                "C. Lệnh rẽ nhánh yêu cầu truy cập bộ nhớ ngoài.",
+                "D. Lệnh rẽ nhánh không thể được thực thi song song."
+            ],
+            "answer": "B. Một dự đoán rẽ nhánh sai có thể khiến pipeline phải xả bỏ các lệnh đã nạp sai, gây lãng phí chu kỳ.",
+            "explanation": "Các đường ống hiện đại rất dài. Khi gặp một nhánh có điều kiện, bộ xử lý thường phải đoán xem nên đi đường nào. Nếu đoán sai, tất cả các lệnh đã được tìm nạp và thực thi một phần theo suy đoán phải bị loại bỏ, gây ra một hình phạt hiệu suất đáng kể."
+        }
+    },
+    {
+        "id": 370,
+        "en": {
+            "question": "In RISC architectures, what is the 'Register Windows' technique used for?",
+            "options": [
+                "A. Speeding up the execution of procedure calls.",
+                "B. Increasing the physical size of the registers.",
+                "C. Allowing multiple threads to use the same register.",
+                "D. Reducing the number of addressing modes."
+            ],
+            "answer": "A. Speeding up the execution of procedure calls.",
+            "explanation": "Register windows provide a large set of physical registers that are partitioned into overlapping 'windows'. For a procedure call, the CPU simply switches to a new window, making parameter passing and local variable allocation extremely fast by avoiding memory accesses (stack push/pop)."
+        },
+        "vi": {
+            "question": "Trong kiến trúc RISC, kỹ thuật \"Register Windows\" được sử dụng để làm gì?",
+            "options": [
+                "A. Tăng tốc độ thực hiện các lời gọi thủ tục (procedure calls).",
+                "B. Tăng kích thước vật lý của các thanh ghi.",
+                "C. Cho phép nhiều luồng sử dụng cùng một thanh ghi.",
+                "D. Giảm số lượng chế độ địa chỉ."
+            ],
+            "answer": "A. Tăng tốc độ thực hiện các lời gọi thủ tục (procedure calls).",
+            "explanation": "Cửa sổ thanh ghi cung cấp một tập hợp lớn các thanh ghi vật lý được phân chia thành các 'cửa sổ' chồng chéo. Đối với một lời gọi thủ tục, CPU chỉ cần chuyển sang một cửa sổ mới, làm cho việc truyền tham số và cấp phát biến cục bộ cực kỳ nhanh bằng cách tránh truy cập bộ nhớ (đẩy/lấy từ ngăn xếp)."
+        }
+    },
+    // Chuyên mục 16 & 17: Parallel Processing & Multicore Computers (BỔ SUNG)
+    {
+        "id": 371,
+        "en": {
+            "question": "Which model in Flynn's taxonomy describes a symmetric multiprocessor (SMP) computer?",
+            "options": [
+                "A. SISD",
+                "B. SIMD",
+                "C. MISD",
+                "D. MIMD"
+            ],
+            "answer": "D. MIMD",
+            "explanation": "An SMP system consists of multiple independent processors, each capable of executing its own instruction stream on its own data. This fits the definition of Multiple Instruction, Multiple Data (MIMD)."
+        },
+        "vi": {
+            "question": "Mô hình nào trong phân loại của Flynn mô tả một máy tính đa xử lý đối xứng (SMP)?",
+            "options": [
+                "A. SISD",
+                "B. SIMD",
+                "C. MISD",
+                "D. MIMD"
+            ],
+            "answer": "D. MIMD",
+            "explanation": "Một hệ thống SMP bao gồm nhiều bộ xử lý độc lập, mỗi bộ có khả năng thực thi luồng lệnh riêng trên dữ liệu riêng của nó. Điều này phù hợp với định nghĩa của Nhiều lệnh, Nhiều dữ liệu (MIMD)."
+        }
+    },
+    {
+        "id": 372,
+        "en": {
+            "question": "What causes the 'cache coherence' problem in multiprocessor systems?",
+            "options": [
+                "A. Each processor having its own private local cache, which can hold different copies of the same main memory address.",
+                "B. The system bus being too slow.",
+                "C. Processors running at different clock speeds.",
+                "D. The operating system being unable to schedule for multiple processors."
+            ],
+            "answer": "A. Each processor having its own private local cache, which can hold different copies of the same main memory address.",
+            "explanation": "The cache coherence problem arises when multiple caches hold a copy of the same memory block. If one processor modifies its copy, the other caches will have stale, incorrect data unless a coherence protocol is used to update or invalidate them."
+        },
+        "vi": {
+            "question": "Vấn đề \"nhất quán bộ đệm\" (cache coherence) trong hệ thống đa xử lý xảy ra do đâu?",
+            "options": [
+                "A. Mỗi bộ xử lý có một bộ đệm cục bộ riêng, có thể chứa các bản sao dữ liệu khác nhau của cùng một địa chỉ bộ nhớ chính.",
+                "B. Bus hệ thống quá chậm.",
+                "C. Các bộ xử lý chạy ở tốc độ xung nhịp khác nhau.",
+                "D. Hệ điều hành không thể lập lịch cho nhiều bộ xử lý."
+            ],
+            "answer": "A. Mỗi bộ xử lý có một bộ đệm cục bộ riêng, có thể chứa các bản sao dữ liệu khác nhau của cùng một địa chỉ bộ nhớ chính.",
+            "explanation": "Vấn đề nhất quán bộ đệm phát sinh khi nhiều bộ đệm giữ một bản sao của cùng một khối bộ nhớ. Nếu một bộ xử lý sửa đổi bản sao của nó, các bộ đệm khác sẽ có dữ liệu cũ, không chính xác trừ khi một giao thức nhất quán được sử dụng để cập nhật hoặc vô hiệu hóa chúng."
+        }
+    },
+    {
+        "id": 373,
+        "en": {
+            "question": "In the MESI protocol, what does it mean for a cache line to be in the 'E' (Exclusive) state?",
+            "options": [
+                "A. The data in the cache has been modified and is different from main memory.",
+                "B. The data in the cache is a clean copy (same as main memory) and does not exist in any other cache.",
+                "C. The data in the cache may be shared by multiple other caches.",
+                "D. The cache line is invalid."
+            ],
+            "answer": "B. The data in the cache is a clean copy (same as main memory) and does not exist in any other cache.",
+            "explanation": "Exclusive state means this is the only cache holding a copy of the data, and the data is consistent with main memory. This allows the processor to write to this line without needing to notify other caches."
+        },
+        "vi": {
+            "question": "Trong giao thức MESI, một dòng cache ở trạng thái 'E' (Exclusive) có nghĩa là gì?",
+            "options": [
+                "A. Dữ liệu trong cache đã bị sửa đổi và khác với bộ nhớ chính.",
+                "B. Dữ liệu trong cache là một bản sao sạch (giống bộ nhớ chính) và không tồn tại ở bất kỳ cache nào khác.",
+                "C. Dữ liệu trong cache có thể được chia sẻ bởi nhiều cache khác.",
+                "D. Dòng cache không hợp lệ."
+            ],
+            "answer": "B. Dữ liệu trong cache là một bản sao sạch (giống bộ nhớ chính) và không tồn tại ở bất kỳ cache nào khác.",
+            "explanation": "Trạng thái Exclusive có nghĩa là đây là bộ đệm duy nhất giữ một bản sao của dữ liệu, và dữ liệu đó nhất quán với bộ nhớ chính. Điều này cho phép bộ xử lý ghi vào dòng này mà không cần thông báo cho các bộ đệm khác."
+        }
+    },
+    {
+        "id": 374,
+        "en": {
+            "question": "How do 'snoopy protocols' work to maintain cache coherence?",
+            "options": [
+                "A. A central controller keeps track of the state of all cache lines.",
+                "B. Each cache monitors (snoops) the traffic on the bus to detect accesses to data it is storing.",
+                "C. All caches are invalidated whenever a write operation occurs.",
+                "D. Only one cache is allowed to be active at a time."
+            ],
+            "answer": "B. Each cache monitors (snoops) the traffic on the bus to detect accesses to data it is storing.",
+            "explanation": "In a snoopy protocol, there is no central controller. Instead, each cache's controller listens to the shared bus. When it sees a transaction (like a read or write) for a memory block that it holds a copy of, it takes appropriate action (like invalidating its copy or providing the data) to maintain coherence."
+        },
+        "vi": {
+            "question": "\"Snoopy protocols\" hoạt động như thế nào để duy trì tính nhất quán của cache?",
+            "options": [
+                "A. Một bộ điều khiển trung tâm theo dõi trạng thái của tất cả các dòng cache.",
+                "B. Mỗi bộ đệm theo dõi (snoops) lưu lượng trên bus để phát hiện các truy cập vào dữ liệu mà nó đang lưu trữ.",
+                "C. Tất cả các cache đều bị vô hiệu hóa khi có một thao tác ghi.",
+                "D. Chỉ có một cache được phép hoạt động tại một thời điểm."
+            ],
+            "answer": "B. Mỗi bộ đệm theo dõi (snoops) lưu lượng trên bus để phát hiện các truy cập vào dữ liệu mà nó đang lưu trữ.",
+            "explanation": "Trong một giao thức snoopy, không có bộ điều khiển trung tâm. Thay vào đó, bộ điều khiển của mỗi bộ đệm lắng nghe bus chia sẻ. Khi nó thấy một giao dịch (như đọc hoặc ghi) cho một khối bộ nhớ mà nó giữ một bản sao, nó sẽ thực hiện hành động thích hợp (như vô hiệu hóa bản sao của nó hoặc cung cấp dữ liệu) để duy trì tính nhất quán."
+        }
+    },
+    {
+        "id": 375,
+        "en": {
+            "question": "Amdahl's Law shows that the speedup of a program is limited by what?",
+            "options": [
+                "A. The number of processor cores.",
+                "B. The sequential (non-parallelizable) portion of the program.",
+                "C. The speed of the memory.",
+                "D. The efficiency of the compiler."
+            ],
+            "answer": "B. The sequential (non-parallelizable) portion of the program.",
+            "explanation": "Amdahl's Law states that the maximum speedup achievable is limited by the fraction of the code that must be executed sequentially. Even with infinite processors, the total execution time can never be less than the time taken by the sequential part."
+        },
+        "vi": {
+            "question": "Định luật Amdahl cho thấy rằng tốc độ tăng tốc của một chương trình bị giới hạn bởi điều gì?",
+            "options": [
+                "A. Số lượng lõi xử lý.",
+                "B. Phần tuần tự (không thể song song hóa) của chương trình.",
+                "C. Tốc độ của bộ nhớ.",
+                "D. Hiệu quả của trình biên dịch."
+            ],
+            "answer": "B. Phần tuần tự (không thể song song hóa) của chương trình.",
+            "explanation": "Định luật Amdahl nói rằng tốc độ tăng tốc tối đa có thể đạt được bị giới hạn bởi phần mã phải được thực thi tuần tự. Ngay cả với số lượng bộ xử lý vô hạn, tổng thời gian thực thi không bao giờ có thể ít hơn thời gian thực hiện của phần tuần tự."
+        }
+    },
+    {
+        "id": 376,
+        "en": {
+            "question": "Pollack's Rule describes what relationship?",
+            "options": [
+                "A. Between clock speed and power consumption.",
+                "B. Between performance increase and the increase in processor complexity.",
+                "C. Between cache size and cache hit rate.",
+                "D. Between the number of transistors and time."
+            ],
+            "answer": "B. Between performance increase and the increase in processor complexity.",
+            "explanation": "Pollack's Rule is an observation that processor performance increase is roughly the square root of its complexity increase (in terms of transistors or area). This suggests diminishing returns for making single cores more complex, which was a driving factor for the shift to multicore designs."
+        },
+        "vi": {
+            "question": "Quy tắc Pollack (Pollack's Rule) mô tả mối quan hệ nào?",
+            "options": [
+                "A. Giữa tốc độ xung nhịp và mức tiêu thụ điện năng.",
+                "B. Giữa mức tăng hiệu năng và mức tăng độ phức tạp của bộ xử lý.",
+                "C. Giữa kích thước cache và tỷ lệ cache hit.",
+                "D. Giữa số lượng transistor và thời gian."
+            ],
+            "answer": "B. Giữa mức tăng hiệu năng và mức tăng độ phức tạp của bộ xử lý.",
+            "explanation": "Quy tắc của Pollack là một quan sát cho rằng sự gia tăng hiệu suất của bộ xử lý gần bằng căn bậc hai của sự gia tăng độ phức tạp của nó (về số lượng bóng bán dẫn hoặc diện tích). Điều này cho thấy lợi nhuận giảm dần khi làm cho các lõi đơn phức tạp hơn, đó là một yếu tố thúc đẩy sự chuyển đổi sang các thiết kế đa lõi."
+        }
+    },
+    {
+        "id": 377,
+        "en": {
+            "question": "What is a key difference in cache organization between the Intel Core Duo and the Intel Core i7?",
+            "options": [
+                "A. Core Duo has no cache, Core i7 has 3 levels of cache.",
+                "B. Core Duo shared an L2 cache, while Core i7 cores have private L2s and share an L3 cache.",
+                "C. Core Duo only had an L1 cache, Core i7 has L1 and L2.",
+                "D. Both have identical cache structures."
+            ],
+            "answer": "B. Core Duo shared an L2 cache, while Core i7 cores have private L2s and share an L3 cache.",
+            "explanation": "This represents an evolution in multicore cache design. The early Core Duo had two cores sharing a single L2 cache. Later designs, like the Core i7 (Nehalem and beyond), moved to a more hierarchical structure with private L1/L2 caches per core and a large, shared L3 cache for inter-core communication."
+        },
+        "vi": {
+            "question": "Sự khác biệt chính trong tổ chức cache giữa Intel Core Duo và Intel Core i7 là gì?",
+            "options": [
+                "A. Core Duo không có cache, Core i7 có 3 cấp cache.",
+                "B. Core Duo chia sẻ L2 cache, trong khi các lõi Core i7 có L2 riêng và chia sẻ L3 cache.",
+                "C. Core Duo chỉ có L1 cache, Core i7 có L1 và L2.",
+                "D. Cả hai đều có cấu trúc cache giống hệt nhau."
+            ],
+            "answer": "B. Core Duo chia sẻ L2 cache, trong khi các lõi Core i7 có L2 riêng và chia sẻ L3 cache.",
+            "explanation": "Điều này đại diện cho một sự tiến hóa trong thiết kế cache đa lõi. Core Duo đời đầu có hai lõi chia sẻ một cache L2 duy nhất. Các thiết kế sau này, như Core i7 (Nehalem và sau này), đã chuyển sang một cấu trúc phân cấp hơn với các cache L1/L2 riêng cho mỗi lõi và một cache L3 lớn, được chia sẻ để giao tiếp giữa các lõi."
+        }
+    },
+    {
+        "id": 378,
+        "en": {
+            "question": "Which technique replicates register sets to allow multiple threads to share the resources of a single superscalar pipeline?",
+            "options": [
+                "A. Pipelining",
+                "B. Superscalar",
+                "C. Simultaneous Multithreading (SMT)",
+                "D. Chip Multiprocessing (CMP)"
+            ],
+            "answer": "C. Simultaneous Multithreading (SMT)",
+            "explanation": "SMT (e.g., Intel's Hyper-Threading) adds the hardware (like separate register files and reorder buffers) to a single physical core to make it appear as multiple logical cores to the OS. This allows instructions from different threads to fill unused execution slots in the superscalar pipeline."
+        },
+        "vi": {
+            "question": "Kỹ thuật nào nhân bản các tập thanh ghi để cho phép nhiều luồng chia sẻ tài nguyên của một đường ống siêu vô hướng?",
+            "options": [
+                "A. Pipelining",
+                "B. Superscalar",
+                "C. Simultaneous Multithreading (SMT)",
+                "D. Chip Multiprocessing (CMP)"
+            ],
+            "answer": "C. Simultaneous Multithreading (SMT)",
+            "explanation": "SMT (ví dụ: Hyper-Threading của Intel) thêm phần cứng (như các tệp thanh ghi và bộ đệm sắp xếp lại riêng biệt) vào một lõi vật lý duy nhất để làm cho nó xuất hiện như nhiều lõi logic đối với HĐH. Điều này cho phép các lệnh từ các luồng khác nhau lấp đầy các khe thực thi không sử dụng trong đường ống siêu vô hướng."
+        }
+    },
+    {
+        "id": 379,
+        "en": {
+            "question": "A multi-process application such as Oracle or SAP typically consists of:",
+            "options": [
+                "A. A single process with a great many threads.",
+                "B. Multiple single-threaded processes.",
+                "C. A Java application running on a JVM.",
+                "D. An application running multiple times in virtualized environments."
+            ],
+            "answer": "B. Multiple single-threaded processes.",
+            "explanation": "Large-scale enterprise applications are often designed as a collection of cooperating processes, each handling a specific task. This can improve modularity and fault isolation compared to a single, massive multi-threaded process."
+        },
+        "vi": {
+            "question": "Một ứng dụng đa tiến trình (multi-process) như Oracle hay SAP thường bao gồm:",
+            "options": [
+                "A. Một tiến trình duy nhất với rất nhiều luồng.",
+                "B. Nhiều tiến trình đơn luồng (single-threaded).",
+                "C. Một ứng dụng Java chạy trên JVM.",
+                "D. Một ứng dụng chạy nhiều lần trong các môi trường ảo hóa."
+            ],
+            "answer": "B. Nhiều tiến trình đơn luồng (single-threaded).",
+            "explanation": "Các ứng dụng doanh nghiệp quy mô lớn thường được thiết kế như một tập hợp các tiến trình hợp tác, mỗi tiến trình xử lý một tác vụ cụ thể. Điều này có thể cải thiện tính mô-đun và cách ly lỗi so với một tiến trình đa luồng khổng lồ duy nhất."
+        }
+    },
+    {
+        "id": 380,
+        "en": {
+            "question": "What is the APIC (Advanced Programmable Interrupt Controller) a crucial component for in a multicore organization?",
+            "options": [
+                "A. Managing shared memory.",
+                "B. Synchronizing clock speeds between cores.",
+                "C. Managing and routing interrupts in a multiprocessor system.",
+                "D. Controlling temperature and power."
+            ],
+            "answer": "C. Managing and routing interrupts in a multiprocessor system.",
+            "explanation": "In a multicore system, an interrupt might need to be sent to a specific core, or broadcast to multiple cores. The APIC is the sophisticated hardware responsible for handling these complex interrupt routing and prioritization tasks."
+        },
+        "vi": {
+            "question": "APIC (Advanced Programmable Interrupt Controller) là một thành phần quan trọng trong tổ chức đa lõi để làm gì?",
+            "options": [
+                "A. Quản lý bộ nhớ chia sẻ.",
+                "B. Đồng bộ hóa tốc độ xung nhịp giữa các lõi.",
+                "C. Quản lý và định tuyến các ngắt trong một hệ thống đa xử lý.",
+                "D. Điều khiển nhiệt độ và năng lượng."
+            ],
+            "answer": "C. Quản lý và định tuyến các ngắt trong một hệ thống đa xử lý.",
+            "explanation": "Trong một hệ thống đa lõi, một ngắt có thể cần được gửi đến một lõi cụ thể, hoặc phát sóng đến nhiều lõi. APIC là phần cứng phức tạp chịu trách nhiệm xử lý các tác vụ định tuyến và ưu tiên ngắt phức tạp này."
+        }
     }
 ];
 
