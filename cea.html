@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEA201 - Master Tool (Ultimate Fix)</title>
+    <title>CEA201 - Master Tool (Updated Shortcuts)</title>
     <style>
         :root {
             --primary-color: #6f42c1;
@@ -91,11 +91,11 @@
             text-align: center; line-height: 28px; font-weight: 700; font-size: 13px; transition: all 0.2s;
         }
 
-        /* --- STATES: SELECTED (Đang chọn, chưa check) --- */
+        /* --- STATES: SELECTED --- */
         .options-list li.selected {
             border-color: var(--primary-color);
             background-color: var(--primary-light);
-            box-shadow: 0 0 0 1px var(--primary-color) inset; /* Viền đôi cho rõ */
+            box-shadow: 0 0 0 1px var(--primary-color) inset;
             font-weight: 600;
         }
         .options-list li.selected::before {
@@ -103,7 +103,7 @@
             color: white;
         }
 
-        /* --- STATES: CHECKED (Đã kiểm tra) --- */
+        /* --- STATES: CHECKED --- */
         .options-list.checked li { cursor: default; opacity: 0.6; }
         
         /* Đúng */
@@ -326,8 +326,9 @@
     // 1. DỮ LIỆU (Dán dữ liệu của bạn vào đây)
     // ======================================================
     
+    // --- DÁN JSON VÀO DƯỚI ĐÂY ---
     const quizData = [
-       {
+        {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
@@ -6420,10 +6421,12 @@
         }
     }
 
+        // ... DATA CỦA BẠN Ở ĐÂY ...
     ];
+    // --------------------------------
 
     // ======================================================
-    // 2. LOGIC HOÀN CHỈNH (FIX LỖI + TỐI ƯU)
+    // 2. LOGIC HOÀN CHỈNH (ĐÃ CẬP NHẬT PHÍM TẮT)
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
@@ -6436,52 +6439,31 @@
         return array;
     }
 
-    // Hàm so sánh 2 mảng số
     const compareArrays = (a, b) => {
         const sortedA = [...a].sort();
         const sortedB = [...b].sort();
         return sortedA.length === sortedB.length && sortedA.every((val, index) => val === sortedB[index]);
     };
 
-    // --- SMART MATCHING: TÌM ĐÁP ÁN ĐÚNG BẤT KỂ ĐỊNH DẠNG ---
     function getCorrectIndices(data, qObj) {
         const rawAnswers = Array.isArray(data.answer) ? data.answer : [data.answer];
-        // Chúng ta cần tìm index trong mảng options GỐC của data (chưa shuffle)
-        // Sau đó map sang shuffledIndices
         const options = data.options;
         let originalIndices = [];
-
         const clean = (str) => (typeof str === 'string') ? str.replace(/^[A-F][\.\)]\s*/i, '').trim().toLowerCase() : '';
 
         rawAnswers.forEach(ans => {
             let idx = -1;
             const cleanAns = clean(ans);
-
-            // 1. So sánh nội dung text (Ưu tiên cao nhất)
             idx = options.findIndex(opt => clean(opt) === cleanAns);
-
-            // 2. Nếu đáp án chỉ là "A", "B"... map theo vị trí index gốc
             if (idx === -1 && ans.trim().length === 1) {
-                const charCode = ans.trim().toUpperCase().charCodeAt(0) - 65; // A=0, B=1...
-                if (charCode >= 0 && charCode < options.length) {
-                    idx = charCode;
-                }
+                const charCode = ans.trim().toUpperCase().charCodeAt(0) - 65; 
+                if (charCode >= 0 && charCode < options.length) idx = charCode;
             }
-
-            // 3. So sánh tương đối (Contains)
             if (idx === -1) {
                 idx = options.findIndex(opt => clean(opt).includes(cleanAns) || cleanAns.includes(clean(opt)));
             }
-
             if (idx !== -1) originalIndices.push(idx);
         });
-
-        // Bây giờ originalIndices chứa index của mảng options gốc.
-        // Chúng ta cần trả về index tương ứng trong shuffledIndices đang hiển thị
-        // qObj.shuffledIndices[displayPos] = originalIndex
-        // Ta cần tìm displayPos sao cho shuffledIndices[displayPos] nằm trong originalIndices
-        // Nhưng code render dùng originalIndex để định danh, nên ta trả về originalIndices là đủ.
-        
         return [...new Set(originalIndices)];
     }
 
@@ -6496,14 +6478,16 @@
             setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀", mapTitle: "Câu hỏi",
             submit: "Nộp bài", resultTitle: "Kết quả", prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
             legCur: "Đang chọn", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", unanswered: "⚪ Chưa làm", correct: "✔ Chính xác!",
-            wrong: "✘ Sai rồi", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", shortcutHelp: "Phím tắt: ⬅/➡ (Chuyển câu) | ⬆/⬇ (Lật thẻ) | Ctrl (Đổi ngôn ngữ)",
+            wrong: "✘ Sai rồi", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", 
+            shortcutHelp: "Phím tắt: 1-4 (Chọn đáp án) | ⬅/➡ (Chuyển câu) | ⬆/⬇ (Lật thẻ) | Shift (Đổi ngôn ngữ)",
             chooseOne: "Chọn 1 đáp án", chooseMulti: "Hãy chọn {n} đáp án", checkBtn: "Kiểm tra đáp án ✨", explanation: "Giải thích chi tiết:"
         },
         en: {
             setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀", mapTitle: "Question Map",
             submit: "Submit", resultTitle: "Quiz Results", prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
             legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:", unanswered: "⚪ Unanswered", correct: "✔ Correct",
-            wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", shortcutHelp: "Shortcuts: ⬅/➡ (Navigate) | ⬆/⬇ (Flip) | Ctrl (Language)",
+            wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", 
+            shortcutHelp: "Shortcuts: 1-4 (Select Option) | ⬅/➡ (Navigate) | ⬆/⬇ (Flip) | Shift (Language)",
             chooseOne: "Choose 1 answer", chooseMulti: "Choose {n} answers", checkBtn: "Check Answer ✨", explanation: "Detailed Explanation:"
         }
     };
@@ -6614,7 +6598,6 @@
         renderMap();
     }
 
-    // --- CORE RENDER QUESTION FUNCTION ---
     function renderQuestionCard() {
         if (!state.activeQuestions[state.currentQuizIndex]) return;
 
@@ -6624,32 +6607,25 @@
         const data = state.isVietnamese ? qObj.vi : qObj.en;
         const userSelections = state.userAnswers[idx] || [];
         
-        // Tìm index đúng (robust logic)
         const correctIndices = getCorrectIndices(data, qObj);
         const numCorrect = correctIndices.length;
         const isMulti = numCorrect > 1;
         const isChecked = state.checkedQuestions[idx] === true;
 
-        // 1. Hiển thị Badge
         const hintBadge = document.getElementById('multi-select-badge');
         hintBadge.classList.remove('hidden');
         if(isMulti) {
             hintBadge.innerText = t.chooseMulti.replace('{n}', numCorrect);
-            hintBadge.style.color = '#856404';
-            hintBadge.style.backgroundColor = '#fff3cd';
-            hintBadge.style.border = '1px solid #ffeeba';
+            hintBadge.style.color = '#856404'; hintBadge.style.backgroundColor = '#fff3cd'; hintBadge.style.border = '1px solid #ffeeba';
         } else {
             hintBadge.innerText = t.chooseOne;
-            hintBadge.style.color = '#495057';
-            hintBadge.style.backgroundColor = '#f1f3f5';
-            hintBadge.style.border = 'none';
+            hintBadge.style.color = '#495057'; hintBadge.style.backgroundColor = '#f1f3f5'; hintBadge.style.border = 'none';
         }
         
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
         document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
         document.getElementById('q-content').innerHTML = `<div>${data.question}</div>`;
         
-        // 2. Render Options
         const ul = document.getElementById('q-options');
         ul.innerHTML = '';
         if (isChecked) ul.classList.add('checked');
@@ -6672,20 +6648,16 @@
                 else if (isSelected && !isCorrectOption) li.classList.add('is-wrong-answer');
                 li.onclick = null;
             } else {
-                // Pass correctIndices down to handler
                 li.onclick = () => handleAnswer(idx, originalIndex, isMulti, isChecked, correctIndices);
             }
             ul.appendChild(li);
         });
 
-        // 3. Nút Check & Giải thích
         const checkBtnContainer = document.getElementById('check-btn-container');
         const checkBtn = document.getElementById('btn-manual-check');
         const explainDiv = document.getElementById('instant-explain-area');
 
-        // Reset nút check
         checkBtn.innerText = t.checkBtn;
-        // Quan trọng: Gỡ bỏ onclick cũ bằng cloneNode hoặc gán lại
         const newBtn = checkBtn.cloneNode(true);
         checkBtn.parentNode.replaceChild(newBtn, checkBtn);
         newBtn.onclick = () => performCheck(idx, correctIndices);
@@ -6698,11 +6670,9 @@
                                     <strong>${t.explanation}</strong> ${data.explanation || "..."}`;
         } else {
             explainDiv.className = 'instant-explanation'; explainDiv.innerHTML = '';
-            
-            // Logic hiển thị nút check
             if (isMulti) {
                 checkBtnContainer.classList.remove('hidden');
-                newBtn.disabled = userSelections.length === 0; // Disable nếu chưa chọn gì
+                newBtn.disabled = userSelections.length === 0;
             } else {
                 checkBtnContainer.classList.add('hidden');
             }
@@ -6723,10 +6693,10 @@
             const selectionIndex = currentSelection.indexOf(originalIndex);
             if (selectionIndex > -1) currentSelection.splice(selectionIndex, 1);
             else currentSelection.push(originalIndex);
-            renderQuestionCard(); // Re-render để update UI và nút Check
+            renderQuestionCard(); 
         } else {
             state.userAnswers[qIdx] = [originalIndex];
-            performCheck(qIdx, correctIndices); // Check luôn
+            performCheck(qIdx, correctIndices); 
         }
     }
 
@@ -6848,18 +6818,60 @@
         document.getElementById('shortcut-help').innerText = t.shortcutHelp;
     }
 
+    // --- SỰ KIỆN BÀN PHÍM CẬP NHẬT ---
     document.addEventListener('keydown', e => {
-        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
-        if (e.key === 'Control') { e.preventDefault(); toggleLanguage(); }
+        // Không kích hoạt khi đang nhập liệu
+        if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+        // 1. Đổi ngôn ngữ bằng Shift
+        if (e.key === 'Shift') {
+            // Mặc dù Shift thường là modifier, nhưng bắt sự kiện keydown đơn lẻ vẫn ok
+            // e.preventDefault(); // Không prevent Shift vì nó ảnh hưởng việc gõ chữ hoa nếu user giữ
+            toggleLanguage();
+        }
+
+        // 2. Flashcard navigation
         if (state.activeTab === 'flashcard') {
             if (e.key === 'ArrowLeft') navFlashcard(-1);
             if (e.key === 'ArrowRight') navFlashcard(1);
             if ([' ', 'Enter', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
                 e.preventDefault(); document.querySelector('.flashcard').classList.toggle('flipped');
             }
-        } else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
+        } 
+        
+        // 3. Quiz navigation & Selection
+        else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
             if (e.key === 'ArrowLeft') navQuiz(-1);
             if (e.key === 'ArrowRight') navQuiz(1);
+
+            // Chọn đáp án bằng phím số (1, 2, 3, 4 -> A, B, C, D)
+            if (e.key >= '1' && e.key <= '8') {
+                const displayIndex = parseInt(e.key) - 1; // Chuyển thành index 0-7
+                const idx = state.currentQuizIndex;
+                
+                // Kiểm tra xem câu hỏi có tồn tại và chưa bị khóa (đã check) không
+                if (state.activeQuestions[idx] && !state.checkedQuestions[idx]) {
+                    const qObj = state.activeQuestions[idx];
+                    const data = state.isVietnamese ? qObj.vi : qObj.en;
+                    
+                    // Kiểm tra xem số lượng options có đủ không (ví dụ có 4 options mà nhấn phím 5 thì bỏ qua)
+                    if (displayIndex < (data.options || []).length) {
+                        const originalIndex = qObj.shuffledIndices[displayIndex];
+                        const correctIndices = getCorrectIndices(data, qObj);
+                        const isMulti = correctIndices.length > 1;
+                        
+                        handleAnswer(idx, originalIndex, isMulti, false, correctIndices);
+                    }
+                }
+            }
+
+            // Phím Enter để "Nộp" cho câu hỏi nhiều lựa chọn (Multi-select)
+            if (e.key === 'Enter') {
+                const checkBtn = document.getElementById('btn-manual-check');
+                if (checkBtn && !checkBtn.parentElement.classList.contains('hidden') && !checkBtn.disabled) {
+                    checkBtn.click();
+                }
+            }
         }
     });
 
