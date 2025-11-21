@@ -82,7 +82,6 @@
             cursor: pointer; position: relative; transition: all 0.2s; font-size: 15px;
         }
         .options-list li:hover:not(.disabled) { border-color: var(--primary-color); background: #f9f5ff; }
-        /* === THÊM: Style cho đáp án được chọn === */
         .options-list li.selected {
             border-color: var(--primary-color);
             background-color: var(--primary-light);
@@ -157,33 +156,29 @@
             <div id="flashcard-view" class="view-section active-view">
                 <div class="filter-container" style="max-width: 700px; margin: 0 auto 20px auto;">
                     <label style="font-weight:bold; color:var(--primary-color); display:block; margin-bottom:8px;">📖 Chọn nội dung học:</label>
-                    <select id="fc-category-select" onchange="updateFlashcardFilter()" class="custom-select">
-                        <option value="all">-- Tất cả / All Chapters --</option>
-                    </select>
+                    <select id="fc-category-select" onchange="updateFlashcardFilter()" class="custom-select"></select>
                 </div>
-
                 <div class="flashcard-wrapper">
                     <div class="flashcard" onclick="this.classList.toggle('flipped')">
                         <div class="card-face card-front">
-                            <div class="category-badge" id="fc-tag">Chapter</div>
+                            <div class="category-badge" id="fc-tag"></div>
                             <div style="flex:1; display:flex; align-items:center; justify-content:center; width:100%;">
                                 <div id="fc-content" style="font-size: 20px; font-weight: 500; line-height: 1.5;"></div>
                             </div>
                         </div>
                         <div class="card-face card-back">
-                            <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;">Đáp Án</div>
+                            <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;"></div>
                             <div id="fc-answer" style="font-size: 18px; font-weight: bold; margin-bottom: 20px; color:var(--dark-text); width: 100%;"></div>
                             <div style="width: 100%; font-size: 15px; color: #555; background: #f1f3f5; padding: 15px; border-radius: 10px;">
-                                <strong id="fc-explanation-label" style="color:var(--primary-color);">Giải thích:</strong><br>
+                                <strong id="fc-explanation-label" style="color:var(--primary-color);"></strong><br>
                                 <span id="fc-explanation"></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
                 <div style="display:flex; justify-content:center; gap:20px; align-items: center;">
                     <button class="nav-btn secondary" onclick="navFlashcard(-1)">← Trước</button>
-                    <span id="fc-counter" style="font-weight:700; color:#868e96; font-size: 16px; min-width: 80px; text-align: center;">0 / 0</span>
+                    <span id="fc-counter" style="font-weight:700; color:#868e96; font-size: 16px; min-width: 80px; text-align: center;"></span>
                     <button class="nav-btn secondary" onclick="navFlashcard(1)">Sau →</button>
                 </div>
                 <div id="shortcut-help" style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;"></div>
@@ -215,7 +210,6 @@
                     </div>
                     <div id="q-content" class="question-text"></div>
                     <ul class="options-list" id="q-options"></ul>
-                    <div class="explanation-box" id="q-explanation"></div>
                 </div>
                 <div class="flex-between" style="max-width: 100%;">
                     <button class="nav-btn secondary" onclick="navQuiz(-1)" id="btn-prev"></button>
@@ -227,7 +221,7 @@
             <div id="quiz-result" class="view-section">
                 <div class="result-header">
                     <h2 id="txt-result-title"></h2>
-                    <div class="score-number" id="score-val" style="font-size:48px; font-weight:700; color:var(--primary-color);"></div>
+                    <div id="score-val" style="font-size:48px; font-weight:700; color:var(--primary-color);"></div>
                     <p id="score-percent" style="color: #868e96; font-weight: 600; font-size: 20px; margin-top: 0;"></p>
                     <button class="start-btn" onclick="resetQuiz()" style="margin-top: 20px;">Làm đề mới 🔄</button>
                 </div>
@@ -6346,11 +6340,15 @@
 ];
 
     // ======================================================
-    // 2. LOGIC
+    // 2. LOGIC (PHIÊN BẢN HOÀN CHỈNH)
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
-    const compareArrays = (a, b) => a.length === b.length && a.sort().every((val, index) => val === b.sort()[index]);
+    const compareArrays = (a, b) => {
+        const sortedA = [...a].sort();
+        const sortedB = [...b].sort();
+        return sortedA.length === sortedB.length && sortedA.every((val, index) => val === sortedB[index]);
+    };
 
     let state = {
         isVietnamese: true, activeTab: 'flashcard', fcIndex: 0, filteredFlashcards: [],
@@ -6373,7 +6371,11 @@
     };
 
     function init() {
-        if (!quizData || quizData.length === 0) return;
+        if (!quizData || quizData.length === 0) {
+            console.error("Lỗi: Dữ liệu quizData trống hoặc không tồn tại!");
+            document.body.innerHTML = '<h1 style="font-family: sans-serif; text-align: center; margin-top: 50px; color: red;">Lỗi: Không tìm thấy dữ liệu câu hỏi (quizData).</h1>';
+            return;
+        }
         const uniqueCats = Array.from(new Set(quizData.map(q => q.category || "Khác")));
         uniqueCats.sort(naturalSort);
         const populate = (id) => {
@@ -6405,6 +6407,7 @@
     }
 
     function switchTab(tab) { state.activeTab = tab; updateView(); }
+    
     function updateFlashcardFilter() {
         const cat = document.getElementById('fc-category-select').value;
         state.filteredFlashcards = (cat === 'all') ? quizData : quizData.filter(q => (q.category || "Khác") === cat);
@@ -6428,7 +6431,8 @@
             contentHtml += '</ul>';
         }
         document.getElementById('fc-content').innerHTML = contentHtml;
-        document.getElementById('fc-answer').innerText = Array.isArray(data.answer) ? data.answer.join('\n') : data.answer;
+        const answerText = Array.isArray(data.answer) ? data.answer.join('\n') : data.answer;
+        document.getElementById('fc-answer').innerText = answerText;
         document.getElementById('fc-explanation').innerHTML = data.explanation;
         countSpan.innerText = `${state.fcIndex + 1} / ${state.filteredFlashcards.length}`;
     }
@@ -6452,8 +6456,14 @@
         let pool = (cat === 'all') ? [...quizData] : quizData.filter(q => (q.category || "Khác") === cat);
         if (pool.length === 0) { alert(state.isVietnamese ? "Không có câu hỏi!" : "No questions!"); return; }
         let count = Math.min(parseInt(document.getElementById('quiz-count-input').value), pool.length);
+        if (isNaN(count) || count <= 0) count = 1;
+
         const selectedQuestions = shuffleArray(pool).slice(0, count);
-        state.activeQuestions = selectedQuestions.map(q => ({ ...q, shuffledIndices: shuffleArray(Array.from({ length: q.en.options.length }, (_, i) => i)) }));
+        state.activeQuestions = selectedQuestions.map(q => ({ 
+            ...q, 
+            shuffledIndices: shuffleArray(Array.from({ length: (q.en.options || []).length }, (_, i) => i)) 
+        }));
+        
         state.userAnswers = {};
         state.quizResults = {};
         state.currentQuizIndex = 0;
@@ -6464,17 +6474,22 @@
     }
 
     function renderQuestionCard() {
+        if (!state.activeQuestions[state.currentQuizIndex]) return;
+
         const t = state.isVietnamese ? texts.vi : texts.en;
         const idx = state.currentQuizIndex;
         const qObj = state.activeQuestions[idx];
         const data = state.isVietnamese ? qObj.vi : qObj.en;
         const userSelections = state.userAnswers[idx] || [];
+        
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
         document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
         document.getElementById('q-content').innerHTML = `<div>${data.question}</div>`;
+        
         const ul = document.getElementById('q-options');
         ul.innerHTML = '';
         const labels = ['A', 'B', 'C', 'D', 'E', 'F'];
+        
         qObj.shuffledIndices.forEach((originalIndex, displayPos) => {
             const li = document.createElement('li');
             li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F]\.\s*/, '');
@@ -6483,19 +6498,16 @@
             li.onclick = () => handleAnswer(idx, originalIndex);
             ul.appendChild(li);
         });
+        
         document.getElementById('btn-prev').disabled = idx === 0;
         document.getElementById('btn-next').disabled = idx === state.activeQuestions.length - 1;
         renderMap();
     }
 
-    function charToOptionText(char, options) {
-        const index = char.charCodeAt(0) - 'A'.charCodeAt(0);
-        return options[index];
-    }
-
     function handleAnswer(qIdx, originalIndex) {
         state.userAnswers[qIdx] = state.userAnswers[qIdx] || [];
         const selectionIndex = state.userAnswers[qIdx].indexOf(originalIndex);
+        
         if (selectionIndex > -1) {
             state.userAnswers[qIdx].splice(selectionIndex, 1);
         } else {
@@ -6506,7 +6518,10 @@
 
     function navQuiz(dir) {
         let next = state.currentQuizIndex + dir;
-        if (next >= 0 && next < state.activeQuestions.length) { state.currentQuizIndex = next; renderQuestionCard(); }
+        if (next >= 0 && next < state.activeQuestions.length) { 
+            state.currentQuizIndex = next; 
+            renderQuestionCard(); 
+        }
     }
 
     function finishQuiz() {
@@ -6514,13 +6529,16 @@
         let correctCount = 0;
         state.activeQuestions.forEach((q, i) => {
             const data = state.isVietnamese ? q.vi : q.en;
-            const correctAnswers = Array.isArray(data.answer) ? data.answer : [data.answer];
-            const correctIndices = correctAnswers.map(ans => data.options.indexOf(ans));
+            const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
+            const correctIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt === ansText)).filter(index => index !== -1);
+            
             const userIndices = state.userAnswers[i] || [];
             const isCorrect = compareArrays(userIndices, correctIndices);
+            
             state.quizResults[i] = { isCorrect };
             if (isCorrect) correctCount++;
         });
+
         state.quizPhase = 'result';
         updateView();
         const total = state.activeQuestions.length;
@@ -6584,14 +6602,21 @@
 
     function updateLanguageTexts() {
         const t = state.isVietnamese ? texts.vi : texts.en;
-        Object.keys(t).forEach(key => {
-            const el = document.getElementById(`txt-${key.toLowerCase().replace(/label$/, '')}`) || document.getElementById(key);
-            if (el) {
-                if (key === 'start') el.innerHTML = t[key];
-                else el.innerText = t[key];
-            }
-        });
         document.getElementById('current-lang-text').innerText = state.isVietnamese ? "VN" : "EN";
+        document.getElementById('txt-setup-title').innerText = t.setupTitle;
+        document.getElementById('txt-total').innerText = t.total;
+        document.getElementById('txt-q-count').innerText = t.qCount;
+        document.getElementById('txt-start').innerHTML = t.start;
+        document.getElementById('btn-prev').innerText = t.prev;
+        document.getElementById('btn-next').innerText = t.next;
+        document.getElementById('btn-submit').innerText = t.submit;
+        document.getElementById('txt-result-title').innerText = t.resultTitle;
+        document.getElementById('fc-answer-label').innerText = t.fcAnsLabel;
+        document.getElementById('fc-explanation-label').innerText = t.fcExpLabel;
+        document.getElementById('leg-current').innerText = t.legCur;
+        document.getElementById('leg-correct').innerText = t.legCor;
+        document.getElementById('leg-wrong').innerText = t.legWro;
+        document.getElementById('txt-map-title').innerText = t.mapTitle;
         document.getElementById('shortcut-help').innerText = t.shortcutHelp;
     }
 
