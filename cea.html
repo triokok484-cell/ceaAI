@@ -220,7 +220,7 @@
             display: none;
         }
 
-        /* === FLASHCARD UPGRADE === */
+        /* FLASHCARD UPGRADE */
         .flashcard-wrapper { 
             display: flex; 
             justify-content: center; 
@@ -234,16 +234,15 @@
             transform-style: preserve-3d; 
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            display: grid; /* ADD: Use grid to manage face sizes */
+            display: grid;
         }
         .flashcard.flipped { 
             transform: rotateY(180deg); 
         }
         .card-face {
-            /* REMOVE: position: absolute & height: 100% */
-            grid-area: 1 / 1; /* ADD: Place both faces in the same grid cell */
+            grid-area: 1 / 1;
             width: 100%; 
-            min-height: 400px; /* Use min-height to allow growth */
+            min-height: 400px;
             backface-visibility: hidden; 
             border-radius: 24px;
             box-shadow: var(--card-shadow); 
@@ -255,7 +254,6 @@
             align-items: center; 
             text-align: center;
             border: 1px solid rgba(0,0,0,0.05);
-            /* REMOVE: overflow-y: auto */
         }
         .card-back { 
             transform: rotateY(180deg); 
@@ -264,13 +262,12 @@
             text-align: left; 
             align-items: flex-start; 
         }
-        /* === END FLASHCARD UPGRADE === */
         
         /* Badge hiển thị tên chương */
         .category-badge {
             font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
             background: #f1f3f5; color: #868e96; padding: 6px 12px; border-radius: 20px; font-weight: 700;
-            margin-bottom: 20px; /* Tạo khoảng cách để không đè chữ */
+            margin-bottom: 20px;
             display: inline-block;
         }
 
@@ -332,7 +329,6 @@
                             <div style="flex:1; display:flex; align-items:center; justify-content:center; width:100%;">
                                 <div id="fc-content" style="font-size: 20px; font-weight: 500; line-height: 1.5;"></div>
                             </div>
-                            <!-- REMOVED: Dòng chữ "Click để lật" đã được xóa -->
                         </div>
                         <div class="card-face card-back">
                             <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;">Đáp Án</div>
@@ -351,7 +347,7 @@
                     <button class="nav-btn secondary" onclick="navFlashcard(1)">Sau →</button>
                 </div>
                 <div style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;">
-                    Phím tắt: Mũi tên trái/phải (Chuyển) | Space (Lật thẻ)
+                    Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ)
                 </div>
             </div>
 
@@ -435,7 +431,7 @@
     const quizData = [
         // ⚠️ DÁN DỮ LIỆU JSON CỦA BẠN VÀO ĐÂY ⚠️
         // Ví dụ:
-       {
+        {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
@@ -6829,12 +6825,10 @@
         });
     }
 
-    // === NÂNG CẤP CHỨC NĂNG DỊCH ===
     function toggleLanguage() {
         state.isVietnamese = !state.isVietnamese;
         updateLanguageTexts();
         
-        // Vẽ lại giao diện hiện tại với ngôn ngữ mới
         if (state.activeTab === 'flashcard') {
             renderFlashcard();
         } else if (state.activeTab === 'quiz') {
@@ -6874,7 +6868,9 @@
         if(state.activeTab === 'flashcard') {
             if(e.key === 'ArrowLeft') navFlashcard(-1);
             if(e.key === 'ArrowRight') navFlashcard(1);
-            if(e.key === ' ' || e.key === 'Enter') { 
+            
+            // THÊM: Lật thẻ bằng mũi tên Lên/Xuống
+            if(e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowUp' || e.key === 'ArrowDown') { 
                 e.preventDefault(); 
                 document.querySelector('.flashcard').classList.toggle('flipped');
             }
@@ -6909,4 +6905,4 @@
     document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
-</html>
+</html>```
