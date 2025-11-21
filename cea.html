@@ -31,266 +31,106 @@
             overflow: hidden;
         }
 
-        /* HEADER */
         .top-bar {
-            background: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            flex-shrink: 0;
+            background: white; padding: 15px 30px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center; z-index: 100; flex-shrink: 0;
         }
-
-        .tabs {
-            display: flex;
-            background: #f0f2f5;
-            padding: 5px;
-            border-radius: 30px;
-            gap: 5px;
-        }
-
+        .tabs { display: flex; background: #f0f2f5; padding: 5px; border-radius: 30px; gap: 5px; }
         .tab-btn {
-            padding: 8px 24px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 25px;
-            font-weight: 600;
-            color: #666;
-            transition: all 0.3s ease;
-            font-size: 14px;
+            padding: 8px 24px; border: none; background: transparent; cursor: pointer; border-radius: 25px;
+            font-weight: 600; color: #666; transition: all 0.3s ease; font-size: 14px;
         }
-
-        .tab-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
-        }
-
+        .tab-btn.active { background-color: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3); }
         .lang-btn {
-            background: white;
-            border: 2px solid var(--primary-light);
-            color: var(--primary-color);
-            padding: 6px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-            transition: all 0.2s;
+            background: white; border: 2px solid var(--primary-light); color: var(--primary-color); padding: 6px 16px;
+            border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 700; transition: all 0.2s;
         }
         .lang-btn:hover { background: var(--primary-light); }
-
-        /* LAYOUT */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-            height: 100%;
-        }
-
+        .main-container { display: flex; flex: 1; overflow: hidden; position: relative; height: 100%; }
         .content-area {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative; 
+            flex: 1; padding: 30px; overflow-y: auto; width: 100%;
+            display: flex; flex-direction: column; align-items: center; position: relative; 
         }
-
-        /* VIEW MANAGEMENT */
-        .view-section {
-            display: none !important;
-            width: 100%;
-            max-width: 900px;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .view-section.active-view {
-            display: block !important;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* UTILS & BUTTONS */
+        .view-section { display: none !important; width: 100%; max-width: 900px; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .view-section.active-view { display: block !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        
         .start-btn, .nav-btn, .submit-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: 600;
+            background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 30px;
+            font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; font-weight: 600;
             box-shadow: 0 4px 15px rgba(111, 66, 193, 0.3);
         }
         .start-btn:hover, .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4); }
         .submit-btn { background: var(--secondary-color); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
         .nav-btn.secondary { background: #e9ecef; color: #495057; box-shadow: none; }
         .nav-btn.secondary:hover { background: #dee2e6; }
-
-        /* SETUP SCREEN */
         #quiz-setup {
-            background: white;
-            padding: 50px;
-            border-radius: 24px;
-            box-shadow: var(--card-shadow);
-            text-align: center;
-            max-width: 600px;
-            margin: auto;
+            background: white; padding: 50px; border-radius: 24px; box-shadow: var(--card-shadow);
+            text-align: center; max-width: 600px; margin: auto;
         }
-        
         .custom-select {
-            width: 100%;
-            padding: 12px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            background: #fff;
-            margin-top: 10px;
-            cursor: pointer;
-            font-family: inherit;
+            width: 100%; padding: 12px 20px; border: 2px solid #e0e0e0; border-radius: 12px;
+            font-size: 16px; background: #fff; margin-top: 10px; cursor: pointer; font-family: inherit;
         }
         .custom-select:focus { border-color: var(--primary-color); outline: none; }
-
-        /* QUIZ CARD */
-        .question-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .question-text {
-            font-size: 18px; line-height: 1.6; margin-bottom: 25px; font-weight: 500;
-        }
-
+        .question-card { background: white; border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); margin-bottom: 20px; position: relative; }
+        .question-text { font-size: 18px; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
         .options-list { list-style: none; padding: 0; display: grid; gap: 12px; }
         .options-list li {
-            background: #fff;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-            padding: 15px 20px 15px 50px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s;
-            font-size: 15px;
+            background: #fff; border: 2px solid #f0f0f0; border-radius: 12px; padding: 15px 20px 15px 50px;
+            cursor: pointer; position: relative; transition: all 0.2s; font-size: 15px;
         }
         .options-list li:hover:not(.disabled) { border-color: var(--primary-color); background: #f9f5ff; }
-        
-        /* Label A, B, C, D */
+        /* === THÊM: Style cho đáp án được chọn === */
+        .options-list li.selected {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+        }
         .options-list li::before {
-            content: attr(data-label);
-            position: absolute;
-            left: 15px; top: 50%; transform: translateY(-50%);
-            width: 28px; height: 28px;
-            background: #e9ecef; color: #495057;
-            border-radius: 8px;
-            text-align: center; line-height: 28px;
-            font-weight: 700; font-size: 13px;
-            transition: all 0.2s;
+            content: attr(data-label); position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            width: 28px; height: 28px; background: #e9ecef; color: #495057; border-radius: 8px;
+            text-align: center; line-height: 28px; font-weight: 700; font-size: 13px; transition: all 0.2s;
         }
-
-        /* Correct/Wrong States */
-        .options-list li.correct { border-color: var(--secondary-color); background-color: #e6fffa; color: #0ca678; }
+        .options-list li.correct { border-color: var(--secondary-color) !important; background-color: #e6fffa !important; color: #0ca678; }
         .options-list li.correct::before { background: var(--secondary-color); color: white; }
-        
-        .options-list li.wrong { border-color: var(--danger-color); background-color: #fff5f5; color: #e03131; }
+        .options-list li.wrong { border-color: var(--danger-color) !important; background-color: #fff5f5 !important; color: #e03131; }
         .options-list li.wrong::before { background: var(--danger-color); color: white; }
-        
         .options-list li.disabled { cursor: default; }
-
         .explanation-box {
-            margin-top: 25px; padding: 20px; border-radius: 12px;
-            background: #e7f5ff; border-left: 5px solid #228be6; 
-            color: #1c7ed6; line-height: 1.5;
-            display: none;
+            margin-top: 25px; padding: 20px; border-radius: 12px; background: #e7f5ff;
+            border-left: 5px solid #228be6; color: #1c7ed6; line-height: 1.5; display: none;
         }
-
-        /* FLASHCARD UPGRADE */
-        .flashcard-wrapper { 
-            display: flex; 
-            justify-content: center; 
-            perspective: 1000px; 
-            margin-bottom: 30px; 
-        }
+        .flashcard-wrapper { display: flex; justify-content: center; perspective: 1000px; margin-bottom: 30px; }
         .flashcard {
-            width: 100%; 
-            max-width: 700px; 
-            position: relative;
-            transform-style: preserve-3d; 
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            display: grid;
+            width: 100%; max-width: 700px; position: relative; transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: grid;
         }
-        .flashcard.flipped { 
-            transform: rotateY(180deg); 
-        }
+        .flashcard.flipped { transform: rotateY(180deg); }
         .card-face {
-            grid-area: 1 / 1;
-            width: 100%; 
-            min-height: 400px;
-            backface-visibility: hidden; 
-            border-radius: 24px;
-            box-shadow: var(--card-shadow); 
-            background: white;
-            padding: 40px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-start;
-            align-items: center; 
-            text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            grid-area: 1 / 1; width: 100%; min-height: 400px; backface-visibility: hidden; border-radius: 24px;
+            box-shadow: var(--card-shadow); background: white; padding: 40px; display: flex; flex-direction: column;
+            justify-content: flex-start; align-items: center; text-align: center; border: 1px solid rgba(0,0,0,0.05);
         }
-        .card-back { 
-            transform: rotateY(180deg); 
-            background: #f8f9fa; 
-            justify-content: flex-start; 
-            text-align: left; 
-            align-items: flex-start; 
-        }
-        
-        /* Badge hiển thị tên chương */
+        .card-back { transform: rotateY(180deg); background: #f8f9fa; justify-content: flex-start; text-align: left; align-items: flex-start; }
         .category-badge {
-            font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
-            background: #f1f3f5; color: #868e96; padding: 6px 12px; border-radius: 20px; font-weight: 700;
-            margin-bottom: 20px;
-            display: inline-block;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; background: #f1f3f5;
+            color: #868e96; padding: 6px 12px; border-radius: 20px; font-weight: 700; margin-bottom: 20px; display: inline-block;
         }
-
-        /* SIDEBAR */
         .quiz-sidebar {
-            width: 300px; background: white; border-left: 1px solid #f0f0f0;
-            display: flex; flex-direction: column; padding: 25px;
-            overflow-y: auto; flex-shrink: 0; z-index: 90;
+            width: 300px; background: white; border-left: 1px solid #f0f0f0; display: flex;
+            flex-direction: column; padding: 25px; overflow-y: auto; flex-shrink: 0; z-index: 90;
         }
         .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
         .map-btn {
-            width: 100%; aspect-ratio: 1; border: none; border-radius: 10px;
-            background: #f1f3f5; color: #868e96; cursor: pointer; font-weight: 700;
-            transition: all 0.2s;
+            width: 100%; aspect-ratio: 1; border: none; border-radius: 10px; background: #f1f3f5;
+            color: #868e96; cursor: pointer; font-weight: 700; transition: all 0.2s;
         }
         .map-btn:hover { background: #e9ecef; transform: scale(1.05); }
         .map-btn.active { background: white; border: 2px solid var(--primary-color); color: var(--primary-color); }
         .map-btn.correct { background: var(--secondary-color); color: white; }
         .map-btn.wrong { background: var(--danger-color); color: white; }
-
-        /* RESULT */
         .result-header { text-align: center; background: white; padding: 40px; border-radius: 24px; margin-bottom: 30px; box-shadow: var(--card-shadow); }
-        
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .quiz-sidebar { width: 100%; height: auto; max-height: 120px; border-left: none; border-top: 1px solid #eee; order: -1; padding: 15px; }
@@ -346,57 +186,49 @@
                     <span id="fc-counter" style="font-weight:700; color:#868e96; font-size: 16px; min-width: 80px; text-align: center;">0 / 0</span>
                     <button class="nav-btn secondary" onclick="navFlashcard(1)">Sau →</button>
                 </div>
-                <div id="shortcut-help" style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;">
-                    <!-- Nội dung sẽ được cập nhật bằng JS -->
-                </div>
+                <div id="shortcut-help" style="text-align: center; margin-top: 15px; color: #adb5bd; font-size: 12px;"></div>
             </div>
 
             <div id="quiz-setup" class="view-section">
-                <h2 id="txt-setup-title" style="color: var(--primary-color); margin-bottom: 30px;">Cấu hình luyện tập</h2>
-                
+                <h2 id="txt-setup-title" style="color: var(--primary-color); margin-bottom: 30px;"></h2>
                 <div style="text-align: left; margin-bottom: 25px;">
                     <label style="font-weight:600; margin-bottom: 5px; display:block;">1. Chọn chủ đề ôn tập:</label>
-                    <select id="quiz-category-select" onchange="updateQuizCountMax()" class="custom-select">
-                        <option value="all">Toàn bộ ngân hàng câu hỏi</option>
-                    </select>
+                    <select id="quiz-category-select" onchange="updateQuizCountMax()" class="custom-select"></select>
                 </div>
-
                 <div style="text-align: left; margin-bottom: 35px;">
-                    <label id="txt-q-count" style="font-weight:600; margin-bottom: 5px; display:block;">2. Số lượng câu hỏi:</label>
+                    <label id="txt-q-count" style="font-weight:600; margin-bottom: 5px; display:block;"></label>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <input type="number" id="quiz-count-input" min="1" value="10" style="padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 18px; font-weight:bold; width: 100px; text-align: center; color: var(--primary-color);">
                         <div style="font-size: 14px; color: #868e96;">
-                            <span id="txt-total">Có sẵn:</span> <strong id="total-qs" style="color:var(--dark-text)">0</strong> câu
+                            <span id="txt-total"></span> <strong id="total-qs" style="color:var(--dark-text)">0</strong> câu
                         </div>
                     </div>
                 </div>
-                
-                <button class="start-btn" onclick="startQuiz()" id="txt-start" style="width: 100%;">Bắt đầu làm bài 🚀</button>
+                <button class="start-btn" onclick="startQuiz()" id="txt-start" style="width: 100%;"></button>
             </div>
 
             <div id="quiz-active" class="view-section">
                 <div class="question-card">
                     <div class="flex-between" style="margin-bottom:20px; color:#868e96; font-size: 14px; font-weight: 600;">
-                        <span id="quiz-progress">Question 1/10</span>
-                        <div class="category-badge" id="q-category-badge" style="margin-bottom:0; font-size:10px;">Chapter</div>
+                        <span id="quiz-progress"></span>
+                        <div class="category-badge" id="q-category-badge" style="margin-bottom:0; font-size:10px;"></div>
                     </div>
                     <div id="q-content" class="question-text"></div>
                     <ul class="options-list" id="q-options"></ul>
                     <div class="explanation-box" id="q-explanation"></div>
                 </div>
-
                 <div class="flex-between" style="max-width: 100%;">
-                    <button class="nav-btn secondary" onclick="navQuiz(-1)" id="btn-prev">Quay lại</button>
-                    <button class="submit-btn" onclick="finishQuiz()" id="btn-submit">Nộp bài</button>
-                    <button class="nav-btn" onclick="navQuiz(1)" id="btn-next">Tiếp theo</button>
+                    <button class="nav-btn secondary" onclick="navQuiz(-1)" id="btn-prev"></button>
+                    <button class="submit-btn" onclick="finishQuiz()" id="btn-submit"></button>
+                    <button class="nav-btn" onclick="navQuiz(1)" id="btn-next"></button>
                 </div>
             </div>
 
             <div id="quiz-result" class="view-section">
                 <div class="result-header">
-                    <h2 id="txt-result-title" style="margin-bottom: 10px;">Kết quả bài làm</h2>
-                    <div class="score-number" id="score-val" style="font-size:48px; font-weight:700; color:var(--primary-color);">0/0</div>
-                    <p id="score-percent" style="color: #868e96; font-weight: 600; font-size: 20px; margin-top: 0;">(0%)</p>
+                    <h2 id="txt-result-title"></h2>
+                    <div class="score-number" id="score-val" style="font-size:48px; font-weight:700; color:var(--primary-color);"></div>
+                    <p id="score-percent" style="color: #868e96; font-weight: 600; font-size: 20px; margin-top: 0;"></p>
                     <button class="start-btn" onclick="resetQuiz()" style="margin-top: 20px;">Làm đề mới 🔄</button>
                 </div>
                 <div id="review-list"></div>
@@ -405,21 +237,12 @@
         </div>
 
         <div class="quiz-sidebar hidden" id="quiz-sidebar">
-            <div id="txt-map-title" style="font-weight:700; margin-bottom:20px; font-size: 16px;">Bản đồ câu hỏi</div>
+            <div id="txt-map-title" style="font-weight:700; margin-bottom:20px; font-size: 16px;"></div>
             <div class="question-grid" id="map-grid"></div>
             <div style="margin-top:auto; padding-top: 20px; font-size:13px; color:#868e96; border-top: 1px solid #f0f0f0;">
-                <div class="flex-between" style="justify-content: flex-start; margin-bottom:8px;">
-                    <div style="width:12px; height:12px; border:2px solid var(--primary-color); border-radius: 3px; margin-right:10px;"></div> 
-                    <span id="leg-current">Đang làm</span>
-                </div>
-                <div class="flex-between" style="justify-content: flex-start; margin-bottom:8px;">
-                    <div style="width:12px; height:12px; background:var(--secondary-color); border-radius: 3px; margin-right:10px;"></div> 
-                    <span id="leg-correct">Đúng</span>
-                </div>
-                <div class="flex-between" style="justify-content: flex-start;">
-                    <div style="width:12px; height:12px; background:var(--danger-color); border-radius: 3px; margin-right:10px;"></div> 
-                    <span id="leg-wrong">Sai</span>
-                </div>
+                <div class="flex-between" style="justify-content: flex-start; margin-bottom:8px;"><div style="width:12px; height:12px; border:2px solid var(--primary-color); border-radius: 3px; margin-right:10px;"></div><span id="leg-current"></span></div>
+                <div class="flex-between" style="justify-content: flex-start; margin-bottom:8px;"><div style="width:12px; height:12px; background:var(--secondary-color); border-radius: 3px; margin-right:10px;"></div><span id="leg-correct"></span></div>
+                <div class="flex-between" style="justify-content: flex-start;"><div style="width:12px; height:12px; background:var(--danger-color); border-radius: 3px; margin-right:10px;"></div><span id="leg-wrong"></span></div>
             </div>
         </div>
     </div>
@@ -428,10 +251,7 @@
     // ======================================================
     // 1. DỮ LIỆU
     // ======================================================
-    const quizData = [
-        // ⚠️ DÁN DỮ LIỆU JSON CỦA BẠN VÀO ĐÂY ⚠️
-        // Ví dụ:
-        {
+    const quizData = [ {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
@@ -528,20 +348,29 @@
         }
     },
     {
-        "id": 7,
-        "category": "Chương 1: Giới thiệu (Introduction)",
-        "en": {
-            "question": "Which of the following attributes does not belong to computer architecture?",
-            "options": [ "A. The number of bits used to represent data types.", "B. The instruction set.", "C. The interface between the computer and peripherals.", "D. Techniques for addressing memory.", "E. The memory technology used.", "F. I/O mechanisms." ],
-            "answer": "C. The interface between the computer and peripherals.",
-            "explanation": "Interfaces, memory technology, and specific I/O mechanisms are part of Computer Organization, which deals with implementation details. Architecture deals with attributes visible to the programmer, like the instruction set and data types."
-        },
-        "vi": {
-            "question": "Thuộc tính nào sau đây không thuộc về kiến trúc máy tính?",
-            "options": [ "A. Số bit được sử dụng để biểu diễn các kiểu dữ liệu.", "B. Tập lệnh.", "C. Giao diện giữa máy tính và các thiết bị ngoại vi.", "D. Các kỹ thuật để định địa chỉ bộ nhớ.", "E. Công nghệ bộ nhớ được sử dụng.", "F. Cơ chế I/O." ],
-            "answer": "C. Giao diện giữa máy tính và các thiết bị ngoại vi.",
-            "explanation": "Giao diện, công nghệ bộ nhớ, và cơ chế I/O cụ thể là một phần của Tổ chức máy tính, liên quan đến chi tiết triển khai. Kiến trúc liên quan đến các thuộc tính mà lập trình viên có thể thấy, như tập lệnh và kiểu dữ liệu. (Đáp án E và F cũng thuộc về Tổ chức)."
-        }
+    "id": 7,
+    "category": "Chương 1: Giới thiệu (Introduction)",
+    "en": {
+        "question": "Which of the following attributes does not belong to computer architecture? (Select all that apply)",
+        "options": [ "A. The number of bits used to represent data types.", "B. The instruction set.", "C. The interface between the computer and peripherals.", "D. Techniques for addressing memory.", "E. The memory technology used.", "F. I/O mechanisms." ],
+        "answer": [
+            "C. The interface between the computer and peripherals.",
+            "E. The memory technology used.",
+            "F. I/O mechanisms."
+        ],
+        "explanation": "Computer Architecture defines attributes visible to a programmer (instruction set, data types). Computer Organization deals with implementation details like peripheral interfaces (C), memory technology (E), and I/O mechanisms (F). All three belong to Organization."
+    },
+    "vi": {
+        "question": "Thuộc tính nào sau đây không thuộc về kiến trúc máy tính? (Chọn tất cả các đáp án đúng)",
+        "options": [ "A. Số bit được sử dụng để biểu diễn các kiểu dữ liệu.", "B. Tập lệnh.", "C. Giao diện giữa máy tính và các thiết bị ngoại vi.", "D. Các kỹ thuật để định địa chỉ bộ nhớ.", "E. Công nghệ bộ nhớ được sử dụng.", "F. Cơ chế I/O." ],
+        "answer": [
+            "C. Giao diện giữa máy tính và các thiết bị ngoại vi.",
+            "E. Công nghệ bộ nhớ được sử dụng.",
+            "F. Cơ chế I/O."
+        ],
+        "explanation": "Kiến trúc máy tính định nghĩa các thuộc tính mà lập trình viên thấy được (tập lệnh, kiểu dữ liệu). Tổ chức máy tính liên quan đến chi tiết triển khai như giao diện ngoại vi (C), công nghệ bộ nhớ (E), và cơ chế I/O (F). Cả ba đều thuộc về Tổ chức."
+    }
+}
     },
     {
         "id": 8,
@@ -2592,20 +2421,27 @@
         }
     },
     {
-        "id": 136,
-        "category": "Chương 6: Bộ nhớ ngoài (External Memory)",
-        "en": {
-            "question": "Which of the following is an issue specific to SSDs compared to HDDs?",
-            "options": [ "A. Performance slows down as the device is used.", "B. A certain number of writes renders the flash memory unusable.", "C. They are more susceptible to physical damage.", "D. They require defragmentation to maintain performance." ],
-            "answer": "B. A certain number of writes renders the flash memory unusable.",
-            "explanation": "SSD memory cells have a finite number of program-erase cycles (write endurance). While modern SSDs have wear-leveling algorithms to mitigate this, it remains a fundamental limitation of NAND flash technology. Performance degradation (A) also occurs, but B is a more fundamental issue."
-        },
-        "vi": {
-            "question": "Vấn đề nào sau đây là đặc thù của SSD so với HDD?",
-            "options": [ "A. Hiệu suất chậm lại khi thiết bị được sử dụng.", "B. Một số lượng ghi nhất định làm cho bộ nhớ flash không thể sử dụng được.", "C. Chúng dễ bị hư hỏng vật lý hơn.", "D. Chúng yêu cầu chống phân mảnh để duy trì hiệu suất." ],
-            "answer": "B. Một số lượng ghi nhất định làm cho bộ nhớ flash không thể sử dụng được.",
-            "explanation": "Các ô nhớ SSD có một số chu kỳ ghi/xóa hữu hạn (độ bền ghi). Mặc dù các ổ SSD hiện đại có các thuật toán cân bằng độ mòn để giảm thiểu điều này, nó vẫn là một hạn chế cơ bản của công nghệ flash NAND. Suy giảm hiệu suất (A) cũng xảy ra, nhưng B là một vấn đề cơ bản hơn."
-        }
+    "id": 136,
+    "category": "Chương 6: Bộ nhớ ngoài (External Memory)",
+    "en": {
+        "question": "Which of the following are issues specific to SSDs compared to HDDs? (Select all that apply)",
+        "options": [ "A. Performance slows down as the device is used.", "B. A limited number of writes renders the flash memory unusable over time.", "C. They are more susceptible to physical damage.", "D. They require defragmentation to maintain performance." ],
+        "answer": [
+            "A. Performance slows down as the device is used.",
+            "B. A limited number of writes renders the flash memory unusable over time."
+        ],
+        "explanation": "SSDs have two main issues: their performance degrades as free blocks become scarce (A), and the flash memory cells have a finite number of program-erase cycles (write endurance), meaning they wear out over time (B)."
+    },
+    "vi": {
+        "question": "Vấn đề nào sau đây là đặc thù của SSD so với HDD? (Chọn tất cả các đáp án đúng)",
+        "options": [ "A. Hiệu suất chậm lại khi thiết bị được sử dụng.", "B. Một số lượng ghi hữu hạn làm cho bộ nhớ flash không thể sử dụng được theo thời gian.", "C. Chúng dễ bị hư hỏng vật lý hơn.", "D. Chúng yêu cầu chống phân mảnh để duy trì hiệu suất." ],
+        "answer": [
+            "A. Hiệu suất chậm lại khi thiết bị được sử dụng.",
+            "B. Một số lượng ghi hữu hạn làm cho bộ nhớ flash không thể sử dụng được theo thời gian."
+        ],
+        "explanation": "SSD có hai vấn đề chính: hiệu suất của chúng bị suy giảm khi các khối trống trở nên khan hiếm (A), và các ô nhớ flash có một số chu kỳ ghi/xóa hữu hạn (độ bền ghi), nghĩa là chúng sẽ bị mòn theo thời gian (B)."
+    }
+}
     },
     {
         "id": 137,
@@ -3184,36 +3020,52 @@
         }
     },
     {
-        "id": 173,
-        "category": "Chương 7: Vào/Ra (Input/Output)",
-        "en": {
-            "question": "Which are the primary roles of an IO module? (choose two correct answers)",
-            "options": [ "A. Its role is to transfer data, it will transfer data to and from peripherals.", "B. Its role is to control device communication, it manages and controls the flow of data between the CPU and peripherals.", "C. Its role is to format data and convert analog signals into digital audio data for the CPU.", "D. Its role is to protect data from users, ensuring that sensitive information is not lost or intercepted." ],
-            "answer": "A. Its role is to transfer data, it will transfer data to and from peripherals.",
-            "explanation": "The two main roles are acting as an interface for data transfer (A) and providing the necessary control signals and communication logic to manage that transfer (B)."
-        },
-        "vi": {
-            "question": "Vai trò chính của mô-đun IO là gì? (chọn hai câu trả lời đúng)",
-            "options": [ "A. Vai trò của nó là truyền dữ liệu, nó sẽ truyền dữ liệu đến và từ các thiết bị ngoại vi.", "B. Vai trò của nó là điều khiển giao tiếp thiết bị, nó quản lý và điều khiển luồng dữ liệu giữa CPU và các thiết bị ngoại vi.", "C. Vai trò của nó là định dạng dữ liệu và chuyển đổi tín hiệu analog thành dữ liệu âm thanh số cho CPU.", "D. Vai trò của nó là bảo vệ dữ liệu khỏi người dùng, đảm bảo thông tin nhạy cảm không bị mất hoặc bị chặn." ],
-            "answer": "A. Vai trò của nó là truyền dữ liệu, nó sẽ truyền dữ liệu đến và từ các thiết bị ngoại vi.",
-            "explanation": "Hai vai trò chính là hoạt động như một giao diện để truyền dữ liệu (A) và cung cấp các tín hiệu điều khiển và logic giao tiếp cần thiết để quản lý việc truyền đó (B). (Câu B cũng là đáp án đúng)."
-        }
+    "id": 173,
+    "category": "Chương 7: Vào/Ra (Input/Output)",
+    "en": {
+        "question": "Which are the primary roles of an IO module? (Select all that apply)",
+        "options": [ "A. It transfers data to and from peripherals.", "B. It controls device communication between the CPU and peripherals.", "C. It formats data and converts analog signals.", "D. It protects data from users." ],
+        "answer": [
+            "A. It transfers data to and from peripherals.",
+            "B. It controls device communication between the CPU and peripherals."
+        ],
+        "explanation": "The two main roles of an I/O module are to act as an interface for data transfer (A) and to provide the necessary control and communication logic to manage that transfer between the CPU and the device (B)."
+    },
+    "vi": {
+        "question": "Vai trò chính của mô-đun IO là gì? (Chọn tất cả các đáp án đúng)",
+        "options": [ "A. Truyền dữ liệu đến và từ các thiết bị ngoại vi.", "B. Điều khiển giao tiếp, quản lý luồng dữ liệu giữa CPU và thiết bị ngoại vi.", "C. Định dạng dữ liệu và chuyển đổi tín hiệu analog.", "D. Bảo vệ dữ liệu khỏi người dùng." ],
+        "answer": [
+            "A. Truyền dữ liệu đến và từ các thiết bị ngoại vi.",
+            "B. Điều khiển giao tiếp, quản lý luồng dữ liệu giữa CPU và thiết bị ngoại vi."
+        ],
+        "explanation": "Hai vai trò chính của một mô-đun I/O là đóng vai trò giao diện để truyền dữ liệu (A) và cung cấp logic điều khiển và giao tiếp cần thiết để quản lý việc truyền dữ liệu đó giữa CPU và thiết bị (B)."
+    }
+}
     },
     {
-        "id": 174,
-        "category": "Chương 7: Vào/Ra (Input/Output)",
-        "en": {
-            "question": "In computers, what types of external devices are included? (choose 3 correct answers)",
-            "options": [ "A. Human readable", "B. Communication", "C. Data Conversion", "D. Machine readable" ],
-            "answer": "A. Human readable",
-            "explanation": "The three broad categories of external devices are: Human readable (e.g., keyboard, monitor), Machine readable (e.g., disk drives, sensors), and Communication (e.g., modem, network interface card)."
-        },
-        "vi": {
-            "question": "Trong máy tính, các thiết bị bên ngoài bao gồm những loại nào? (chọn 3 câu trả lời đúng)",
-            "options": [ "A. Con người có thể đọc được (Human readable)", "B. Giao tiếp (Communication)", "C. Chuyển đổi dữ liệu (Data Conversion)", "D. Máy có thể đọc được (Machine readable)" ],
-            "answer": "A. Con người có thể đọc được (Human readable)",
-            "explanation": "Ba loại thiết bị ngoại vi chính là: Con người có thể đọc được (ví dụ: bàn phím, màn hình), Máy có thể đọc được (ví dụ: ổ đĩa, cảm biến), và Giao tiếp (ví dụ: modem, card mạng). (Câu B và D cũng là đáp án đúng)."
-        }
+    "id": 174,
+    "category": "Chương 7: Vào/Ra (Input/Output)",
+    "en": {
+        "question": "What are the three main categories of external devices? (Select all that apply)",
+        "options": [ "A. Human readable", "B. Communication", "C. Data Conversion", "D. Machine readable" ],
+        "answer": [
+            "A. Human readable",
+            "B. Communication",
+            "D. Machine readable"
+        ],
+        "explanation": "The three broad categories of external devices are: Human readable (e.g., keyboard, monitor), Communication (e.g., modem, network card), and Machine readable (e.g., disk drives, sensors)."
+    },
+    "vi": {
+        "question": "Ba loại chính của thiết bị bên ngoài là gì? (Chọn tất cả các đáp án đúng)",
+        "options": [ "A. Con người có thể đọc được (Human readable)", "B. Giao tiếp (Communication)", "C. Chuyển đổi dữ liệu (Data Conversion)", "D. Máy có thể đọc được (Machine readable)" ],
+        "answer": [
+            "A. Con người có thể đọc được (Human readable)",
+            "B. Giao tiếp (Communication)",
+            "D. Máy có thể đọc được (Machine readable)"
+        ],
+        "explanation": "Ba loại thiết bị ngoại vi chính là: Con người có thể đọc được (ví dụ: bàn phím, màn hình), Giao tiếp (ví dụ: modem, card mạng), và Máy có thể đọc được (ví dụ: ổ đĩa, cảm biến)."
+    }
+}
     },
     {
         "id": 175,
@@ -6495,51 +6347,32 @@
             "explanation": "Trong một hệ thống đa lõi, một ngắt có thể cần được gửi đến một lõi cụ thể, hoặc phát sóng đến nhiều lõi. APIC là phần cứng phức tạp chịu trách nhiệm xử lý các tác vụ định tuyến và ưu tiên ngắt phức tạp này."
         }
     }
-
-    ];
+];
 
     // ======================================================
     // 2. LOGIC
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
-
-    function shuffleArray(array) {
-        const newArr = [...array];
-        for (let i = newArr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-        }
-        return newArr;
-    }
+    const compareArrays = (a, b) => a.length === b.length && a.sort().every((val, index) => val === b.sort()[index]);
 
     let state = {
-        isVietnamese: true,
-        activeTab: 'flashcard',
-        fcIndex: 0,
-        filteredFlashcards: [],
-        quizPhase: 'setup',
-        activeQuestions: [], 
-        userAnswers: {}, 
-        currentQuizIndex: 0
+        isVietnamese: true, activeTab: 'flashcard', fcIndex: 0, filteredFlashcards: [],
+        quizPhase: 'setup', activeQuestions: [], userAnswers: {}, currentQuizIndex: 0, quizResults: {}
     };
 
     const texts = {
         vi: {
-            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀",
-            mapTitle: "Bản đồ câu hỏi", submit: "Nộp bài", resultTitle: "Kết quả bài làm",
-            prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
-            legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", 
-            unanswered: "⚪ Chưa làm", correct: "✔ Đúng", wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?",
-            shortcutHelp: "Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ) | Ctrl (Đổi ngôn ngữ)"
+            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀", mapTitle: "Bản đồ câu hỏi",
+            submit: "Nộp bài", resultTitle: "Kết quả bài làm", prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
+            legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", unanswered: "⚪ Chưa làm", correct: "✔ Đúng",
+            wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", shortcutHelp: "Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ) | Ctrl (Đổi ngôn ngữ)"
         },
         en: {
-            setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀",
-            mapTitle: "Question Map", submit: "Submit", resultTitle: "Quiz Results",
-            prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
-            legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:",
-            unanswered: "⚪ Unanswered", correct: "✔ Correct", wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?",
-            shortcutHelp: "Shortcuts: Left/Right (Navigate) | Up/Down/Space (Flip) | Ctrl (Language)"
+            setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀", mapTitle: "Question Map",
+            submit: "Submit", resultTitle: "Quiz Results", prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
+            legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:", unanswered: "⚪ Unanswered", correct: "✔ Correct",
+            wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", shortcutHelp: "Shortcuts: Left/Right (Navigate) | Up/Down/Space (Flip) | Ctrl (Language)"
         }
     };
 
@@ -6547,55 +6380,38 @@
         if (!quizData || quizData.length === 0) return;
         const uniqueCats = Array.from(new Set(quizData.map(q => q.category || "Khác")));
         uniqueCats.sort(naturalSort);
-        
         const populate = (id) => {
             const sel = document.getElementById(id);
             sel.innerHTML = '<option value="all">-- Tất cả / All Chapters --</option>';
-            uniqueCats.forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat; opt.innerText = cat;
-                sel.appendChild(opt);
-            });
+            uniqueCats.forEach(cat => { sel.innerHTML += `<option value="${cat}">${cat}</option>`; });
         };
         populate('fc-category-select');
         populate('quiz-category-select');
         updateFlashcardFilter();
         updateQuizCountMax();
         updateLanguageTexts();
-        updateView(); 
+        updateView();
     }
 
     function updateView() {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
         document.getElementById('quiz-sidebar').classList.add('hidden');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
         if (state.activeTab === 'flashcard') {
             document.querySelector('.tab-btn[onclick*="flashcard"]').classList.add('active');
             document.getElementById('flashcard-view').classList.add('active-view');
         } else {
             document.querySelector('.tab-btn[onclick*="quiz"]').classList.add('active');
-            if (state.quizPhase === 'setup') {
-                document.getElementById('quiz-setup').classList.add('active-view');
-            } else if (state.quizPhase === 'active') {
-                document.getElementById('quiz-active').classList.add('active-view');
-                document.getElementById('quiz-sidebar').classList.remove('hidden');
-            } else if (state.quizPhase === 'result') {
-                document.getElementById('quiz-result').classList.add('active-view');
-                document.getElementById('quiz-sidebar').classList.remove('hidden');
-            }
+            const phaseMap = { setup: 'quiz-setup', active: 'quiz-active', result: 'quiz-result' };
+            document.getElementById(phaseMap[state.quizPhase]).classList.add('active-view');
+            if (state.quizPhase !== 'setup') document.getElementById('quiz-sidebar').classList.remove('hidden');
         }
     }
 
-    function switchTab(tab) {
-        state.activeTab = tab;
-        updateView();
-    }
-
+    function switchTab(tab) { state.activeTab = tab; updateView(); }
     function updateFlashcardFilter() {
         const cat = document.getElementById('fc-category-select').value;
-        if (cat === 'all') state.filteredFlashcards = quizData;
-        else state.filteredFlashcards = quizData.filter(q => (q.category || "Khác") === cat);
+        state.filteredFlashcards = (cat === 'all') ? quizData : quizData.filter(q => (q.category || "Khác") === cat);
         state.fcIndex = 0;
         renderFlashcard();
     }
@@ -6603,38 +6419,27 @@
     function renderFlashcard() {
         const countSpan = document.getElementById('fc-counter');
         const wrapper = document.querySelector('.flashcard-wrapper');
-        
-        if (state.filteredFlashcards.length === 0) {
-            wrapper.style.display = 'none'; 
-            countSpan.innerText = "0 / 0"; 
-            return;
-        }
+        if (state.filteredFlashcards.length === 0) { wrapper.style.display = 'none'; countSpan.innerText = "0 / 0"; return; }
         wrapper.style.display = 'flex';
-        
         const q = state.filteredFlashcards[state.fcIndex];
         const data = state.isVietnamese ? q.vi : q.en;
-
         document.querySelector('.flashcard').classList.remove('flipped');
         document.getElementById('fc-tag').innerText = q.category || "General";
-        
         let contentHtml = `<div>${data.question}</div>`;
-        if(data.options) {
-             contentHtml += '<ul style="text-align:left; margin-top:20px; padding-left:0; list-style:none; font-size:16px; width:100%;">';
-             data.options.forEach(o => contentHtml += `<li style="margin-bottom:8px; padding:8px; background:#f8f9fa; border-radius:8px; border:1px solid #eee;">${o}</li>`);
-             contentHtml += '</ul>';
+        if (data.options) {
+            contentHtml += '<ul style="text-align:left; margin-top:20px; padding-left:0; list-style:none; font-size:16px; width:100%;">';
+            data.options.forEach(o => contentHtml += `<li style="margin-bottom:8px; padding:8px; background:#f8f9fa; border-radius:8px; border:1px solid #eee;">${o}</li>`);
+            contentHtml += '</ul>';
         }
         document.getElementById('fc-content').innerHTML = contentHtml;
-        document.getElementById('fc-answer').innerText = data.answer;
+        document.getElementById('fc-answer').innerText = Array.isArray(data.answer) ? data.answer.join('\n') : data.answer;
         document.getElementById('fc-explanation').innerHTML = data.explanation;
         countSpan.innerText = `${state.fcIndex + 1} / ${state.filteredFlashcards.length}`;
     }
 
     function navFlashcard(dir) {
         let next = state.fcIndex + dir;
-        if (next >= 0 && next < state.filteredFlashcards.length) {
-            state.fcIndex = next; 
-            renderFlashcard();
-        }
+        if (next >= 0 && next < state.filteredFlashcards.length) { state.fcIndex = next; renderFlashcard(); }
     }
 
     function updateQuizCountMax() {
@@ -6642,30 +6447,19 @@
         let count = (cat === 'all') ? quizData.length : quizData.filter(q => (q.category || "Khác") === cat).length;
         document.getElementById('total-qs').innerText = count;
         const input = document.getElementById('quiz-count-input');
-        input.max = count; 
+        input.max = count;
         input.value = Math.min(parseInt(input.value) || 20, count);
     }
 
     function startQuiz() {
         const cat = document.getElementById('quiz-category-select').value;
         let pool = (cat === 'all') ? [...quizData] : quizData.filter(q => (q.category || "Khác") === cat);
-        if (pool.length === 0) { 
-            alert(state.isVietnamese ? "Không có câu hỏi trong chủ đề này!" : "No questions in this category!"); 
-            return; 
-        }
-
-        let count = parseInt(document.getElementById('quiz-count-input').value);
-        if (isNaN(count) || count <= 0) count = 1;
-        if (count > pool.length) count = pool.length;
-
+        if (pool.length === 0) { alert(state.isVietnamese ? "Không có câu hỏi!" : "No questions!"); return; }
+        let count = Math.min(parseInt(document.getElementById('quiz-count-input').value), pool.length);
         const selectedQuestions = shuffleArray(pool).slice(0, count);
-        state.activeQuestions = selectedQuestions.map(q => {
-            const optLength = q.en.options ? q.en.options.length : 0;
-            const indices = Array.from({length: optLength}, (_, i) => i);
-            return { ...q, shuffledIndices: shuffleArray(indices) };
-        });
-
+        state.activeQuestions = selectedQuestions.map(q => ({ ...q, shuffledIndices: shuffleArray(Array.from({ length: q.en.options.length }, (_, i) => i)) }));
         state.userAnswers = {};
+        state.quizResults = {};
         state.currentQuizIndex = 0;
         state.quizPhase = 'active';
         updateView();
@@ -6678,82 +6472,64 @@
         const idx = state.currentQuizIndex;
         const qObj = state.activeQuestions[idx];
         const data = state.isVietnamese ? qObj.vi : qObj.en;
-        
+        const userSelections = state.userAnswers[idx] || [];
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
         document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
         document.getElementById('q-content').innerHTML = `<div>${data.question}</div>`;
-
         const ul = document.getElementById('q-options');
         ul.innerHTML = '';
-        const expBox = document.getElementById('q-explanation');
-        const ansState = state.userAnswers[idx];
-        const correctChar = data.answer.trim().charAt(0).toUpperCase();
-        const originalCorrectIndex = charToIndex(correctChar); 
         const labels = ['A', 'B', 'C', 'D', 'E', 'F'];
-
         qObj.shuffledIndices.forEach((originalIndex, displayPos) => {
             const li = document.createElement('li');
-            let optText = data.options[originalIndex] || '';
-            optText = optText.replace(/^[A-F]\.\s*/, ''); 
-            li.innerHTML = optText;
-            li.setAttribute('data-label', labels[displayPos]); 
-
-            if (ansState) {
-                li.classList.add('disabled');
-                if (originalIndex === originalCorrectIndex) li.classList.add('correct');
-                if (displayPos === ansState.selectedDisplayIndex && originalIndex !== originalCorrectIndex) li.classList.add('wrong');
-            } else {
-                li.onclick = () => handleAnswer(idx, displayPos, originalIndex, originalCorrectIndex);
-            }
+            li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F]\.\s*/, '');
+            li.setAttribute('data-label', labels[displayPos]);
+            if (userSelections.includes(originalIndex)) li.classList.add('selected');
+            li.onclick = () => handleAnswer(idx, originalIndex);
             ul.appendChild(li);
         });
-
-        if (ansState) {
-            expBox.style.display = 'block';
-            expBox.innerHTML = `<strong>${t.correctAns}</strong> ${data.options[originalCorrectIndex]}<br><br><strong>${t.fcExpLabel}</strong> ${data.explanation}`;
-        } else {
-            expBox.style.display = 'none';
-        }
-        
         document.getElementById('btn-prev').disabled = idx === 0;
         document.getElementById('btn-next').disabled = idx === state.activeQuestions.length - 1;
-        
         renderMap();
     }
 
-    function charToIndex(char) {
-        return char.charCodeAt(0) - 'A'.charCodeAt(0);
+    function charToOptionText(char, options) {
+        const index = char.charCodeAt(0) - 'A'.charCodeAt(0);
+        return options[index];
     }
 
-    function handleAnswer(qIdx, displayIndex, originalIndex, correctIndex) {
-        if (state.userAnswers[qIdx]) return;
-        state.userAnswers[qIdx] = { 
-            selectedDisplayIndex: displayIndex,
-            selectedOriginalIndex: originalIndex,
-            isCorrect: (originalIndex === correctIndex)
-        };
+    function handleAnswer(qIdx, originalIndex) {
+        state.userAnswers[qIdx] = state.userAnswers[qIdx] || [];
+        const selectionIndex = state.userAnswers[qIdx].indexOf(originalIndex);
+        if (selectionIndex > -1) {
+            state.userAnswers[qIdx].splice(selectionIndex, 1);
+        } else {
+            state.userAnswers[qIdx].push(originalIndex);
+        }
         renderQuestionCard();
     }
 
     function navQuiz(dir) {
         let next = state.currentQuizIndex + dir;
-        if (next >= 0 && next < state.activeQuestions.length) {
-            state.currentQuizIndex = next;
-            renderQuestionCard();
-        }
+        if (next >= 0 && next < state.activeQuestions.length) { state.currentQuizIndex = next; renderQuestionCard(); }
     }
 
     function finishQuiz() {
-        const t = state.isVietnamese ? texts.vi : texts.en;
-        if(!confirm(t.confirmSubmit)) return;
+        if (!confirm(state.isVietnamese ? texts.vi.confirmSubmit : texts.en.confirmSubmit)) return;
+        let correctCount = 0;
+        state.activeQuestions.forEach((q, i) => {
+            const data = state.isVietnamese ? q.vi : q.en;
+            const correctAnswers = Array.isArray(data.answer) ? data.answer : [data.answer];
+            const correctIndices = correctAnswers.map(ans => data.options.indexOf(ans));
+            const userIndices = state.userAnswers[i] || [];
+            const isCorrect = compareArrays(userIndices, correctIndices);
+            state.quizResults[i] = { isCorrect };
+            if (isCorrect) correctCount++;
+        });
         state.quizPhase = 'result';
         updateView();
-        let correct = 0;
-        Object.values(state.userAnswers).forEach(ans => { if(ans.isCorrect) correct++; });
-        
         const total = state.activeQuestions.length;
-        document.getElementById('score-val').innerText = `${correct}/${total}`;
-        document.getElementById('score-percent').innerText = `(${(total > 0 ? Math.round(correct / total * 100) : 0)}%)`;
+        document.getElementById('score-val').innerText = `${correctCount}/${total}`;
+        document.getElementById('score-percent').innerText = `(${(total > 0 ? Math.round(correctCount / total * 100) : 0)}%)`;
         renderResultView();
         renderMap();
     }
@@ -6764,37 +6540,20 @@
         list.innerHTML = '';
         state.activeQuestions.forEach((qObj, idx) => {
             const data = state.isVietnamese ? qObj.vi : qObj.en;
-            const ans = state.userAnswers[idx];
-            
-            let status;
-            if (ans) {
-                status = ans.isCorrect 
-                    ? `<span style="color:var(--secondary-color)">${t.correct}</span>` 
-                    : `<span style="color:var(--danger-color)">${t.wrong}</span>`;
-            } else {
-                status = `<span style="color:gray">${t.unanswered}</span>`;
-            }
-
-            let html = `<div class="question-card" id="review-q-${idx}" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
-                <div style="margin-bottom:10px; display:flex; justify-content:space-between;">
-                    <strong>${t.qOf} ${idx + 1}</strong> ${status}
-                </div>
+            const result = state.quizResults[idx];
+            const status = result ? (result.isCorrect ? `<span style="color:var(--secondary-color)">${t.correct}</span>` : `<span style="color:var(--danger-color)">${t.wrong}</span>`) : `<span style="color:gray">${t.unanswered}</span>`;
+            const correctAnswerText = Array.isArray(data.answer) ? data.answer.join('<br>') : data.answer;
+            list.innerHTML += `<div class="question-card" id="review-q-${idx}" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
+                <div style="margin-bottom:10px; display:flex; justify-content:space-between;"><strong>${t.qOf} ${idx + 1}</strong> ${status}</div>
                 <div style="color:#666; font-size:12px; margin-bottom:10px;">${t.chapter} ${qObj.category || 'General'}</div>
                 <div style="margin-bottom:10px;">${data.question}</div>
-                <div style="margin-top:10px; font-weight:bold; color:var(--secondary-color)">${t.correctAns} ${data.answer}</div>
+                <div style="margin-top:10px; font-weight:bold; color:var(--secondary-color)">${t.correctAns}<br>${correctAnswerText}</div>
                 <div style="margin-top:5px; font-style:italic; color:#555;">${data.explanation}</div>
             </div>`;
-            list.innerHTML += html;
         });
     }
 
-    function resetQuiz() {
-        state.quizPhase = 'setup'; 
-        state.userAnswers = {};
-        state.activeQuestions = [];
-        updateView(); 
-        updateQuizCountMax();
-    }
+    function resetQuiz() { state.quizPhase = 'setup'; state.userAnswers = {}; state.quizResults = {}; state.activeQuestions = []; updateView(); updateQuizCountMax(); }
 
     function renderMap() {
         const grid = document.getElementById('map-grid');
@@ -6803,23 +6562,14 @@
             const btn = document.createElement('button');
             btn.className = 'map-btn';
             btn.innerText = i + 1;
-            
-            if (state.currentQuizIndex === i && state.quizPhase !== 'result') {
-                btn.classList.add('active');
-            }
-            
-            const ans = state.userAnswers[i];
-            if (ans) {
-                btn.classList.add(ans.isCorrect ? 'correct' : 'wrong');
-            }
-            
+            if (state.currentQuizIndex === i && state.quizPhase !== 'result') btn.classList.add('active');
+            const result = state.quizResults[i];
+            if (result) btn.classList.add(result.isCorrect ? 'correct' : 'wrong');
             btn.onclick = () => {
                 if (state.quizPhase === 'result') {
-                    const el = document.getElementById(`review-q-${i}`);
-                    if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById(`review-q-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
-                    state.currentQuizIndex = i; 
-                    renderQuestionCard();
+                    state.currentQuizIndex = i; renderQuestionCard();
                 }
             };
             grid.appendChild(btn);
@@ -6829,84 +6579,46 @@
     function toggleLanguage() {
         state.isVietnamese = !state.isVietnamese;
         updateLanguageTexts();
-        
-        if (state.activeTab === 'flashcard') {
-            renderFlashcard();
-        } else if (state.activeTab === 'quiz') {
-            if (state.quizPhase === 'active') {
-                renderQuestionCard();
-            } else if (state.quizPhase === 'result') {
-                renderResultView();
-            }
+        if (state.activeTab === 'flashcard') renderFlashcard();
+        else if (state.activeTab === 'quiz') {
+            if (state.quizPhase === 'active') renderQuestionCard();
+            else if (state.quizPhase === 'result') renderResultView();
         }
     }
 
     function updateLanguageTexts() {
         const t = state.isVietnamese ? texts.vi : texts.en;
+        Object.keys(t).forEach(key => {
+            const el = document.getElementById(`txt-${key.toLowerCase().replace(/label$/, '')}`) || document.getElementById(key);
+            if (el) {
+                if (key === 'start') el.innerHTML = t[key];
+                else el.innerText = t[key];
+            }
+        });
         document.getElementById('current-lang-text').innerText = state.isVietnamese ? "VN" : "EN";
-        document.getElementById('txt-setup-title').innerText = t.setupTitle;
-        document.getElementById('txt-total').innerText = t.total;
-        document.getElementById('txt-q-count').innerText = t.qCount;
-        
-        const startBtn = document.getElementById('txt-start');
-        if(startBtn) startBtn.innerHTML = state.isVietnamese ? "Bắt đầu làm bài 🚀" : "Start Now 🚀";
-
-        document.getElementById('btn-prev').innerText = t.prev;
-        document.getElementById('btn-next').innerText = t.next;
-        document.getElementById('btn-submit').innerText = t.submit;
-        document.getElementById('txt-result-title').innerText = t.resultTitle;
-        document.getElementById('fc-answer-label').innerText = t.fcAnsLabel;
-        document.getElementById('fc-explanation-label').innerText = t.fcExpLabel;
-        document.getElementById('leg-current').innerText = t.legCur;
-        document.getElementById('leg-correct').innerText = t.legCor;
-        document.getElementById('leg-wrong').innerText = t.legWro;
-        document.getElementById('txt-map-title').innerText = t.mapTitle;
-
-        // Cập nhật text hướng dẫn phím tắt
-        const shortcutHelpEl = document.getElementById('shortcut-help');
-        if (shortcutHelpEl) shortcutHelpEl.innerText = t.shortcutHelp;
+        document.getElementById('shortcut-help').innerText = t.shortcutHelp;
     }
 
     document.addEventListener('keydown', e => {
-        if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
-
-        // === THÊM: PHÍM TẮT CTRL ĐỂ ĐỔI NGÔN NGỮ ===
-        if (e.key === 'Control') {
-            e.preventDefault();
-            toggleLanguage();
-        }
-
-        if(state.activeTab === 'flashcard') {
-            if(e.key === 'ArrowLeft') navFlashcard(-1);
-            if(e.key === 'ArrowRight') navFlashcard(1);
-            
-            if(e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowUp' || e.key === 'ArrowDown') { 
-                e.preventDefault(); 
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
+        if (e.key === 'Control') { e.preventDefault(); toggleLanguage(); }
+        if (state.activeTab === 'flashcard') {
+            if (e.key === 'ArrowLeft') navFlashcard(-1);
+            if (e.key === 'ArrowRight') navFlashcard(1);
+            if ([' ', 'Enter', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                e.preventDefault();
                 document.querySelector('.flashcard').classList.toggle('flipped');
             }
         } else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
-            if(e.key === 'ArrowLeft') navQuiz(-1);
-            if(e.key === 'ArrowRight') navQuiz(1);
-            
-            const idx = state.currentQuizIndex;
-            if (!state.userAnswers[idx]) {
-                let displaySel = -1;
-                if(['1','a','A'].includes(e.key)) displaySel = 0;
-                if(['2','b','B'].includes(e.key)) displaySel = 1;
-                if(['3','c','C'].includes(e.key)) displaySel = 2;
-                if(['4','d','D'].includes(e.key)) displaySel = 3;
-                if(['5','e','E'].includes(e.key)) displaySel = 4;
-                if(['6','f','F'].includes(e.key)) displaySel = 5;
-
-                if(displaySel !== -1) {
-                    const qObj = state.activeQuestions[idx];
-                    if(displaySel < qObj.shuffledIndices.length) {
-                        const originalIdx = qObj.shuffledIndices[displaySel];
-                        const data = state.isVietnamese ? qObj.vi : qObj.en;
-                        const correctChar = data.answer.trim().charAt(0).toUpperCase();
-                        const correctIdx = charToIndex(correctChar);
-                        handleAnswer(idx, displaySel, originalIdx, correctIdx);
-                    }
+            if (e.key === 'ArrowLeft') navQuiz(-1);
+            if (e.key === 'ArrowRight') navQuiz(1);
+            const keyMap = { '1': 0, 'a': 0, 'A': 0, '2': 1, 'b': 1, 'B': 1, '3': 2, 'c': 2, 'C': 2, '4': 3, 'd': 3, 'D': 3, '5': 4, 'e': 4, 'E': 4, '6': 5, 'f': 5, 'F': 5 };
+            if (keyMap[e.key] !== undefined) {
+                const displaySel = keyMap[e.key];
+                const qObj = state.activeQuestions[state.currentQuizIndex];
+                if (displaySel < qObj.shuffledIndices.length) {
+                    const originalIdx = qObj.shuffledIndices[displaySel];
+                    handleAnswer(state.currentQuizIndex, originalIdx);
                 }
             }
         }
