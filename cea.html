@@ -9967,9 +9967,39 @@
     }
 
     function renderFlashcard() {
+        const flashcardContainer = document.querySelector('.flashcard-wrapper').parentNode;
         if (state.filteredFlashcards.length === 0) {
-            document.getElementById('fc-content').innerHTML = "Không có câu hỏi nào trong chủ đề này.";
+            flashcardContainer.innerHTML = `<div style="text-align:center; padding: 50px; background: white; border-radius: 12px;">Không có câu hỏi nào trong chủ đề này.</div>`;
+            document.getElementById('fc-counter').innerText = `0 / 0`;
             return;
+        } else if (!document.querySelector('.flashcard')) {
+             // Recreate if it was removed
+            flashcardContainer.innerHTML = `
+                <div class="flashcard-wrapper">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                        <div class="card-face card-front">
+                            <div style="position: absolute; top: 15px; left: 20px; font-size: 12px; color: #999; font-weight: bold; background: #f0f0f0; padding: 4px 8px; border-radius: 4px;" id="fc-category-tag">Category</div>
+                            <small style="color: #888; margin-bottom: 10px;">Click thẻ để lật</small>
+                            <div id="fc-content" style="width: 100%;"></div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3 style="color: var(--secondary-color); margin-bottom: 10px;" id="txt-fc-ans">Đáp Án</h3>
+                            <div id="fc-answer" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;"></div>
+                            <div style="text-align: left; width: 100%;">
+                                <strong id="txt-fc-exp">Giải thích:</strong>
+                                <div id="fc-explanation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:center; gap:20px;">
+                    <button class="nav-btn secondary" onclick="navFlashcard(-1)">Prev</button>
+                    <span id="fc-counter" style="align-self:center; font-weight:bold;">1 / 1</span>
+                    <button class="nav-btn" onclick="navFlashcard(1)">Next</button>
+                </div>
+                 <div class="shortcut-hint">
+                    Phím tắt: ⬅️ ➡️ (Chuyển thẻ) | Space/Enter (Lật thẻ)
+                </div>`;
         }
         
         const q = state.filteredFlashcards[state.fcIndex];
@@ -9981,9 +10011,12 @@
         
         let html = `<div style="margin-bottom:15px; font-weight:bold;">#${q.id}</div>`;
         html += `<div>${data.question}</div>` + code;
-        html += `<ul style="text-align:left; margin-top:15px; padding-left:20px;">`;
-        data.options.forEach(o => html += `<li>${o}</li>`);
-        html += `</ul>`;
+        
+        if (data.options && data.options.length > 0) {
+            html += `<ul style="text-align:left; margin-top:15px; padding-left:20px;">`;
+            data.options.forEach(o => html += `<li>${o}</li>`);
+            html += `</ul>`;
+        }
         
         document.getElementById('fc-content').innerHTML = html;
         document.getElementById('fc-answer').innerText = data.answer;
@@ -9992,6 +10025,7 @@
     }
 
     function navFlashcard(dir) {
+        if (state.filteredFlashcards.length === 0) return;
         let next = state.fcIndex + dir;
         if (next >= 0 && next < state.filteredFlashcards.length) {
             state.fcIndex = next;
@@ -10012,7 +10046,9 @@
         
         const input = document.getElementById('quiz-count-input');
         input.max = count;
-        input.value = Math.min(20, count);
+        if (parseInt(input.value) > count || cat !== 'all') {
+            input.value = Math.min(20, count);
+        }
     }
 
     function startQuiz() {
@@ -10098,6 +10134,7 @@
     }
 
     function handleAnswer(idx, selected, correct) {
+        if (state.userAnswers[idx]) return; // Prevent re-answering
         const isCorrect = selected === correct;
         state.userAnswers[idx] = { selected, isCorrect };
         renderQuestionCard();
@@ -10129,7 +10166,7 @@
         }
         
         document.getElementById('score-val').innerText = `${correctCount}/${state.activeQuestions.length}`;
-        const pct = Math.round((correctCount / state.activeQuestions.length) * 100);
+        const pct = state.activeQuestions.length > 0 ? Math.round((correctCount / state.activeQuestions.length) * 100) : 0;
         document.getElementById('score-percent').innerText = `(${pct}%)`;
 
         renderResultView();
@@ -10160,7 +10197,7 @@
                 statusHtml = `<span style="color:#666; float:right;">⚪ Chưa làm</span>`;
             }
 
-            let html = `<div style="margin-bottom:10px; color:#555;">Question ${idx+1} <span style="color:#999; font-size:12px;">(${q.category})</span> ${statusHtml}</div>`;
+            let html = `<div style="margin-bottom:10px; color:#555;">Question ${idx+1} <span style="color:#999; font-size:12px;">(${q.category || 'General'})</span> ${statusHtml}</div>`;
             html += `<div>${data.question}</div>` + code;
             html += `<ul class="options-list" style="margin-top:15px;">`;
             
@@ -10243,6 +10280,7 @@
             }
         } 
         else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
+            event.preventDefault();
             if (key === 'ArrowLeft') navQuiz(-1);
             else if (key === 'ArrowRight') navQuiz(1);
             
@@ -10258,6 +10296,7 @@
                 else if (['2', 'b', 'B'].includes(key)) selectedIndex = 1;
                 else if (['3', 'c', 'C'].includes(key)) selectedIndex = 2;
                 else if (['4', 'd', 'D'].includes(key)) selectedIndex = 3;
+                else if (['5', 'e', 'E'].includes(key)) selectedIndex = 4;
 
                 if (selectedIndex !== -1 && selectedIndex < data.options.length) {
                     handleAnswer(idx, labels[selectedIndex], correctLabel);
