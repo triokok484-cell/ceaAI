@@ -220,26 +220,51 @@
             display: none;
         }
 
-        /* FLASHCARD - FIX LAYOUT */
-        .flashcard-wrapper { display: flex; justify-content: center; perspective: 1000px; margin-bottom: 30px; min-height: 400px; }
+        /* === FLASHCARD UPGRADE === */
+        .flashcard-wrapper { 
+            display: flex; 
+            justify-content: center; 
+            perspective: 1000px; 
+            margin-bottom: 30px; 
+        }
         .flashcard {
-            width: 100%; max-width: 700px; height: 100%; position: relative;
-            transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%; 
+            max-width: 700px; 
+            position: relative;
+            transform-style: preserve-3d; 
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            display: grid; /* ADD: Use grid to manage face sizes */
         }
-        .flashcard.flipped { transform: rotateY(180deg); }
+        .flashcard.flipped { 
+            transform: rotateY(180deg); 
+        }
         .card-face {
-            position: absolute; width: 100%; height: 100%; min-height: 400px;
-            backface-visibility: hidden; border-radius: 24px;
-            box-shadow: var(--card-shadow); background: white;
+            /* REMOVE: position: absolute & height: 100% */
+            grid-area: 1 / 1; /* ADD: Place both faces in the same grid cell */
+            width: 100%; 
+            min-height: 400px; /* Use min-height to allow growth */
+            backface-visibility: hidden; 
+            border-radius: 24px;
+            box-shadow: var(--card-shadow); 
+            background: white;
             padding: 40px; 
-            display: flex; flex-direction: column; /* Xếp dọc */
-            justify-content: flex-start; /* Bắt đầu từ trên */
-            align-items: center; text-align: center;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start;
+            align-items: center; 
+            text-align: center;
             border: 1px solid rgba(0,0,0,0.05);
-            overflow-y: auto;
+            /* REMOVE: overflow-y: auto */
         }
-        .card-back { transform: rotateY(180deg); background: #f8f9fa; justify-content: flex-start; text-align: left; align-items: flex-start; }
+        .card-back { 
+            transform: rotateY(180deg); 
+            background: #f8f9fa; 
+            justify-content: flex-start; 
+            text-align: left; 
+            align-items: flex-start; 
+        }
+        /* === END FLASHCARD UPGRADE === */
         
         /* Badge hiển thị tên chương */
         .category-badge {
@@ -296,7 +321,7 @@
                 <div class="filter-container" style="max-width: 700px; margin: 0 auto 20px auto;">
                     <label style="font-weight:bold; color:var(--primary-color); display:block; margin-bottom:8px;">📖 Chọn nội dung học:</label>
                     <select id="fc-category-select" onchange="updateFlashcardFilter()" class="custom-select">
-                        <option value="all">-- Tất cả các chương --</option>
+                        <option value="all">-- Tất cả / All Chapters --</option>
                     </select>
                 </div>
 
@@ -307,7 +332,7 @@
                             <div style="flex:1; display:flex; align-items:center; justify-content:center; width:100%;">
                                 <div id="fc-content" style="font-size: 20px; font-weight: 500; line-height: 1.5;"></div>
                             </div>
-                            <div style="font-size: 14px; color: #adb5bd; margin-top: 20px;">(Click để lật)</div>
+                            <!-- REMOVED: Dòng chữ "Click để lật" đã được xóa -->
                         </div>
                         <div class="card-face card-back">
                             <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;">Đáp Án</div>
@@ -410,7 +435,7 @@
     const quizData = [
         // ⚠️ DÁN DỮ LIỆU JSON CỦA BẠN VÀO ĐÂY ⚠️
         // Ví dụ:
-        {
+       {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
