@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEA201 - Master Tool (Pro Version)</title>
+    <title>CEA201 - Master Tool (Ultimate Fix)</title>
     <style>
         :root {
             --primary-color: #6f42c1;
-            --primary-light: #e0d4fc;
+            --primary-light: #f3f0ff;
             --secondary-color: #28a745;
             --danger-color: #dc3545;
             --warning-color: #fd7e14;
+            --selected-border: #6f42c1;
+            --selected-bg: #e0d4fc;
             --light-bg: #f8f9fa;
             --dark-text: #333;
             --card-shadow: 0 10px 25px rgba(111, 66, 193, 0.1);
@@ -31,7 +33,7 @@
             overflow: hidden;
         }
 
-        /* --- Top Bar --- */
+        /* --- UI Components --- */
         .top-bar {
             background: white; padding: 15px 30px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             display: flex; justify-content: space-between; align-items: center; z-index: 100; flex-shrink: 0;
@@ -43,10 +45,9 @@
         }
         .tab-btn.active { background-color: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3); }
         .lang-btn {
-            background: white; border: 2px solid var(--primary-light); color: var(--primary-color); padding: 6px 16px;
+            background: white; border: 2px solid #e0d4fc; color: var(--primary-color); padding: 6px 16px;
             border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 700; transition: all 0.2s;
         }
-        .lang-btn:hover { background: var(--primary-light); }
 
         /* --- Main Layout --- */
         .main-container { display: flex; flex: 1; overflow: hidden; position: relative; height: 100%; }
@@ -54,9 +55,9 @@
             flex: 1; padding: 30px; overflow-y: auto; width: 100%;
             display: flex; flex-direction: column; align-items: center; position: relative; 
         }
-        .view-section { display: none !important; width: 100%; max-width: 900px; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .view-section { display: none !important; width: 100%; max-width: 900px; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .view-section.active-view { display: block !important; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; }
 
@@ -64,49 +65,46 @@
         .start-btn, .nav-btn, .submit-btn {
             background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 30px;
             font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; font-weight: 600;
-            box-shadow: 0 4px 15px rgba(111, 66, 193, 0.3);
+            box-shadow: 0 4px 15px rgba(111, 66, 193, 0.2);
         }
-        .start-btn:hover, .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4); }
+        .start-btn:hover, .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(111, 66, 193, 0.3); }
         .submit-btn { background: var(--secondary-color); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
         .nav-btn.secondary { background: #e9ecef; color: #495057; box-shadow: none; }
         .nav-btn.secondary:hover { background: #dee2e6; }
         .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* --- Quiz Setup --- */
-        #quiz-setup {
-            background: white; padding: 50px; border-radius: 24px; box-shadow: var(--card-shadow);
-            text-align: center; max-width: 600px; margin: auto;
-        }
-        .custom-select {
-            width: 100%; padding: 12px 20px; border: 2px solid #e0e0e0; border-radius: 12px;
-            font-size: 16px; background: #fff; margin-top: 10px; cursor: pointer; font-family: inherit;
-        }
-        .custom-select:focus { border-color: var(--primary-color); outline: none; }
-
-        /* --- Question Card --- */
+        /* --- Question Card Styling --- */
         .question-card { background: white; border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); margin-bottom: 20px; position: relative; }
         .question-text { font-size: 18px; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
+        
         .options-list { list-style: none; padding: 0; display: grid; gap: 12px; }
         .options-list li {
             background: #fff; border: 2px solid #f0f0f0; border-radius: 12px; padding: 15px 20px 15px 50px;
-            cursor: pointer; position: relative; transition: all 0.2s; font-size: 15px;
+            cursor: pointer; position: relative; transition: all 0.15s; font-size: 15px; user-select: none;
         }
-        .options-list li:hover:not(.disabled) { border-color: var(--primary-color); background: #f9f5ff; }
+        .options-list li:hover:not(.disabled) { border-color: var(--primary-color); background: #fcfaff; }
         
-        /* Trạng thái đang chọn (chưa kiểm tra) */
-        .options-list li.selected {
-            border-color: var(--primary-color);
-            background-color: var(--primary-light);
-            font-weight: 600;
-        }
+        /* Label A, B, C */
         .options-list li::before {
             content: attr(data-label); position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
             width: 28px; height: 28px; background: #e9ecef; color: #495057; border-radius: 8px;
             text-align: center; line-height: 28px; font-weight: 700; font-size: 13px; transition: all 0.2s;
         }
 
-        /* --- STYLE CHO PHẢN HỒI TỨC THÌ (IMMEDIATE FEEDBACK) --- */
-        .options-list.checked li { cursor: default; opacity: 0.7; } /* Vô hiệu hóa click sau khi check */
+        /* --- STATES: SELECTED (Đang chọn, chưa check) --- */
+        .options-list li.selected {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 1px var(--primary-color) inset; /* Viền đôi cho rõ */
+            font-weight: 600;
+        }
+        .options-list li.selected::before {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- STATES: CHECKED (Đã kiểm tra) --- */
+        .options-list.checked li { cursor: default; opacity: 0.6; }
         
         /* Đúng */
         .options-list.checked li.is-correct-answer {
@@ -114,42 +112,48 @@
             border-color: #0f5132 !important;
             color: #0f5132 !important;
             opacity: 1 !important;
+            box-shadow: 0 0 0 1px #0f5132 inset;
         }
         .options-list.checked li.is-correct-answer::before {
             background-color: #198754; color: white; content: "✔";
         }
 
-        /* Sai (chỉ hiện khi người dùng đã chọn sai) */
+        /* Sai (User chọn sai) */
         .options-list.checked li.is-wrong-answer {
             background-color: #f8d7da !important;
             border-color: #842029 !important;
             color: #842029 !important;
             opacity: 1 !important;
+            box-shadow: 0 0 0 1px #842029 inset;
         }
         .options-list.checked li.is-wrong-answer::before {
             background-color: #dc3545; color: white; content: "✘";
         }
 
-        /* Khu vực giải thích hiện ngay lập tức */
+        /* Giải thích */
         .instant-explanation {
             margin-top: 20px; padding: 15px; border-radius: 12px;
             background-color: #e2e3e5; color: #41464b; font-size: 15px;
-            display: none; animation: fadeIn 0.3s ease;
+            display: none; animation: fadeIn 0.3s ease; line-height: 1.5;
         }
         .instant-explanation.show { display: block; }
         .instant-explanation.correct { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
         .instant-explanation.wrong { background-color: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
 
-        /* Nút kiểm tra cho câu hỏi chọn nhiều */
+        /* Nút Check Đặc Biệt */
+        .btn-check-wrapper { text-align: center; margin-top: 20px; }
         .btn-check-multi {
             background-color: var(--warning-color); color: white; border: none;
-            padding: 10px 25px; border-radius: 20px; font-weight: 600; cursor: pointer;
-            margin-top: 15px; display: inline-block; transition: 0.2s; box-shadow: 0 4px 10px rgba(253, 126, 20, 0.3);
+            padding: 12px 30px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(253, 126, 20, 0.3);
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        .btn-check-multi:hover { background-color: #e36d0a; transform: translateY(-2px); }
-        .btn-check-multi.hidden { display: none; }
+        .btn-check-multi:hover:not(:disabled) { background-color: #e36d0a; transform: translateY(-2px); }
+        .btn-check-multi:disabled {
+            background-color: #ced4da; color: #6c757d; cursor: not-allowed; box-shadow: none; transform: none;
+        }
 
-        /* --- Flashcard --- */
+        /* --- Flashcard Styling --- */
         .flashcard-wrapper { display: flex; justify-content: center; perspective: 1000px; margin-bottom: 30px; }
         .flashcard {
             width: 100%; max-width: 700px; position: relative; transform-style: preserve-3d;
@@ -166,7 +170,7 @@
         .card-front { z-index: 2; transform: rotateY(0deg); }
         .card-back { transform: rotateY(180deg); background: #fff; justify-content: flex-start; text-align: left; align-items: flex-start; }
         
-        /* --- Sidebar & Utils --- */
+        /* --- Utils --- */
         .category-badge {
             font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; background: #f1f3f5;
             color: #868e96; padding: 6px 12px; border-radius: 20px; font-weight: 700; margin-bottom: 20px; display: inline-block;
@@ -188,9 +192,12 @@
         .result-header { text-align: center; background: white; padding: 40px; border-radius: 24px; margin-bottom: 30px; box-shadow: var(--card-shadow); }
         
         .multi-select-hint {
-            font-size: 12px; color: var(--secondary-color); background: #e6fffa; 
-            padding: 4px 8px; border-radius: 4px; margin-left: 10px; display: inline-block;
+            font-size: 13px; color: #856404; background: #fff3cd; border: 1px solid #ffeeba;
+            padding: 5px 10px; border-radius: 20px; margin-left: 10px; display: inline-block; font-weight: 600;
         }
+        
+        #quiz-setup { background: white; padding: 50px; border-radius: 24px; box-shadow: var(--card-shadow); text-align: center; max-width: 600px; margin: auto; }
+        .custom-select { width: 100%; padding: 12px 20px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; background: #fff; margin-top: 10px; cursor: pointer; }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
@@ -275,8 +282,15 @@
                         </div>
                     </div>
                     <div id="q-content" class="question-text"></div>
+                    
                     <ul class="options-list" id="q-options"></ul>
+                    
+                    <div id="check-btn-container" class="btn-check-wrapper hidden">
+                        <button id="btn-manual-check" class="btn-check-multi" disabled>Kiểm tra đáp án ✨</button>
                     </div>
+                    <div id="instant-explain-area" class="instant-explanation"></div>
+                </div>
+
                 <div class="flex-between" style="max-width: 100%;">
                     <button class="nav-btn secondary" onclick="navQuiz(-1)" id="btn-prev"></button>
                     <button class="submit-btn" onclick="finishQuiz()" id="btn-submit"></button>
@@ -309,12 +323,11 @@
 
 <script>
     // ======================================================
-    // 1. DỮ LIỆU
+    // 1. DỮ LIỆU (Dán dữ liệu của bạn vào đây)
     // ======================================================
     
-    // HÃY DÁN DỮ LIỆU JSON CỦA BẠN VÀO DƯỚI ĐÂY
-    // (Thay thế dấu ngoặc vuông rỗng [] bằng dữ liệu của bạn)
-    const quizData = [{
+    const quizData = [
+       {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
@@ -6410,12 +6423,11 @@
     ];
 
     // ======================================================
-    // 2. LOGIC CHƯƠNG TRÌNH (Đã cập nhật theo yêu cầu)
+    // 2. LOGIC HOÀN CHỈNH (FIX LỖI + TỐI ƯU)
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
     
-    // Hàm trộn mảng (Fisher-Yates Shuffle)
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -6424,40 +6436,81 @@
         return array;
     }
 
-    // Hàm so sánh mảng đáp án (so sánh nội dung bên trong không quan trọng thứ tự)
+    // Hàm so sánh 2 mảng số
     const compareArrays = (a, b) => {
         const sortedA = [...a].sort();
         const sortedB = [...b].sort();
         return sortedA.length === sortedB.length && sortedA.every((val, index) => val === sortedB[index]);
     };
 
+    // --- SMART MATCHING: TÌM ĐÁP ÁN ĐÚNG BẤT KỂ ĐỊNH DẠNG ---
+    function getCorrectIndices(data, qObj) {
+        const rawAnswers = Array.isArray(data.answer) ? data.answer : [data.answer];
+        // Chúng ta cần tìm index trong mảng options GỐC của data (chưa shuffle)
+        // Sau đó map sang shuffledIndices
+        const options = data.options;
+        let originalIndices = [];
+
+        const clean = (str) => (typeof str === 'string') ? str.replace(/^[A-F][\.\)]\s*/i, '').trim().toLowerCase() : '';
+
+        rawAnswers.forEach(ans => {
+            let idx = -1;
+            const cleanAns = clean(ans);
+
+            // 1. So sánh nội dung text (Ưu tiên cao nhất)
+            idx = options.findIndex(opt => clean(opt) === cleanAns);
+
+            // 2. Nếu đáp án chỉ là "A", "B"... map theo vị trí index gốc
+            if (idx === -1 && ans.trim().length === 1) {
+                const charCode = ans.trim().toUpperCase().charCodeAt(0) - 65; // A=0, B=1...
+                if (charCode >= 0 && charCode < options.length) {
+                    idx = charCode;
+                }
+            }
+
+            // 3. So sánh tương đối (Contains)
+            if (idx === -1) {
+                idx = options.findIndex(opt => clean(opt).includes(cleanAns) || cleanAns.includes(clean(opt)));
+            }
+
+            if (idx !== -1) originalIndices.push(idx);
+        });
+
+        // Bây giờ originalIndices chứa index của mảng options gốc.
+        // Chúng ta cần trả về index tương ứng trong shuffledIndices đang hiển thị
+        // qObj.shuffledIndices[displayPos] = originalIndex
+        // Ta cần tìm displayPos sao cho shuffledIndices[displayPos] nằm trong originalIndices
+        // Nhưng code render dùng originalIndex để định danh, nên ta trả về originalIndices là đủ.
+        
+        return [...new Set(originalIndices)];
+    }
+
     let state = {
         isVietnamese: true, activeTab: 'flashcard', fcIndex: 0, filteredFlashcards: [],
         quizPhase: 'setup', activeQuestions: [], userAnswers: {}, currentQuizIndex: 0, quizResults: {},
-        checkedQuestions: {} // Lưu trạng thái câu hỏi nào đã được "Check" (đã hiện kết quả)
+        checkedQuestions: {} 
     };
 
     const texts = {
         vi: {
-            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀", mapTitle: "Bản đồ câu hỏi",
-            submit: "Nộp bài", resultTitle: "Kết quả bài làm", prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
-            legCur: "Đang làm", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", unanswered: "⚪ Chưa làm", correct: "✔ Đúng",
-            wrong: "✘ Sai", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", shortcutHelp: "Phím tắt: Mũi tên Trái/Phải (Chuyển) | Lên/Xuống/Space (Lật thẻ) | Ctrl (Đổi ngôn ngữ)",
+            setupTitle: "Cấu hình luyện tập", total: "Có sẵn:", qCount: "2. Số lượng câu hỏi:", start: "Bắt đầu làm bài 🚀", mapTitle: "Câu hỏi",
+            submit: "Nộp bài", resultTitle: "Kết quả", prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
+            legCur: "Đang chọn", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", unanswered: "⚪ Chưa làm", correct: "✔ Chính xác!",
+            wrong: "✘ Sai rồi", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", shortcutHelp: "Phím tắt: ⬅/➡ (Chuyển câu) | ⬆/⬇ (Lật thẻ) | Ctrl (Đổi ngôn ngữ)",
             chooseOne: "Chọn 1 đáp án", chooseMulti: "Hãy chọn {n} đáp án", checkBtn: "Kiểm tra đáp án ✨", explanation: "Giải thích chi tiết:"
         },
         en: {
             setupTitle: "Practice Configuration", total: "Available:", qCount: "2. Number of questions:", start: "Start Now 🚀", mapTitle: "Question Map",
             submit: "Submit", resultTitle: "Quiz Results", prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
             legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:", unanswered: "⚪ Unanswered", correct: "✔ Correct",
-            wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", shortcutHelp: "Shortcuts: Left/Right (Navigate) | Up/Down/Space (Flip) | Ctrl (Language)",
+            wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", shortcutHelp: "Shortcuts: ⬅/➡ (Navigate) | ⬆/⬇ (Flip) | Ctrl (Language)",
             chooseOne: "Choose 1 answer", chooseMulti: "Choose {n} answers", checkBtn: "Check Answer ✨", explanation: "Detailed Explanation:"
         }
     };
 
     function init() {
-        if (!quizData || quizData.length === 0) {
-            const msg = state.isVietnamese ? "Chưa có dữ liệu câu hỏi. Vui lòng dán JSON vào code." : "No data found. Please paste JSON into the code.";
-            document.body.innerHTML = `<div style="padding:20px; text-align:center; color:red;"><h2>${msg}</h2></div>`;
+        if (typeof quizData === 'undefined' || quizData.length === 0) {
+            document.body.innerHTML = `<div style="padding:20px; text-align:center; color:red;"><h2>Chưa có dữ liệu. Vui lòng dán JSON vào code.</h2></div>`;
             return;
         }
         const uniqueCats = Array.from(new Set(quizData.map(q => q.category || "Khác")));
@@ -6492,7 +6545,7 @@
 
     function switchTab(tab) { state.activeTab = tab; updateView(); }
     
-    // --- FLASHCARD LOGIC ---
+    // --- FLASHCARD ---
     function updateFlashcardFilter() {
         const cat = document.getElementById('fc-category-select').value;
         state.filteredFlashcards = (cat === 'all') ? quizData : quizData.filter(q => (q.category || "Khác") === cat);
@@ -6527,7 +6580,7 @@
         if (next >= 0 && next < state.filteredFlashcards.length) { state.fcIndex = next; renderFlashcard(); }
     }
 
-    // --- QUIZ LOGIC ---
+    // --- QUIZ ---
     function updateQuizCountMax() {
         const cat = document.getElementById('quiz-category-select').value;
         let count = (cat === 'all') ? quizData.length : quizData.filter(q => (q.category || "Khác") === cat).length;
@@ -6553,7 +6606,7 @@
         
         state.userAnswers = {};
         state.quizResults = {}; 
-        state.checkedQuestions = {}; // Reset trạng thái đã check
+        state.checkedQuestions = {}; 
         state.currentQuizIndex = 0;
         state.quizPhase = 'active';
         updateView();
@@ -6561,6 +6614,7 @@
         renderMap();
     }
 
+    // --- CORE RENDER QUESTION FUNCTION ---
     function renderQuestionCard() {
         if (!state.activeQuestions[state.currentQuizIndex]) return;
 
@@ -6570,118 +6624,87 @@
         const data = state.isVietnamese ? qObj.vi : qObj.en;
         const userSelections = state.userAnswers[idx] || [];
         
-        // Xác định loại câu hỏi và số lượng đáp án đúng
-        const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
-        const numCorrect = correctAnswersText.length;
+        // Tìm index đúng (robust logic)
+        const correctIndices = getCorrectIndices(data, qObj);
+        const numCorrect = correctIndices.length;
         const isMulti = numCorrect > 1;
-        
-        // Trạng thái đã check (hiện đáp án) chưa?
         const isChecked = state.checkedQuestions[idx] === true;
 
-        // Xử lý Badge hướng dẫn
+        // 1. Hiển thị Badge
         const hintBadge = document.getElementById('multi-select-badge');
         hintBadge.classList.remove('hidden');
         if(isMulti) {
             hintBadge.innerText = t.chooseMulti.replace('{n}', numCorrect);
-            hintBadge.style.backgroundColor = '#e6fffa';
-            hintBadge.style.color = '#0ca678';
+            hintBadge.style.color = '#856404';
+            hintBadge.style.backgroundColor = '#fff3cd';
+            hintBadge.style.border = '1px solid #ffeeba';
         } else {
             hintBadge.innerText = t.chooseOne;
-            hintBadge.style.backgroundColor = '#f1f3f5';
             hintBadge.style.color = '#495057';
+            hintBadge.style.backgroundColor = '#f1f3f5';
+            hintBadge.style.border = 'none';
         }
         
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
         document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
         document.getElementById('q-content').innerHTML = `<div>${data.question}</div>`;
         
-        // Render Options
+        // 2. Render Options
         const ul = document.getElementById('q-options');
         ul.innerHTML = '';
-        // Nếu đã check thì thêm class để CSS khóa click và đổi màu
         if (isChecked) ul.classList.add('checked');
         else ul.classList.remove('checked');
 
         const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         
-        // Tìm index gốc của các đáp án đúng
-        const correctOriginalIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt.includes(ansText) || ansText.includes(opt))).filter(i => i !== -1);
-        // Fallback exact match
-        if (correctOriginalIndices.length === 0) {
-             correctAnswersText.forEach(ansText => {
-                 const i = data.options.findIndex(opt => opt === ansText);
-                 if(i !== -1) correctOriginalIndices.push(i);
-             });
-        }
-
         qObj.shuffledIndices.forEach((originalIndex, displayPos) => {
             const li = document.createElement('li');
-            li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F]\.\s*/, ''); 
+            li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F][\.\)]\s*/, ''); 
             li.setAttribute('data-label', labels[displayPos]);
             
             const isSelected = userSelections.includes(originalIndex);
-            const isCorrectOption = correctOriginalIndices.includes(originalIndex);
+            const isCorrectOption = correctIndices.includes(originalIndex);
 
             if (isSelected) li.classList.add('selected');
 
-            // Xử lý màu sắc khi đã CHECK
             if (isChecked) {
-                if (isCorrectOption) {
-                    li.classList.add('is-correct-answer'); // Luôn xanh nếu là đáp án đúng
-                } else if (isSelected && !isCorrectOption) {
-                    li.classList.add('is-wrong-answer'); // Đỏ nếu chọn sai
-                }
-                li.onclick = null; // Disable click
+                if (isCorrectOption) li.classList.add('is-correct-answer');
+                else if (isSelected && !isCorrectOption) li.classList.add('is-wrong-answer');
+                li.onclick = null;
             } else {
-                // Chưa check: gán sự kiện click
-                li.onclick = () => handleAnswer(idx, originalIndex, isMulti, isChecked, numCorrect);
+                // Pass correctIndices down to handler
+                li.onclick = () => handleAnswer(idx, originalIndex, isMulti, isChecked, correctIndices);
             }
-            
             ul.appendChild(li);
         });
 
-        // --- Xử lý hiển thị giải thích & Nút Check (Immediate Feedback) ---
-        
-        // 1. Xóa hoặc tạo vùng giải thích nếu chưa có
-        let explainDiv = document.getElementById('instant-explain-area');
-        if(!explainDiv) {
-            explainDiv = document.createElement('div');
-            explainDiv.id = 'instant-explain-area';
-            explainDiv.className = 'instant-explanation';
-            document.querySelector('.question-card').appendChild(explainDiv);
-        }
-        
-        // 2. Xóa hoặc tạo nút "Check" nếu chưa có
-        let checkBtn = document.getElementById('btn-manual-check');
-        if(!checkBtn) {
-            checkBtn = document.createElement('button');
-            checkBtn.id = 'btn-manual-check';
-            checkBtn.className = 'btn-check-multi hidden'; // Mặc định ẩn
-            checkBtn.innerText = t.checkBtn;
-            checkBtn.onclick = () => performCheck(idx, correctOriginalIndices);
-            // Chèn nút Check vào ngay sau danh sách options
-            document.getElementById('q-options').after(checkBtn);
-        }
+        // 3. Nút Check & Giải thích
+        const checkBtnContainer = document.getElementById('check-btn-container');
+        const checkBtn = document.getElementById('btn-manual-check');
+        const explainDiv = document.getElementById('instant-explain-area');
 
-        // 3. Logic hiển thị
+        // Reset nút check
+        checkBtn.innerText = t.checkBtn;
+        // Quan trọng: Gỡ bỏ onclick cũ bằng cloneNode hoặc gán lại
+        const newBtn = checkBtn.cloneNode(true);
+        checkBtn.parentNode.replaceChild(newBtn, checkBtn);
+        newBtn.onclick = () => performCheck(idx, correctIndices);
+
         if (isChecked) {
-            checkBtn.classList.add('hidden'); // Đã check rồi thì ẩn nút
-            
-            // Tính toán đúng sai để hiện màu khung giải thích
-            const isUserCorrect = compareArrays(userSelections, correctOriginalIndices);
-            
+            checkBtnContainer.classList.add('hidden');
+            const isUserCorrect = compareArrays(userSelections, correctIndices);
             explainDiv.className = `instant-explanation show ${isUserCorrect ? 'correct' : 'wrong'}`;
             explainDiv.innerHTML = `<strong>${isUserCorrect ? t.correct : t.wrong}</strong><br>
-                                    <strong>${t.explanation}</strong> ${data.explanation}`;
+                                    <strong>${t.explanation}</strong> ${data.explanation || "..."}`;
         } else {
-            explainDiv.className = 'instant-explanation'; // Ẩn giải thích
-            explainDiv.innerHTML = '';
+            explainDiv.className = 'instant-explanation'; explainDiv.innerHTML = '';
             
-            // Logic hiện nút Check cho câu Multi-select
-            if (isMulti && userSelections.length > 0) {
-                checkBtn.classList.remove('hidden');
+            // Logic hiển thị nút check
+            if (isMulti) {
+                checkBtnContainer.classList.remove('hidden');
+                newBtn.disabled = userSelections.length === 0; // Disable nếu chưa chọn gì
             } else {
-                checkBtn.classList.add('hidden');
+                checkBtnContainer.classList.add('hidden');
             }
         }
         
@@ -6690,85 +6713,49 @@
         renderMap();
     }
 
-    function handleAnswer(qIdx, originalIndex, isMulti, isChecked, maxSelection) {
-        if (isChecked) return; // Không làm gì nếu đã check
+    function handleAnswer(qIdx, originalIndex, isMulti, isChecked, correctIndices) {
+        if (isChecked) return;
 
         state.userAnswers[qIdx] = state.userAnswers[qIdx] || [];
         const currentSelection = state.userAnswers[qIdx];
         
         if (isMulti) {
-            // Logic checkbox
             const selectionIndex = currentSelection.indexOf(originalIndex);
-            if (selectionIndex > -1) {
-                currentSelection.splice(selectionIndex, 1); // Bỏ chọn
-            } else {
-                currentSelection.push(originalIndex);
-            }
-            // Re-render để cập nhật UI và hiện nút Check
-            renderQuestionCard(); 
+            if (selectionIndex > -1) currentSelection.splice(selectionIndex, 1);
+            else currentSelection.push(originalIndex);
+            renderQuestionCard(); // Re-render để update UI và nút Check
         } else {
-            // Logic radio button (Single choice)
             state.userAnswers[qIdx] = [originalIndex];
-            
-            // Single choice -> Check ngay lập tức
-            const qObj = state.activeQuestions[qIdx];
-            const data = state.isVietnamese ? qObj.vi : qObj.en;
-            const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
-            let correctIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt.includes(ansText) || ansText.includes(opt))).filter(i => i !== -1);
-             if (correctIndices.length === 0) {
-                 correctAnswersText.forEach(ansText => {
-                     const i = data.options.findIndex(opt => opt === ansText);
-                     if(i !== -1) correctIndices.push(i);
-                 });
-            }
-
-            performCheck(qIdx, correctIndices);
+            performCheck(qIdx, correctIndices); // Check luôn
         }
     }
 
-    // Hàm thực hiện kiểm tra và hiện kết quả
     function performCheck(qIdx, correctIndices) {
         state.checkedQuestions[qIdx] = true;
-        
-        // Lưu kết quả đúng/sai vào state tổng để tính điểm sau này
         const userIndices = state.userAnswers[qIdx] || [];
         const isCorrect = compareArrays(userIndices, correctIndices);
         state.quizResults[qIdx] = { isCorrect };
-
-        renderQuestionCard(); // Re-render để áp dụng CSS đúng/sai
-        renderMap(); // Cập nhật sidebar map màu xanh/đỏ
+        renderQuestionCard();
+        renderMap();
     }
 
     function navQuiz(dir) {
         let next = state.currentQuizIndex + dir;
-        if (next >= 0 && next < state.activeQuestions.length) { 
-            state.currentQuizIndex = next; 
-            renderQuestionCard(); 
-        }
+        if (next >= 0 && next < state.activeQuestions.length) { state.currentQuizIndex = next; renderQuestionCard(); }
     }
 
     function finishQuiz() {
         if (!confirm(state.isVietnamese ? texts.vi.confirmSubmit : texts.en.confirmSubmit)) return;
         
-        // Tính lại toàn bộ điểm số dựa trên kết quả đã lưu
         let correctCount = 0;
         state.activeQuestions.forEach((q, i) => {
-            // Nếu câu hỏi chưa được check (người dùng chưa làm hoặc chưa bấm check), ta phải check ngầm
             if (!state.checkedQuestions[i]) {
                  const data = state.isVietnamese ? q.vi : q.en;
-                 const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
-                 let correctIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt.includes(ansText) || ansText.includes(opt))).filter(idx => idx !== -1);
-                 if(correctIndices.length === 0) {
-                     correctAnswersText.forEach(ansText => {
-                         const idx = data.options.findIndex(opt => opt === ansText);
-                         if(idx !== -1) correctIndices.push(idx);
-                     });
-                 }
+                 const correctIndices = getCorrectIndices(data, q);
                  const userIndices = state.userAnswers[i] || [];
                  const isCorrect = compareArrays(userIndices, correctIndices);
                  state.quizResults[i] = { isCorrect };
             }
-            
             if (state.quizResults[i] && state.quizResults[i].isCorrect) correctCount++;
         });
 
@@ -6790,7 +6777,7 @@
             const result = state.quizResults[idx];
             const status = result ? (result.isCorrect ? `<span style="color:var(--secondary-color)">${t.correct}</span>` : `<span style="color:var(--danger-color)">${t.wrong}</span>`) : `<span style="color:gray">${t.unanswered}</span>`;
             const correctAnswerText = Array.isArray(data.answer) ? data.answer.join('<br>') : data.answer;
-            list.innerHTML += `<div class="question-card" id="review-q-${idx}" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
+            list.innerHTML += `<div class="question-card" style="background:#f8f9fa; border:1px solid #eee; padding:20px;">
                 <div style="margin-bottom:10px; display:flex; justify-content:space-between;"><strong>${t.qOf} ${idx + 1}</strong> ${status}</div>
                 <div style="color:#666; font-size:12px; margin-bottom:10px;">${t.chapter} ${qObj.category || 'General'}</div>
                 <div style="margin-bottom:10px;">${data.question}</div>
@@ -6809,7 +6796,6 @@
             const btn = document.createElement('button');
             btn.className = 'map-btn';
             btn.innerText = i + 1;
-            
             const isChecked = state.checkedQuestions[i];
             const hasAnswer = state.userAnswers[i] && state.userAnswers[i].length > 0;
             
@@ -6818,7 +6804,6 @@
                 if (result) btn.classList.add(result.isCorrect ? 'correct' : 'wrong');
             } else {
                 if (state.currentQuizIndex === i) btn.classList.add('active');
-                
                 if (isChecked) {
                     const result = state.quizResults[i];
                     if (result) btn.classList.add(result.isCorrect ? 'correct' : 'wrong');
@@ -6826,13 +6811,8 @@
                     btn.classList.add('answered');
                 }
             }
-
-            btn.onclick = () => {
-                if (state.quizPhase === 'result') {
-                    document.getElementById(`review-q-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    state.currentQuizIndex = i; renderQuestionCard();
-                }
+            btn.onclick = () => { 
+                if(state.quizPhase !== 'result') { state.currentQuizIndex = i; renderQuestionCard(); }
             };
             grid.appendChild(btn);
         });
@@ -6866,9 +6846,6 @@
         document.getElementById('leg-wrong').innerText = t.legWro;
         document.getElementById('txt-map-title').innerText = t.mapTitle;
         document.getElementById('shortcut-help').innerText = t.shortcutHelp;
-        
-        const checkBtn = document.getElementById('btn-manual-check');
-        if(checkBtn) checkBtn.innerText = t.checkBtn;
     }
 
     document.addEventListener('keydown', e => {
@@ -6878,27 +6855,11 @@
             if (e.key === 'ArrowLeft') navFlashcard(-1);
             if (e.key === 'ArrowRight') navFlashcard(1);
             if ([' ', 'Enter', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
-                e.preventDefault();
-                document.querySelector('.flashcard').classList.toggle('flipped');
+                e.preventDefault(); document.querySelector('.flashcard').classList.toggle('flipped');
             }
         } else if (state.activeTab === 'quiz' && state.quizPhase === 'active') {
             if (e.key === 'ArrowLeft') navQuiz(-1);
             if (e.key === 'ArrowRight') navQuiz(1);
-            if (!state.checkedQuestions[state.currentQuizIndex]) {
-                const keyMap = { '1': 0, 'a': 0, 'A': 0, '2': 1, 'b': 1, 'B': 1, '3': 2, 'c': 2, 'C': 2, '4': 3, 'd': 3, 'D': 3, '5': 4, 'e': 4, 'E': 4, '6': 5, 'f': 5, 'F': 5 };
-                if (keyMap[e.key] !== undefined) {
-                    const displaySel = keyMap[e.key];
-                    const qObj = state.activeQuestions[state.currentQuizIndex];
-                    const data = state.isVietnamese ? qObj.vi : qObj.en;
-                    const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
-                    const isMulti = correctAnswersText.length > 1;
-                    
-                    if (displaySel < qObj.shuffledIndices.length) {
-                        const originalIdx = qObj.shuffledIndices[displaySel];
-                        handleAnswer(state.currentQuizIndex, originalIdx, isMulti, false, correctAnswersText.length);
-                    }
-                }
-            }
         }
     });
 
