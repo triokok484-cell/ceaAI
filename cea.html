@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEA201 - Ultimate Master Tool</title>
+    <title>CEA201 - Master Tool (Smooth Version)</title>
     <style>
         :root {
             --primary-color: #6f42c1;
@@ -31,6 +31,7 @@
             overflow: hidden;
         }
 
+        /* --- Top Bar --- */
         .top-bar {
             background: white; padding: 15px 30px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             display: flex; justify-content: space-between; align-items: center; z-index: 100; flex-shrink: 0;
@@ -46,6 +47,8 @@
             border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 700; transition: all 0.2s;
         }
         .lang-btn:hover { background: var(--primary-light); }
+
+        /* --- Main Layout --- */
         .main-container { display: flex; flex: 1; overflow: hidden; position: relative; height: 100%; }
         .content-area {
             flex: 1; padding: 30px; overflow-y: auto; width: 100%;
@@ -56,6 +59,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+        /* --- Buttons --- */
         .start-btn, .nav-btn, .submit-btn {
             background: var(--primary-color); color: white; border: none; padding: 14px 30px; border-radius: 30px;
             font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; font-weight: 600;
@@ -65,6 +70,9 @@
         .submit-btn { background: var(--secondary-color); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
         .nav-btn.secondary { background: #e9ecef; color: #495057; box-shadow: none; }
         .nav-btn.secondary:hover { background: #dee2e6; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* --- Quiz Setup --- */
         #quiz-setup {
             background: white; padding: 50px; border-radius: 24px; box-shadow: var(--card-shadow);
             text-align: center; max-width: 600px; margin: auto;
@@ -74,6 +82,8 @@
             font-size: 16px; background: #fff; margin-top: 10px; cursor: pointer; font-family: inherit;
         }
         .custom-select:focus { border-color: var(--primary-color); outline: none; }
+
+        /* --- Question Card --- */
         .question-card { background: white; border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); margin-bottom: 20px; position: relative; }
         .question-text { font-size: 18px; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
         .options-list { list-style: none; padding: 0; display: grid; gap: 12px; }
@@ -85,6 +95,7 @@
         .options-list li.selected {
             border-color: var(--primary-color);
             background-color: var(--primary-light);
+            font-weight: 600;
         }
         .options-list li::before {
             content: attr(data-label); position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
@@ -96,10 +107,8 @@
         .options-list li.wrong { border-color: var(--danger-color) !important; background-color: #fff5f5 !important; color: #e03131; }
         .options-list li.wrong::before { background: var(--danger-color); color: white; }
         .options-list li.disabled { cursor: default; }
-        .explanation-box {
-            margin-top: 25px; padding: 20px; border-radius: 12px; background: #e7f5ff;
-            border-left: 5px solid #228be6; color: #1c7ed6; line-height: 1.5; display: none;
-        }
+        
+        /* --- Flashcard --- */
         .flashcard-wrapper { display: flex; justify-content: center; perspective: 1000px; margin-bottom: 30px; }
         .flashcard {
             width: 100%; max-width: 700px; position: relative; transform-style: preserve-3d;
@@ -107,11 +116,16 @@
         }
         .flashcard.flipped { transform: rotateY(180deg); }
         .card-face {
-            grid-area: 1 / 1; width: 100%; min-height: 400px; backface-visibility: hidden; border-radius: 24px;
+            grid-area: 1 / 1; width: 100%; min-height: 400px; 
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            border-radius: 24px;
             box-shadow: var(--card-shadow); background: white; padding: 40px; display: flex; flex-direction: column;
             justify-content: flex-start; align-items: center; text-align: center; border: 1px solid rgba(0,0,0,0.05);
         }
-        .card-back { transform: rotateY(180deg); background: #f8f9fa; justify-content: flex-start; text-align: left; align-items: flex-start; }
+        .card-front { z-index: 2; transform: rotateY(0deg); }
+        .card-back { transform: rotateY(180deg); background: #fff; justify-content: flex-start; text-align: left; align-items: flex-start; }
+        
+        /* --- Sidebar & Utils --- */
         .category-badge {
             font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; background: #f1f3f5;
             color: #868e96; padding: 6px 12px; border-radius: 20px; font-weight: 700; margin-bottom: 20px; display: inline-block;
@@ -127,9 +141,16 @@
         }
         .map-btn:hover { background: #e9ecef; transform: scale(1.05); }
         .map-btn.active { background: white; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .map-btn.answered { background: var(--primary-light); color: var(--primary-color); }
         .map-btn.correct { background: var(--secondary-color); color: white; }
         .map-btn.wrong { background: var(--danger-color); color: white; }
         .result-header { text-align: center; background: white; padding: 40px; border-radius: 24px; margin-bottom: 30px; box-shadow: var(--card-shadow); }
+        
+        .multi-select-hint {
+            font-size: 12px; color: var(--secondary-color); background: #e6fffa; 
+            padding: 4px 8px; border-radius: 4px; margin-left: 10px; display: inline-block;
+        }
+
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .quiz-sidebar { width: 100%; height: auto; max-height: 120px; border-left: none; border-top: 1px solid #eee; order: -1; padding: 15px; }
@@ -165,6 +186,7 @@
                             <div style="flex:1; display:flex; align-items:center; justify-content:center; width:100%;">
                                 <div id="fc-content" style="font-size: 20px; font-weight: 500; line-height: 1.5;"></div>
                             </div>
+                            <div style="margin-top: auto; font-size: 12px; color: #aaa;">(Chạm để lật / Click to flip)</div>
                         </div>
                         <div class="card-face card-back">
                             <div id="fc-answer-label" class="category-badge" style="background:var(--secondary-color); color:white;"></div>
@@ -206,7 +228,10 @@
                 <div class="question-card">
                     <div class="flex-between" style="margin-bottom:20px; color:#868e96; font-size: 14px; font-weight: 600;">
                         <span id="quiz-progress"></span>
-                        <div class="category-badge" id="q-category-badge" style="margin-bottom:0; font-size:10px;"></div>
+                        <div>
+                            <div class="category-badge" id="q-category-badge" style="margin-bottom:0; font-size:10px;"></div>
+                            <span id="multi-select-badge" class="multi-select-hint hidden">Chọn nhiều / Multi-select</span>
+                        </div>
                     </div>
                     <div id="q-content" class="question-text"></div>
                     <ul class="options-list" id="q-options"></ul>
@@ -245,7 +270,9 @@
     // ======================================================
     // 1. DỮ LIỆU
     // ======================================================
-    const quizData = [ {
+    
+    const quizData = [
+        {
         "id": 1,
         "category": "Chương 1: Giới thiệu (Introduction)",
         "en": {
@@ -6337,13 +6364,24 @@
             "explanation": "Trong một hệ thống đa lõi, một ngắt có thể cần được gửi đến một lõi cụ thể, hoặc phát sóng đến nhiều lõi. APIC là phần cứng phức tạp chịu trách nhiệm xử lý các tác vụ định tuyến và ưu tiên ngắt phức tạp này."
         }
     }
-];
+
+    ];
 
     // ======================================================
-    // 2. LOGIC (PHIÊN BẢN HOÀN CHỈNH)
+    // 2. LOGIC (ĐÃ TỐI ƯU HÓA VÀ SỬA LỖI)
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+    
+    // Hàm trộn mảng (Fisher-Yates Shuffle) - QUAN TRỌNG ĐỂ QUIZ CHẠY
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
     const compareArrays = (a, b) => {
         const sortedA = [...a].sort();
         const sortedB = [...b].sort();
@@ -6372,8 +6410,10 @@
 
     function init() {
         if (!quizData || quizData.length === 0) {
-            console.error("Lỗi: Dữ liệu quizData trống hoặc không tồn tại!");
-            document.body.innerHTML = '<h1 style="font-family: sans-serif; text-align: center; margin-top: 50px; color: red;">Lỗi: Không tìm thấy dữ liệu câu hỏi (quizData).</h1>';
+            console.error("Lỗi: Dữ liệu quizData trống!");
+            // Nếu chưa dán data, hiển thị thông báo
+            const msg = state.isVietnamese ? "Chưa có dữ liệu câu hỏi. Vui lòng dán JSON vào code." : "No data found. Please paste JSON into the code.";
+            document.body.innerHTML = `<div style="padding:20px; text-align:center; color:red;"><h2>${msg}</h2></div>`;
             return;
         }
         const uniqueCats = Array.from(new Set(quizData.map(q => q.category || "Khác")));
@@ -6408,6 +6448,7 @@
 
     function switchTab(tab) { state.activeTab = tab; updateView(); }
     
+    // --- FLASHCARD LOGIC ---
     function updateFlashcardFilter() {
         const cat = document.getElementById('fc-category-select').value;
         state.filteredFlashcards = (cat === 'all') ? quizData : quizData.filter(q => (q.category || "Khác") === cat);
@@ -6442,6 +6483,7 @@
         if (next >= 0 && next < state.filteredFlashcards.length) { state.fcIndex = next; renderFlashcard(); }
     }
 
+    // --- QUIZ LOGIC ---
     function updateQuizCountMax() {
         const cat = document.getElementById('quiz-category-select').value;
         let count = (cat === 'all') ? quizData.length : quizData.filter(q => (q.category || "Khác") === cat).length;
@@ -6458,9 +6500,12 @@
         let count = Math.min(parseInt(document.getElementById('quiz-count-input').value), pool.length);
         if (isNaN(count) || count <= 0) count = 1;
 
-        const selectedQuestions = shuffleArray(pool).slice(0, count);
+        // Shuffle questions
+        const selectedQuestions = shuffleArray([...pool]).slice(0, count);
+        
         state.activeQuestions = selectedQuestions.map(q => ({ 
             ...q, 
+            // Shuffle options for each question
             shuffledIndices: shuffleArray(Array.from({ length: (q.en.options || []).length }, (_, i) => i)) 
         }));
         
@@ -6481,6 +6526,12 @@
         const qObj = state.activeQuestions[idx];
         const data = state.isVietnamese ? qObj.vi : qObj.en;
         const userSelections = state.userAnswers[idx] || [];
+        const isMulti = Array.isArray(data.answer);
+
+        // Show Multi-select badge if needed
+        const multiBadge = document.getElementById('multi-select-badge');
+        if(isMulti) multiBadge.classList.remove('hidden');
+        else multiBadge.classList.add('hidden');
         
         document.getElementById('q-category-badge').innerText = qObj.category || "General";
         document.getElementById('quiz-progress').innerText = `${t.qOf} ${idx + 1}/${state.activeQuestions.length}`;
@@ -6492,10 +6543,13 @@
         
         qObj.shuffledIndices.forEach((originalIndex, displayPos) => {
             const li = document.createElement('li');
-            li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F]\.\s*/, '');
+            li.innerHTML = (data.options[originalIndex] || '').replace(/^[A-F]\.\s*/, ''); // Remove A. B. prefix if exists in data
             li.setAttribute('data-label', labels[displayPos]);
+            
             if (userSelections.includes(originalIndex)) li.classList.add('selected');
-            li.onclick = () => handleAnswer(idx, originalIndex);
+            
+            // Click handler: If single choice, replace selection. If multi, toggle.
+            li.onclick = () => handleAnswer(idx, originalIndex, isMulti);
             ul.appendChild(li);
         });
         
@@ -6504,14 +6558,21 @@
         renderMap();
     }
 
-    function handleAnswer(qIdx, originalIndex) {
+    function handleAnswer(qIdx, originalIndex, isMulti) {
         state.userAnswers[qIdx] = state.userAnswers[qIdx] || [];
-        const selectionIndex = state.userAnswers[qIdx].indexOf(originalIndex);
+        const currentSelection = state.userAnswers[qIdx];
         
-        if (selectionIndex > -1) {
-            state.userAnswers[qIdx].splice(selectionIndex, 1);
+        if (isMulti) {
+            // Logic checkbox
+            const selectionIndex = currentSelection.indexOf(originalIndex);
+            if (selectionIndex > -1) {
+                currentSelection.splice(selectionIndex, 1);
+            } else {
+                currentSelection.push(originalIndex);
+            }
         } else {
-            state.userAnswers[qIdx].push(originalIndex);
+            // Logic radio button: Select new, deselect others
+            state.userAnswers[qIdx] = [originalIndex];
         }
         renderQuestionCard();
     }
@@ -6530,8 +6591,17 @@
         state.activeQuestions.forEach((q, i) => {
             const data = state.isVietnamese ? q.vi : q.en;
             const correctAnswersText = Array.isArray(data.answer) ? data.answer : [data.answer];
-            const correctIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt === ansText)).filter(index => index !== -1);
+            // Find indices of correct answers in the options array
+            const correctIndices = correctAnswersText.map(ansText => data.options.findIndex(opt => opt.includes(ansText) || ansText.includes(opt))).filter(index => index !== -1);
             
+            // Fallback exact match if partial fail
+            if(correctIndices.length === 0) {
+                 correctAnswersText.forEach(ansText => {
+                     const idx = data.options.findIndex(opt => opt === ansText);
+                     if(idx !== -1) correctIndices.push(idx);
+                 });
+            }
+
             const userIndices = state.userAnswers[i] || [];
             const isCorrect = compareArrays(userIndices, correctIndices);
             
@@ -6576,9 +6646,16 @@
             const btn = document.createElement('button');
             btn.className = 'map-btn';
             btn.innerText = i + 1;
-            if (state.currentQuizIndex === i && state.quizPhase !== 'result') btn.classList.add('active');
-            const result = state.quizResults[i];
-            if (result) btn.classList.add(result.isCorrect ? 'correct' : 'wrong');
+            
+            // Logic hiển thị màu sắc
+            if (state.quizPhase === 'result') {
+                const result = state.quizResults[i];
+                if (result) btn.classList.add(result.isCorrect ? 'correct' : 'wrong');
+            } else {
+                if (state.currentQuizIndex === i) btn.classList.add('active');
+                else if (state.userAnswers[i] && state.userAnswers[i].length > 0) btn.classList.add('answered');
+            }
+
             btn.onclick = () => {
                 if (state.quizPhase === 'result') {
                     document.getElementById(`review-q-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -6637,9 +6714,10 @@
             if (keyMap[e.key] !== undefined) {
                 const displaySel = keyMap[e.key];
                 const qObj = state.activeQuestions[state.currentQuizIndex];
+                const isMulti = Array.isArray((state.isVietnamese ? qObj.vi : qObj.en).answer);
                 if (displaySel < qObj.shuffledIndices.length) {
                     const originalIdx = qObj.shuffledIndices[displaySel];
-                    handleAnswer(state.currentQuizIndex, originalIdx);
+                    handleAnswer(state.currentQuizIndex, originalIdx, isMulti);
                 }
             }
         }
