@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEA201 - Master Tool (Updated Shortcuts)</title>
+    <title>CEA201 - Master Tool (Enter = Language)</title>
     <style>
         :root {
             --primary-color: #6f42c1;
@@ -6426,7 +6426,7 @@
     // --------------------------------
 
     // ======================================================
-    // 2. LOGIC HOÀN CHỈNH (ĐÃ CẬP NHẬT PHÍM TẮT)
+    // 2. LOGIC HOÀN CHỈNH (ENTER = ĐỔI NGÔN NGỮ)
     // ======================================================
     
     const naturalSort = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
@@ -6479,7 +6479,7 @@
             submit: "Nộp bài", resultTitle: "Kết quả", prev: "Quay lại", next: "Tiếp theo", fcAnsLabel: "Đáp Án", fcExpLabel: "Giải thích:",
             legCur: "Đang chọn", legCor: "Đúng", legWro: "Sai", qOf: "Câu", correctAns: "Đáp án đúng:", unanswered: "⚪ Chưa làm", correct: "✔ Chính xác!",
             wrong: "✘ Sai rồi", chapter: "Chủ đề:", confirmSubmit: "Bạn có chắc muốn nộp bài?", 
-            shortcutHelp: "Phím tắt: 1-4 (Chọn đáp án) | ⬅/➡ (Chuyển câu) | ⬆/⬇ (Lật thẻ) | Shift (Đổi ngôn ngữ)",
+            shortcutHelp: "Phím tắt: 1-4 (Chọn đáp án) | Enter (Đổi ngôn ngữ) | Space (Lật/Check) | ⬅/➡ (Chuyển)",
             chooseOne: "Chọn 1 đáp án", chooseMulti: "Hãy chọn {n} đáp án", checkBtn: "Kiểm tra đáp án ✨", explanation: "Giải thích chi tiết:"
         },
         en: {
@@ -6487,7 +6487,7 @@
             submit: "Submit", resultTitle: "Quiz Results", prev: "Back", next: "Next", fcAnsLabel: "Answer", fcExpLabel: "Explanation:",
             legCur: "Current", legCor: "Correct", legWro: "Wrong", qOf: "Question", correctAns: "Correct answer:", unanswered: "⚪ Unanswered", correct: "✔ Correct",
             wrong: "✘ Wrong", chapter: "Chapter:", confirmSubmit: "Are you sure you want to submit?", 
-            shortcutHelp: "Shortcuts: 1-4 (Select Option) | ⬅/➡ (Navigate) | ⬆/⬇ (Flip) | Shift (Language)",
+            shortcutHelp: "Shortcuts: 1-4 (Select Option) | Enter (Language) | Space (Flip/Check) | ⬅/➡ (Navigate)",
             chooseOne: "Choose 1 answer", chooseMulti: "Choose {n} answers", checkBtn: "Check Answer ✨", explanation: "Detailed Explanation:"
         }
     };
@@ -6823,19 +6823,22 @@
         // Không kích hoạt khi đang nhập liệu
         if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
-        // 1. Đổi ngôn ngữ bằng Shift
-        if (e.key === 'Shift') {
-            // Mặc dù Shift thường là modifier, nhưng bắt sự kiện keydown đơn lẻ vẫn ok
-            // e.preventDefault(); // Không prevent Shift vì nó ảnh hưởng việc gõ chữ hoa nếu user giữ
+        // 1. Đổi ngôn ngữ bằng ENTER (Theo yêu cầu)
+        if (e.key === 'Enter') {
+            e.preventDefault();
             toggleLanguage();
+            return; 
         }
 
         // 2. Flashcard navigation
         if (state.activeTab === 'flashcard') {
             if (e.key === 'ArrowLeft') navFlashcard(-1);
             if (e.key === 'ArrowRight') navFlashcard(1);
-            if ([' ', 'Enter', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
-                e.preventDefault(); document.querySelector('.flashcard').classList.toggle('flipped');
+            
+            // Dùng Space, Up, Down để lật thẻ (Enter giờ là đổi ngôn ngữ)
+            if ([' ', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                e.preventDefault(); 
+                document.querySelector('.flashcard').classList.toggle('flipped');
             }
         } 
         
@@ -6846,15 +6849,13 @@
 
             // Chọn đáp án bằng phím số (1, 2, 3, 4 -> A, B, C, D)
             if (e.key >= '1' && e.key <= '8') {
-                const displayIndex = parseInt(e.key) - 1; // Chuyển thành index 0-7
+                const displayIndex = parseInt(e.key) - 1; 
                 const idx = state.currentQuizIndex;
                 
-                // Kiểm tra xem câu hỏi có tồn tại và chưa bị khóa (đã check) không
                 if (state.activeQuestions[idx] && !state.checkedQuestions[idx]) {
                     const qObj = state.activeQuestions[idx];
                     const data = state.isVietnamese ? qObj.vi : qObj.en;
                     
-                    // Kiểm tra xem số lượng options có đủ không (ví dụ có 4 options mà nhấn phím 5 thì bỏ qua)
                     if (displayIndex < (data.options || []).length) {
                         const originalIndex = qObj.shuffledIndices[displayIndex];
                         const correctIndices = getCorrectIndices(data, qObj);
@@ -6865,8 +6866,9 @@
                 }
             }
 
-            // Phím Enter để "Nộp" cho câu hỏi nhiều lựa chọn (Multi-select)
-            if (e.key === 'Enter') {
+            // Dùng SPACE để "Nộp" cho câu hỏi nhiều lựa chọn
+            if (e.key === ' ') {
+                e.preventDefault(); 
                 const checkBtn = document.getElementById('btn-manual-check');
                 if (checkBtn && !checkBtn.parentElement.classList.contains('hidden') && !checkBtn.disabled) {
                     checkBtn.click();
